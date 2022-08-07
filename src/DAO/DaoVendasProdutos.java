@@ -42,7 +42,10 @@ public class DaoVendasProdutos extends ConexaoMySql {
         try {
             this.conectar();
             return this.executarUpdateDeleteSQL(
-                    "DELETE FROM tbl_vendas_produtos WHERE pk_id_venda_produto  = '" + pIdVendasProdutos + "';");
+                    "DELETE FROM tbl_vendas_produtos "
+                    + "WHERE"
+                    + " fk_venda = '" + pIdVendasProdutos + "'"
+                    + ";");
         } catch (Exception e) {
             e.printStackTrace();
             return false;
@@ -142,7 +145,7 @@ public class DaoVendasProdutos extends ConexaoMySql {
                         + "ven_pro_quantidade "
                         + ") VALUES ("
                         + "'" + pListaModelVendasProdutos.get(i).getVenda() + "',"
-                        + "'" + pListaModelVendasProdutos.get(i).getProduto()+ "',"
+                        + "'" + pListaModelVendasProdutos.get(i).getProduto() + "',"
                         + "'" + pListaModelVendasProdutos.get(i).getVenProValor() + "',"
                         + "'" + pListaModelVendasProdutos.get(i).getVenProQuantidade() + ""
                         + "');"

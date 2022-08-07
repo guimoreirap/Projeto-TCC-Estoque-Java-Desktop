@@ -44,4 +44,8 @@ public class ControllerProdutos {
     public ArrayList<ModelProdutos> retornarListaProdutoController(){
         return this.daoProdutos.retornarListaProdutosDAO();
     }
+
+    public boolean alterarEstoqueProdutoController(ArrayList<ModelProdutos> pListaModelProdutos) {
+        return this.daoProdutos.alterarEstoqueProdutosDAO(pListaModelProdutos);
+    }
 }

@@ -85,7 +85,15 @@ public class ViewUsuario extends javax.swing.JFrame {
             new String [] {
                 "Código", "Nome", "Login"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(jTableUsuario);
         if (jTableUsuario.getColumnModel().getColumnCount() > 0) {
             jTableUsuario.getColumnModel().getColumn(0).setMinWidth(90);
