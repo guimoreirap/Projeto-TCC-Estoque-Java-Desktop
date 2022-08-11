@@ -75,5 +75,6 @@ public class DaoVendasClientes extends ConexaoMySql {
         }
         
         return listaModelVendasClientes;
+    
     }
 }
