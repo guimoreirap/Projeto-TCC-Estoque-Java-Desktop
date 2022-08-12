@@ -585,24 +585,25 @@ public class ViewVenda extends javax.swing.JFrame {
     private void jbAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAlterarActionPerformed
 
         alterarSalvar = "alterar";
+        
         int linha = jtVendas.getSelectedRow();
+        //Pega os valores nas colunas de venda e atribui às variaveis
         int codigoVenda = (int) jtVendas.getValueAt(linha, 0);
         int codigoCliente = (int) jtVendas.getValueAt(linha, 1);
         double desconto = (double) jtVendas.getValueAt(linha, 5);
 
+        //atribui os valores das variaveis nos campos no formulario de Vendas
+        jtfNumeroVenda.setText(String.valueOf(codigoVenda));
+        jtfCodigoCliente.setText(String.valueOf(codigoCliente));
+        jtfDesconto.setText(String.valueOf(desconto));
+        
         modelCliente = controllerCliente.retornarClienteController(codigoVenda);
-        //int codigoCliente = modelCliente.getIdCliente();
-        System.out.println(modelCliente);
-
         listaModelProdutosVendasProdutos = controllerProdutosVendasProdutos.
                 getListaProdutosVendasProdutosController(codigoVenda);
 
         DefaultTableModel modelo = (DefaultTableModel) jtProdutosVendas.getModel();
         modelo.setNumRows(0);
 
-        jtfNumeroVenda.setText(String.valueOf(codigoVenda));
-        jtfCodigoCliente.setText(String.valueOf(codigoCliente));
-        jtfDesconto.setText(String.valueOf(desconto));
 
         for (int i = 0; i < listaModelProdutosVendasProdutos.size(); i++) {
             //jtfNumeroVenda.setText(String.valueOf(listaModelProdutosVendasProdutos.get(i).getModelVendasProdutos().getVenda()));
@@ -826,6 +827,9 @@ public class ViewVenda extends javax.swing.JFrame {
         int linha = jtVendas.getSelectedRow();
         codigoVenda = (int) jtVendas.getValueAt(linha, 0);
 
+        System.out.println(codigoVenda);
+        //ta chegando aqui
+        //o erro deve ta pra baixo
         listaModelProdutos = new ArrayList<>();
         listaModelProdutosVendasProdutos = controllerProdutosVendasProdutos.getListaProdutosVendasProdutosController(codigoVenda);
 
@@ -856,7 +860,15 @@ public class ViewVenda extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Erro ao excluir os produtos de venda", "ERRO", JOptionPane.ERROR_MESSAGE);
         }
         //FIM DO RETORNA E ALTERA PRODUTOS
-
+        modelVendas.setVenId(codigoVenda);
+        //CAPTURA TODOS OS VALORES CORRETOS
+        JOptionPane.showMessageDialog(this, "ID_VENDA: " +modelVendas.getVenId() + 
+                                            "ID CLIENTE: " + modelVendas.getCliente() + 
+                                            "DATA VENDA: " + modelVendas.getVenDataVenda()+ 
+                                            "VALOR LIQUIDO: " + modelVendas.getVenValorLiquido() + 
+                                            "VALOR BRUTO: " + modelVendas.getVenValorBruto() + 
+                                            "DESCONTO: " + modelVendas.getVenValorDesconto());
+        
         if (controllerVendas.alterarVendaController(modelVendas)) {
             this.somarValorTotalProdutos();
             JOptionPane.showMessageDialog(
