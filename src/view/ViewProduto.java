@@ -435,6 +435,7 @@ public class ViewProduto extends javax.swing.JFrame {
         final TableRowSorter<TableModel> classificador = new TableRowSorter<>(modelo);
         this.jTableProdutos.setRowSorter(classificador);
         String texto = jtfPesquisar.getText();
+        
         //texto é o nome do produto a ser filtrado, e 1 é a coluna onde a informação esta localizada na tabela
         classificador.setRowFilter(RowFilter.regexFilter(texto, 1));
     }

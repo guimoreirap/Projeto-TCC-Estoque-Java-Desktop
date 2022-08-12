@@ -12,7 +12,10 @@ import controller.ControllerVendasCliente;
 import controller.ControllerVendasProdutos;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 import model.ModelClientes;
 import model.ModelProdutos;
 import model.ModelProdutosVendasProdutos;
@@ -351,7 +354,18 @@ public class ViewVenda extends javax.swing.JFrame {
 
         jLabel9.setText("Pesquisar:");
 
+        jtfPesquisar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtfPesquisarKeyTyped(evt);
+            }
+        });
+
         jbPesquisar.setText("Pesquisar");
+        jbPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbPesquisarActionPerformed(evt);
+            }
+        });
 
         jtVendas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -585,7 +599,7 @@ public class ViewVenda extends javax.swing.JFrame {
     private void jbAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAlterarActionPerformed
 
         alterarSalvar = "alterar";
-        
+
         int linha = jtVendas.getSelectedRow();
         //Pega os valores nas colunas de venda e atribui às variaveis
         int codigoVenda = (int) jtVendas.getValueAt(linha, 0);
@@ -596,14 +610,13 @@ public class ViewVenda extends javax.swing.JFrame {
         jtfNumeroVenda.setText(String.valueOf(codigoVenda));
         jtfCodigoCliente.setText(String.valueOf(codigoCliente));
         jtfDesconto.setText(String.valueOf(desconto));
-        
+
         modelCliente = controllerCliente.retornarClienteController(codigoVenda);
         listaModelProdutosVendasProdutos = controllerProdutosVendasProdutos.
                 getListaProdutosVendasProdutosController(codigoVenda);
 
         DefaultTableModel modelo = (DefaultTableModel) jtProdutosVendas.getModel();
         modelo.setNumRows(0);
-
 
         for (int i = 0; i < listaModelProdutosVendasProdutos.size(); i++) {
             //jtfNumeroVenda.setText(String.valueOf(listaModelProdutosVendasProdutos.get(i).getModelVendasProdutos().getVenda()));
@@ -643,6 +656,14 @@ public class ViewVenda extends javax.swing.JFrame {
         } catch (Exception e) {
         }
     }//GEN-LAST:event_jtfCodigoClienteFocusGained
+
+    private void jtfPesquisarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfPesquisarKeyTyped
+        this.filtrarVendaCliente();
+    }//GEN-LAST:event_jtfPesquisarKeyTyped
+
+    private void jbPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbPesquisarActionPerformed
+        this.filtrarVendaCliente();
+    }//GEN-LAST:event_jbPesquisarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -862,13 +883,13 @@ public class ViewVenda extends javax.swing.JFrame {
         //FIM DO RETORNA E ALTERA PRODUTOS
         modelVendas.setVenId(codigoVenda);
         //CAPTURA TODOS OS VALORES CORRETOS
-        JOptionPane.showMessageDialog(this, "ID_VENDA: " +modelVendas.getVenId() + 
-                                            "ID CLIENTE: " + modelVendas.getCliente() + 
-                                            "DATA VENDA: " + modelVendas.getVenDataVenda()+ 
-                                            "VALOR LIQUIDO: " + modelVendas.getVenValorLiquido() + 
-                                            "VALOR BRUTO: " + modelVendas.getVenValorBruto() + 
-                                            "DESCONTO: " + modelVendas.getVenValorDesconto());
-        
+        JOptionPane.showMessageDialog(this, "ID_VENDA: " + modelVendas.getVenId()
+                + "ID CLIENTE: " + modelVendas.getCliente()
+                + "DATA VENDA: " + modelVendas.getVenDataVenda()
+                + "VALOR LIQUIDO: " + modelVendas.getVenValorLiquido()
+                + "VALOR BRUTO: " + modelVendas.getVenValorBruto()
+                + "DESCONTO: " + modelVendas.getVenValorDesconto());
+
         if (controllerVendas.alterarVendaController(modelVendas)) {
             this.somarValorTotalProdutos();
             JOptionPane.showMessageDialog(
@@ -907,6 +928,17 @@ public class ViewVenda extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(this, "Erro ao salvar produtos de venda", "ERRO", JOptionPane.ERROR_MESSAGE);
         }
+        
+        
+
+    }
+    private void filtrarVendaCliente() {
+        DefaultTableModel modelo = (DefaultTableModel) this.jtVendas.getModel();
+        final TableRowSorter<TableModel> classificador = new TableRowSorter<>(modelo);
+        this.jtVendas.setRowSorter(classificador);
+        String texto = jtfPesquisar.getText();
+        //texto é o nome do cliente-venda a ser filtrado, e 2 é a coluna onde a informação esta localizada na tabela
+        classificador.setRowFilter(RowFilter.regexFilter(texto, 2));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
