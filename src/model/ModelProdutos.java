@@ -13,8 +13,6 @@ public class ModelProdutos {
     private String proNome;
     private Double proValor;
     private int proEstoque;
-
-    
     
     public int getIdProduto() {
         return idProduto;

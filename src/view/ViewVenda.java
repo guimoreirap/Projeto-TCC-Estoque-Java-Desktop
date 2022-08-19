@@ -97,7 +97,6 @@ public class ViewVenda extends javax.swing.JFrame {
         jtfValorTotal = new javax.swing.JTextField();
         jbCancelar = new javax.swing.JButton();
         jbSalvar = new javax.swing.JButton();
-        jbNovo = new javax.swing.JButton();
         jbRemoverProduto = new javax.swing.JButton();
         jbAdicionarCliente = new javax.swing.JButton();
         jbAdicionarCliente1 = new javax.swing.JButton();
@@ -237,13 +236,6 @@ public class ViewVenda extends javax.swing.JFrame {
             }
         });
 
-        jbNovo.setText("Novo");
-        jbNovo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbNovoActionPerformed(evt);
-            }
-        });
-
         jbRemoverProduto.setText("Remover produto");
         jbRemoverProduto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -323,8 +315,6 @@ public class ViewVenda extends javax.swing.JFrame {
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 660, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jbCancelar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jbNovo)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jbSalvar)))
                         .addGap(0, 0, Short.MAX_VALUE))))
@@ -376,7 +366,6 @@ public class ViewVenda extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbCancelar)
-                    .addComponent(jbNovo)
                     .addComponent(jbSalvar))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -585,10 +574,6 @@ public class ViewVenda extends javax.swing.JFrame {
     private void jtfDescontoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfDescontoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jtfDescontoActionPerformed
-
-    private void jbNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNovoActionPerformed
-        this.limparFormulario();
-    }//GEN-LAST:event_jbNovoActionPerformed
 
     private void jbSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalvarActionPerformed
         int codigoVenda = 0, codigoProduto = 0;
@@ -1007,7 +992,6 @@ public class ViewVenda extends javax.swing.JFrame {
     private javax.swing.JButton jbAlterar;
     private javax.swing.JButton jbCancelar;
     private javax.swing.JButton jbExcluir;
-    private javax.swing.JButton jbNovo;
     private javax.swing.JButton jbPesquisar;
     private javax.swing.JButton jbRemoverProduto;
     private javax.swing.JButton jbSalvar;
