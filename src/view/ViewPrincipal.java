@@ -34,9 +34,12 @@ public class ViewPrincipal extends javax.swing.JFrame {
         jmiSair = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jmiClientes = new javax.swing.JMenuItem();
+        jmiFornecedores = new javax.swing.JMenuItem();
         jmiProdutos = new javax.swing.JMenuItem();
         jmiUsuarios = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
+        jmiVendas = new javax.swing.JMenuItem();
+        jmiCompras = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Principal");
@@ -79,6 +82,14 @@ public class ViewPrincipal extends javax.swing.JFrame {
         });
         jMenu2.add(jmiClientes);
 
+        jmiFornecedores.setText("Fornecedores");
+        jmiFornecedores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiFornecedoresActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jmiFornecedores);
+
         jmiProdutos.setText("Produtos");
         jmiProdutos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -97,7 +108,19 @@ public class ViewPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu2);
 
-        jMenu3.setText("Vendas");
+        jMenu3.setText("Movimentações");
+
+        jmiVendas.setText("Vendas");
+        jmiVendas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiVendasActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jmiVendas);
+
+        jmiCompras.setText("jMenuItem2");
+        jMenu3.add(jmiCompras);
+
         jMenuBar1.add(jMenu3);
 
         setJMenuBar(jMenuBar1);
@@ -123,15 +146,28 @@ public class ViewPrincipal extends javax.swing.JFrame {
 
     private void jmiProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiProdutosActionPerformed
         new ViewProduto().setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_jmiProdutosActionPerformed
 
     private void jmiUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiUsuariosActionPerformed
         new ViewUsuario().setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_jmiUsuariosActionPerformed
 
     private void jmiClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiClientesActionPerformed
         new ViewCliente().setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_jmiClientesActionPerformed
+
+    private void jmiFornecedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiFornecedoresActionPerformed
+        new ViewFornecedor().setVisible(true);
+        //this.setVisible(false);
+    }//GEN-LAST:event_jmiFornecedoresActionPerformed
+
+    private void jmiVendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiVendasActionPerformed
+         new ViewVenda().setVisible(true);
+         this.setVisible(false);
+    }//GEN-LAST:event_jmiVendasActionPerformed
 
     /**
      * @param args the command line arguments
@@ -174,9 +210,12 @@ public class ViewPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jmiClientes;
+    private javax.swing.JMenuItem jmiCompras;
+    private javax.swing.JMenuItem jmiFornecedores;
     private javax.swing.JMenuItem jmiProdutos;
     private javax.swing.JMenuItem jmiSair;
     private javax.swing.JMenuItem jmiUsuarios;
+    private javax.swing.JMenuItem jmiVendas;
     private componentes.UJPanelImagem uJPanelImagem1;
     // End of variables declaration//GEN-END:variables
 }

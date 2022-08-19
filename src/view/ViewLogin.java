@@ -138,6 +138,7 @@ public class ViewLogin extends javax.swing.JFrame {
         
         if(controllerUsuario.getValidarUsuarioController(modelUsuarios)){
             new ViewPrincipal().setVisible(true);
+            this.setVisible(false);
         } else {
             JOptionPane.showMessageDialog(
                     this, "Usuário/senha incorreta.", "AVISO", JOptionPane.ERROR_MESSAGE);
