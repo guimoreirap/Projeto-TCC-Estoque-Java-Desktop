@@ -125,6 +125,13 @@ public class ViewVenda extends javax.swing.JFrame {
                 jtfCodigoClienteFocusLost(evt);
             }
         });
+        jtfCodigoCliente.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+            }
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
+                jtfCodigoClienteInputMethodTextChanged(evt);
+            }
+        });
 
         jcbCliente.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
             public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
@@ -486,10 +493,7 @@ public class ViewVenda extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jtfCodigoClienteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfCodigoClienteFocusLost
-        //pega o cliente e passa para o modelCliente
-        modelCliente = controllerCliente.retornarClienteController(Integer.parseInt(jtfCodigoCliente.getText()));
-        //pega o nome do cliente e adiciona no combo box ao tirar o foco do campo COd. Cliente
-        jcbCliente.setSelectedItem(modelCliente.getCliNome());
+        this.setComboBoxCliente();
     }//GEN-LAST:event_jtfCodigoClienteFocusLost
 
     private void jcbClientePopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_jcbClientePopupMenuWillBecomeInvisible
@@ -655,9 +659,9 @@ public class ViewVenda extends javax.swing.JFrame {
 
             });
         }
+        this.setComboBoxCliente();
         somarValorTotalProdutos();
         jTabbedPane1.setSelectedIndex(0);
-
     }//GEN-LAST:event_jbAlterarActionPerformed
 
     private void jbRemoverProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbRemoverProdutoActionPerformed
@@ -672,13 +676,8 @@ public class ViewVenda extends javax.swing.JFrame {
     }//GEN-LAST:event_jbCancelarActionPerformed
 
     private void jtfCodigoClienteFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfCodigoClienteFocusGained
-        try {
-            //pega o cliente e passa para o modelCliente
-            modelCliente = controllerCliente.retornarClienteController(Integer.parseInt(jtfCodigoCliente.getText()));
-            //pega o nome do cliente e adiciona no combo box ao tirar o foco do campo COd. Cliente
-            jcbCliente.setSelectedItem(modelCliente.getCliNome());
-        } catch (Exception e) {
-        }
+        this.setComboBoxCliente();
+
     }//GEN-LAST:event_jtfCodigoClienteFocusGained
 
     private void jtfPesquisarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfPesquisarKeyTyped
@@ -697,6 +696,10 @@ public class ViewVenda extends javax.swing.JFrame {
         this.listarProdutos();
         this.listarClientes();
     }//GEN-LAST:event_jbAdicionarCliente1ActionPerformed
+
+    private void jtfCodigoClienteInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_jtfCodigoClienteInputMethodTextChanged
+
+    }//GEN-LAST:event_jtfCodigoClienteInputMethodTextChanged
 
     /**
      * @param args the command line arguments
@@ -916,13 +919,13 @@ public class ViewVenda extends javax.swing.JFrame {
         //FIM DO RETORNA E ALTERA PRODUTOS
         modelVendas.setVenId(codigoVenda);
         //CAPTURA TODOS OS VALORES CORRETOS
-        JOptionPane.showMessageDialog(this, "ID_VENDA: " + modelVendas.getVenId()
+        /*JOptionPane.showMessageDialog(this, "ID_VENDA: " + modelVendas.getVenId()
                 + "ID CLIENTE: " + modelVendas.getCliente()
                 + "DATA VENDA: " + modelVendas.getVenDataVenda()
                 + "VALOR LIQUIDO: " + modelVendas.getVenValorLiquido()
                 + "VALOR BRUTO: " + modelVendas.getVenValorBruto()
                 + "DESCONTO: " + modelVendas.getVenValorDesconto());
-
+         */
         if (controllerVendas.alterarVendaController(modelVendas)) {
             this.somarValorTotalProdutos();
             JOptionPane.showMessageDialog(
@@ -961,10 +964,9 @@ public class ViewVenda extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(this, "Erro ao salvar produtos de venda", "ERRO", JOptionPane.ERROR_MESSAGE);
         }
-        
-        
 
     }
+
     private void filtrarVendaCliente() {
         DefaultTableModel modelo = (DefaultTableModel) this.jtVendas.getModel();
         final TableRowSorter<TableModel> classificador = new TableRowSorter<>(modelo);
@@ -972,6 +974,16 @@ public class ViewVenda extends javax.swing.JFrame {
         String texto = jtfPesquisar.getText();
         //texto é o nome do cliente-venda a ser filtrado, e 2 é a coluna onde a informação esta localizada na tabela
         classificador.setRowFilter(RowFilter.regexFilter(texto, 2));
+    }
+
+    private void setComboBoxCliente() {
+        try {
+            //pega o cliente e passa para o modelCliente
+            modelCliente = controllerCliente.retornarClienteController(Integer.parseInt(jtfCodigoCliente.getText()));
+            //pega o nome do cliente e adiciona no combo box ao tirar o foco do campo COd. Cliente
+            jcbCliente.setSelectedItem(modelCliente.getCliNome());
+        } catch (Exception e) {
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1011,4 +1023,5 @@ public class ViewVenda extends javax.swing.JFrame {
     private javax.swing.JTextField jtfQuantidade;
     private javax.swing.JTextField jtfValorTotal;
     // End of variables declaration//GEN-END:variables
+
 }

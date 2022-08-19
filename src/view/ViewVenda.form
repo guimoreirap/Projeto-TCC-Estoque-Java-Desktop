@@ -202,6 +202,7 @@
               <Events>
                 <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jtfCodigoClienteFocusGained"/>
                 <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jtfCodigoClienteFocusLost"/>
+                <EventHandler event="inputMethodTextChanged" listener="java.awt.event.InputMethodListener" parameters="java.awt.event.InputMethodEvent" handler="jtfCodigoClienteInputMethodTextChanged"/>
               </Events>
             </Component>
             <Component class="componentes.UJComboBox" name="jcbCliente">
