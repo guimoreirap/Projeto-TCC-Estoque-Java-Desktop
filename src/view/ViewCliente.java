@@ -17,19 +17,20 @@ import util.Formatador;
  */
 public class ViewCliente extends javax.swing.JFrame {
 
+    /**
+     * Creates new form ViewCliente
+     */
     ArrayList<ModelClientes> listaModelClientes = new ArrayList<>();
     ControllerClientes controllerClientes = new ControllerClientes();
     ModelClientes modelClientes = new ModelClientes();
     String salvarAlterar;
     Formatador formatador = new Formatador();
-    /**
-     * Creates new form ViewCliente
-     */
+
     public ViewCliente() {
         initComponents();
         this.carregarClientes();
         this.habilitarDesabilitarCampos(false);
-        
+
     }
 
     /**
@@ -205,8 +206,7 @@ public class ViewCliente extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
-                            .addComponent(jtfCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1))
+                            .addComponent(jtfCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(23, 23, 23)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
@@ -239,7 +239,10 @@ public class ViewCliente extends javax.swing.JFrame {
                                 .addComponent(jLabel6)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addComponent(jtfTelefone))))
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addContainerGap(65, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jButton1)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -289,9 +292,9 @@ public class ViewCliente extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -307,9 +310,9 @@ public class ViewCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_jtfCidadeActionPerformed
 
     private void jbSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalvarActionPerformed
-        if(salvarAlterar.equals("salvar")){
+        if (salvarAlterar.equals("salvar")) {
             this.salvarCliente();
-        }else if(salvarAlterar.equals("alterar")){
+        } else if (salvarAlterar.equals("alterar")) {
             this.alterarCliente();
         }
     }//GEN-LAST:event_jbSalvarActionPerformed
@@ -339,7 +342,7 @@ public class ViewCliente extends javax.swing.JFrame {
             this.jcbUF.setSelectedItem(modelClientes.getCliUf());
             this.jtfCep.setText(modelClientes.getCliCep());
             this.jtfTelefone.setText(modelClientes.getCliTelefone());
-            
+
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(
@@ -410,7 +413,7 @@ public class ViewCliente extends javax.swing.JFrame {
             }
         });
     }
-    
+
     public void carregarClientes() {
         listaModelClientes = controllerClientes.retornarListaClienteController(); //atribui os valores retornados a uma lista
         DefaultTableModel modelo = (DefaultTableModel) jTableCliente.getModel();
@@ -446,7 +449,7 @@ public class ViewCliente extends javax.swing.JFrame {
         this.jtfCep.setText("");
         this.jtfTelefone.setText("");
         this.jtfNome.requestFocus();
-        
+
     }
 
     //habilita/desabilita a edição dos campos da view
@@ -471,7 +474,6 @@ public class ViewCliente extends javax.swing.JFrame {
         modelClientes.setCliUf(this.jcbUF.getSelectedItem().toString());
         modelClientes.setCliCep(this.jtfCep.getText());
         modelClientes.setCliTelefone(this.jtfTelefone.getText());
-        
 
         try {
             controllerClientes.salvarClienteController(modelClientes);
@@ -487,8 +489,8 @@ public class ViewCliente extends javax.swing.JFrame {
             this.limparTabela();
         }
     }
-    
-    private void alterarCliente(){
+
+    private void alterarCliente() {
         //pega os valores dos campos da interface e coloca dentro de cada atributo do objeto
         modelClientes.setCliNome(this.jtfNome.getText());
         modelClientes.setCliEndereco(this.jtfEndereco.getText());
@@ -512,7 +514,7 @@ public class ViewCliente extends javax.swing.JFrame {
             this.limparTabela();
         }
     }
-    
+
     //faz um filtro para todos os produtos através do nome passado
     /*private void filtrarProduto(){
         DefaultTableModel modelo = (DefaultTableModel) this.jTableProdutos.getModel();

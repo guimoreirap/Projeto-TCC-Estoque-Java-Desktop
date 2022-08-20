@@ -34,7 +34,6 @@ public class ViewPrincipal extends javax.swing.JFrame {
         jmiSair = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jmiClientes = new javax.swing.JMenuItem();
-        jmiFornecedores = new javax.swing.JMenuItem();
         jmiProdutos = new javax.swing.JMenuItem();
         jmiUsuarios = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
@@ -81,14 +80,6 @@ public class ViewPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu2.add(jmiClientes);
-
-        jmiFornecedores.setText("Fornecedores");
-        jmiFornecedores.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmiFornecedoresActionPerformed(evt);
-            }
-        });
-        jMenu2.add(jmiFornecedores);
 
         jmiProdutos.setText("Produtos");
         jmiProdutos.addActionListener(new java.awt.event.ActionListener() {
@@ -159,11 +150,6 @@ public class ViewPrincipal extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_jmiClientesActionPerformed
 
-    private void jmiFornecedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiFornecedoresActionPerformed
-        new ViewFornecedor().setVisible(true);
-        //this.setVisible(false);
-    }//GEN-LAST:event_jmiFornecedoresActionPerformed
-
     private void jmiVendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiVendasActionPerformed
          new ViewVenda().setVisible(true);
          this.setVisible(false);
@@ -211,7 +197,6 @@ public class ViewPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jmiClientes;
     private javax.swing.JMenuItem jmiCompras;
-    private javax.swing.JMenuItem jmiFornecedores;
     private javax.swing.JMenuItem jmiProdutos;
     private javax.swing.JMenuItem jmiSair;
     private javax.swing.JMenuItem jmiUsuarios;

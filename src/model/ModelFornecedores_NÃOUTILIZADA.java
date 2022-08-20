@@ -10,7 +10,7 @@ import java.util.Date;
  *
  * @author Usuario
  */
-public class ModelFornecedores {
+public class ModelFornecedores_NÃOUTILIZADA {
     private int forId;
     private String forNome;
     private String forEmpresa;
@@ -19,7 +19,7 @@ public class ModelFornecedores {
     private String forEmail;
     private String forDescricao;
 
-    public ModelFornecedores() {
+    public ModelFornecedores_NÃOUTILIZADA() {
     }
 
     public int getForId() {

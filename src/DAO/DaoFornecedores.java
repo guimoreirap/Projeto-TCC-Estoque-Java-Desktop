@@ -6,7 +6,7 @@ package DAO;
 
 import conexoes.ConexaoMySql;
 import java.util.ArrayList;
-import model.ModelFornecedores;
+import model.ModelFornecedores_NÃOUTILIZADA;
 
 /**
  *
@@ -14,7 +14,7 @@ import model.ModelFornecedores;
  */
 public class DaoFornecedores extends ConexaoMySql {
 
-    public int salvarFornecedoresDAO(ModelFornecedores pModelFornecedores) {
+    public int salvarFornecedoresDAO(ModelFornecedores_NÃOUTILIZADA pModelFornecedores) {
         try {
             this.conectar();
             return this.insertSQL("INSERT INTO tbl_fornecedor("
@@ -34,6 +34,7 @@ public class DaoFornecedores extends ConexaoMySql {
             );
         } catch (Exception e) {
             e.printStackTrace();
+            System.out.println("ERRO AQUI");
             return 0;
         } finally {
             this.fecharConexao();
@@ -55,7 +56,7 @@ public class DaoFornecedores extends ConexaoMySql {
 
     }
 
-    public boolean alterarFornecedorDAO(ModelFornecedores pModelFornecedores) {
+    public boolean alterarFornecedorDAO(ModelFornecedores_NÃOUTILIZADA pModelFornecedores) {
         try {
             this.conectar();
             return this.executarUpdateDeleteSQL(""
@@ -75,8 +76,8 @@ public class DaoFornecedores extends ConexaoMySql {
         }
     }
 
-    public ModelFornecedores retornarFornecedorDAO(int pIdFornecedor) {
-        ModelFornecedores modelFornecedores = new ModelFornecedores();
+    public ModelFornecedores_NÃOUTILIZADA retornarFornecedorDAO(int pIdFornecedor) {
+        ModelFornecedores_NÃOUTILIZADA modelFornecedores = new ModelFornecedores_NÃOUTILIZADA();
 
         try {
             this.conectar();
@@ -109,8 +110,8 @@ public class DaoFornecedores extends ConexaoMySql {
         return modelFornecedores;
     }
 
-    public ModelFornecedores retornarFornecedorDAO(String pEmpresaFornecedor) {
-        ModelFornecedores modelFornecedores = new ModelFornecedores();
+    public ModelFornecedores_NÃOUTILIZADA retornarFornecedorDAO(String pEmpresaFornecedor) {
+        ModelFornecedores_NÃOUTILIZADA modelFornecedores = new ModelFornecedores_NÃOUTILIZADA();
 
         try {
             this.conectar();
@@ -142,9 +143,9 @@ public class DaoFornecedores extends ConexaoMySql {
         return modelFornecedores;
     }
 
-    public ArrayList<ModelFornecedores> retornarListaFornecedoresDAO() {
-        ArrayList<ModelFornecedores> listaModelFornecedores = new ArrayList<>();
-        ModelFornecedores modelFornecedores = new ModelFornecedores();
+    public ArrayList<ModelFornecedores_NÃOUTILIZADA> retornarListaFornecedoresDAO() {
+        ArrayList<ModelFornecedores_NÃOUTILIZADA> listaModelFornecedores = new ArrayList<>();
+        ModelFornecedores_NÃOUTILIZADA modelFornecedores = new ModelFornecedores_NÃOUTILIZADA();
         try {
             this.conectar();
             this.executarSQL("SELECT "
@@ -157,7 +158,7 @@ public class DaoFornecedores extends ConexaoMySql {
                     + "for_descricao "
                     + "FROM tbl_fornecedor;");
             while (this.getResultSet().next()) {
-                modelFornecedores = new ModelFornecedores();
+                modelFornecedores = new ModelFornecedores_NÃOUTILIZADA();
                 modelFornecedores.setForId(this.getResultSet().getInt(1));
                 modelFornecedores.setForEmpresa(this.getResultSet().getString(2));
                 modelFornecedores.setForNome(this.getResultSet().getString(3));
