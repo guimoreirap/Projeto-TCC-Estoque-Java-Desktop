@@ -41,7 +41,6 @@ public class ViewPagamentos extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jbVoltar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jtfEmpresa = new javax.swing.JTextField();
         jtfCodigo = new javax.swing.JTextField();
@@ -60,8 +59,6 @@ public class ViewPagamentos extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Pagamentos");
-
-        jbVoltar.setText("Voltar");
 
         jLabel1.setText("Empresa:");
 
@@ -94,8 +91,18 @@ public class ViewPagamentos extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTablePagamentos);
 
         jbCancelar.setText("Cancelar");
+        jbCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbCancelarActionPerformed(evt);
+            }
+        });
 
         jbExcluir.setText("Excluir");
+        jbExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbExcluirActionPerformed(evt);
+            }
+        });
 
         jbSalvar.setText("Salvar");
         jbSalvar.addActionListener(new java.awt.event.ActionListener() {
@@ -105,16 +112,23 @@ public class ViewPagamentos extends javax.swing.JFrame {
         });
 
         jbAlterar.setText("Alterar");
+        jbAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbAlterarActionPerformed(evt);
+            }
+        });
 
         jbNovo.setText("Novo");
+        jbNovo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbNovoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jbVoltar)
-                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -154,8 +168,7 @@ public class ViewPagamentos extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jbVoltar)
-                .addGap(18, 18, 18)
+                .addGap(41, 41, 41)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
@@ -207,6 +220,65 @@ public class ViewPagamentos extends javax.swing.JFrame {
             this.alterarPagamento();
         }
     }//GEN-LAST:event_jbSalvarActionPerformed
+
+    private void jbAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAlterarActionPerformed
+        this.salvarAlterar = "alterar";
+
+        int linha = this.jTablePagamentos.getSelectedRow();
+        try {
+            int codigoPagamento = (int) this.jTablePagamentos.getValueAt(linha, 0);
+
+            //this.habilitarDesabilitarCampos(true);
+            this.jtfEmpresa.requestFocus();
+
+            //recupera os dados do banco
+            modelPagamentos = controllerPagamentos.retornarPagamentoController(codigoPagamento);
+
+            /*
+            *   seta nos campos na interface
+             */
+            double valor = (double) jTablePagamentos.getValueAt(linha, 4);
+            this.jtfCodigo.setText(String.valueOf(modelPagamentos.getPagId()));
+            this.jtfEmpresa.setText(modelPagamentos.getPagEmpresa());
+            this.jtfValor.setText(String.valueOf(valor));
+            this.jcbMetodo.setSelectedItem(modelPagamentos.getPagMetodo());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(
+                    this, "Código inválido ou nenhum registro selecionado.", "ERRO", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jbAlterarActionPerformed
+
+    private void jbExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbExcluirActionPerformed
+        //Exclui um produto no banco
+        int linha = jTablePagamentos.getSelectedRow();
+        int codigoPagamento = (int) jTablePagamentos.getValueAt(linha, 0);
+
+        try {
+            controllerPagamentos.excluirPagamentoController(codigoPagamento);
+            JOptionPane.showMessageDialog(
+                    this, "Pagamento excluído com sucesso.", "ATENÇÃO", JOptionPane.WARNING_MESSAGE);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(
+                    this, "Ocorreu um erro ao excluir o pagamento no banco de dados.", "ERRO", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        } finally {
+            this.carregarPagamentos();
+            this.limparTabela();
+        }
+    }//GEN-LAST:event_jbExcluirActionPerformed
+
+    private void jbNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNovoActionPerformed
+        this.carregarPagamentos();
+        this.limparTabela();
+        salvarAlterar = "salvar";
+    }//GEN-LAST:event_jbNovoActionPerformed
+
+    private void jbCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCancelarActionPerformed
+        new ViewPrincipal().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jbCancelarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -270,7 +342,8 @@ public class ViewPagamentos extends javax.swing.JFrame {
             modelPagamentos.setPagEmpresa(this.jtfEmpresa.getText());
             modelPagamentos.setPagMetodo(this.jcbMetodo.getSelectedItem().toString());
             modelPagamentos.setPagValor(Double.parseDouble(this.jtfValor.getText()));
-            modelPagamentos.setPagData(blDatas.converterDataParaDateUS(new java.util.Date(System.currentTimeMillis())));
+            modelPagamentos.setPagData(blDatas.converterDataParaDateUS(new java.util.Date(
+                    System.currentTimeMillis())));
             controllerPagamentos.salvarPagamentoController(modelPagamentos);
             JOptionPane.showMessageDialog(
                     this, "Pagamento registrado com sucesso.", "ATENÇÃO", JOptionPane.WARNING_MESSAGE);
@@ -286,12 +359,33 @@ public class ViewPagamentos extends javax.swing.JFrame {
     }
 
     private void alterarPagamento() {
+        try {
+            //pega os valores dos campos da interface e coloca dentro de cada atributo do objeto
+            modelPagamentos.setPagEmpresa(this.jtfEmpresa.getText());
+            modelPagamentos.setPagMetodo(this.jcbMetodo.getSelectedItem().toString());
+            modelPagamentos.setPagValor(Double.parseDouble(this.jtfValor.getText()));
+            modelPagamentos.setPagData(blDatas.converterDataParaDateUS(new java.util.Date(
+                    System.currentTimeMillis())));
+
+            controllerPagamentos.alterarPagamentoController(modelPagamentos);
+            JOptionPane.showMessageDialog(
+                    this, "Pagamento alterado com sucesso.", "ATENÇÃO", JOptionPane.WARNING_MESSAGE);
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(
+                    this, "Ocorreu um erro ao alterar o pagamento.", "ERRO", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        } finally {
+            this.carregarPagamentos();
+            this.limparTabela();
+        }
     }
 
     private void limparTabela() {
         jtfCodigo.setText("");
         jtfEmpresa.setText("");
         jtfValor.setText("");
+        jcbMetodo.setSelectedItem("Dinheiro");
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -307,7 +401,6 @@ public class ViewPagamentos extends javax.swing.JFrame {
     private javax.swing.JButton jbExcluir;
     private javax.swing.JButton jbNovo;
     private javax.swing.JButton jbSalvar;
-    private javax.swing.JButton jbVoltar;
     private javax.swing.JComboBox<String> jcbMetodo;
     private javax.swing.JTextField jtfCodigo;
     private javax.swing.JTextField jtfEmpresa;

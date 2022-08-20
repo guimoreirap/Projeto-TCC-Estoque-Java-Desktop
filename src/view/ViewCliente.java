@@ -239,7 +239,7 @@ public class ViewCliente extends javax.swing.JFrame {
                                 .addComponent(jLabel6)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addComponent(jtfTelefone))))
-                .addContainerGap(65, Short.MAX_VALUE))
+                .addContainerGap(68, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jButton1)
                 .addGap(0, 0, Short.MAX_VALUE))
