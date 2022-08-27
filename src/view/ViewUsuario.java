@@ -20,7 +20,7 @@ public class ViewUsuario extends javax.swing.JFrame {
     ArrayList<ModelUsuarios> listaModelUsuarios = new ArrayList<>();
     ControllerUsuarios controllerUsuario = new ControllerUsuarios();
     ModelUsuarios modelUsuarios = new ModelUsuarios();
-    String salvarAlterar;
+    String salvarAlterar = "salvar";
     Formatador formatador = new Formatador();
     String senhaAtual;
 
@@ -379,6 +379,7 @@ public class ViewUsuario extends javax.swing.JFrame {
         this.jtfConfirmarSenha.setText("");
         this.jtfSenhaAtual.setText("");
         this.jtfNome.requestFocus();
+        this.jtfSenhaAtual.setEnabled(false);
 
     }
 
@@ -396,14 +397,15 @@ public class ViewUsuario extends javax.swing.JFrame {
         //pega os valores dos campos da interface e coloca dentro de cada atributo do objeto
         modelUsuarios.setUsuNome(this.jtfNome.getText());
         modelUsuarios.setUsuLogin(this.jtfLogin.getText());
-        String senha = this.jtfSenha.getText();
-        String confirmarSenha = this.jtfConfirmarSenha.getText();
+        String senha = String.valueOf(this.jtfSenha.getPassword());
+        String confirmarSenha = String.valueOf(this.jtfConfirmarSenha.getPassword());
+        System.out.println("Senha: " + senha + "\nConfirmarSenha: " + confirmarSenha);
 
-        if (senha.equals(confirmarSenha)) {
+        if (senha.equals(confirmarSenha) && !senha.equals("") && !confirmarSenha.equals("")) {
             modelUsuarios.setUsuSenha(senha);
         } else {
             JOptionPane.showMessageDialog(
-                    this, "Senhas não conferem.", "ERRO", JOptionPane.ERROR_MESSAGE);
+                    this, "Os campos de senha foram inseridos incorretamente.", "ERRO", JOptionPane.ERROR_MESSAGE);
             this.carregarUsuarios();
             this.limparTabela();
             //this.habilitarDesabilitarCampos(false);
@@ -433,20 +435,30 @@ public class ViewUsuario extends javax.swing.JFrame {
         modelUsuarios.setUsuSenha(String.valueOf(this.jtfSenhaAtual.getPassword()));
         String senhaInserida = String.valueOf(this.jtfSenha.getPassword());
         String senhaInseridaValidação = String.valueOf(this.jtfConfirmarSenha.getPassword());;
-        
+
         //VERIFICA SE A SENHA ESTÁ CORRETA PARA PODER ALTERAR O USUARIO
-        if (controllerUsuario.getValidarUsuarioController(modelUsuarios)) {
+        if (controllerUsuario.getValidarUsuarioSenhaController(modelUsuarios)) {
             System.out.println("entrou aqui");
 
-            //VERIFICA SE FOI PASSADO UMA NOVA SENHA E SE ELA ESTÁ SENDO VALIDADA EM DOIS CAMPOS
-            //TAMBEM VERIFICA SE O CAMPO NÃO ESTÁ VAZIO, POIS SE ESTIVER VAZIO ELE NÃO PODE ALTERAR A SENHA
-            if (senhaInserida.equals(senhaInseridaValidação) && !senhaInserida.equals("")) {
-                modelUsuarios.setUsuSenha(String.valueOf(this.jtfSenha.getPassword()));
-                System.out.println("Senha alterada: " + modelUsuarios.getUsuSenha());
+            //VERIFICA SE O CAMPO NÃO ESTÁ VAZIO, POIS SE ESTIVER VAZIO ELE NÃO PODE ALTERAR A SENHA
+            if (!senhaInserida.equals("") && !senhaInseridaValidação.equals("")) {
+
+                //VERIFICA SE FOI PASSADO UMA NOVA SENHA E SE ELA ESTÁ SENDO VALIDADA EM DOIS CAMPOS
+                if (senhaInserida.equals(senhaInseridaValidação)) {
+
+                    //nova senha sendo passada aqui para ser alterada no banco
+                    modelUsuarios.setUsuSenha(String.valueOf(this.jtfSenha.getPassword()));
+                } else {
+                    JOptionPane.showMessageDialog(
+                            this, "Senhas não conferem.", "ERRO", JOptionPane.ERROR_MESSAGE);
+                    this.jtfSenha.setText("");
+                    this.jtfConfirmarSenha.setText("");
+                    return;
+                }
             } else {
-                System.out.println("Senha não foi alterada: " + modelUsuarios.getUsuSenha());
+                System.out.println("Senha não foi alterada");
             }
-            
+
             //SE TODAS CONDIÇÕES FOREM VERDADEIRAS ELE ALTERA NO BANCO DE DADOS O USUARIO
             try {
                 controllerUsuario.alterarUsuarioController(modelUsuarios);
@@ -461,9 +473,13 @@ public class ViewUsuario extends javax.swing.JFrame {
                 this.carregarUsuarios();
                 this.limparTabela();
             }
-            
+
         } else {
-            System.out.println("Senha Incorretsa");
+            JOptionPane.showMessageDialog(
+                    this, "Senha incorreta.", "ERRO", JOptionPane.ERROR_MESSAGE);
+            this.jtfSenhaAtual.setText("");
+            this.jtfSenha.setText("");
+            this.jtfConfirmarSenha.setText("");
         }
     }
 

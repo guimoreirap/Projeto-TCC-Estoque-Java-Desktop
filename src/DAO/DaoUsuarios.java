@@ -144,4 +144,27 @@ public class DaoUsuarios extends ConexaoMySql {
             this.fecharConexao();
         }
     }
+    
+    public boolean getValidarUsuarioSenhaDAO(ModelUsuarios pModelUsuarios) {
+        try {
+            this.conectar();
+            this.executarSQL("SELECT "
+                    + "pk_id_usuario, "
+                    + "usu_nome, "
+                    + "usu_login,"
+                    + "usu_senha "
+                    + "FROM tbl_usuario WHERE usu_senha = '" + pModelUsuarios.getUsuSenha() + "' ;");
+            if (getResultSet().next()) {
+                return true;
+            } else {
+                return false;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            this.fecharConexao();
+        }
+    }
 }

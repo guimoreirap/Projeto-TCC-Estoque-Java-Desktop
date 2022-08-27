@@ -43,4 +43,8 @@ public class ControllerUsuarios {
     public boolean getValidarUsuarioController(ModelUsuarios pModelUsuarios) {
         return this.daoUsuarios.getValidarUsuarioDAO(pModelUsuarios);
     }
+    
+    public boolean getValidarUsuarioSenhaController(ModelUsuarios pModelUsuarios) {
+        return this.daoUsuarios.getValidarUsuarioSenhaDAO(pModelUsuarios);
+    }
 }
