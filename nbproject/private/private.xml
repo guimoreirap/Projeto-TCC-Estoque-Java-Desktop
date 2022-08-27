@@ -17,13 +17,14 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/Usuario/Desktop/Backup%20Valdineis%20Moreira/Usuario/Documents/NetBeansProjects/SistemaVendas/src/view/ViewPagamentos.java</file>
             <file>file:/C:/Users/Usuario/Desktop/Backup%20Valdineis%20Moreira/Usuario/Documents/NetBeansProjects/SistemaVendas/src/view/ViewProduto.java</file>
+            <file>file:/C:/Users/Usuario/Desktop/Backup%20Valdineis%20Moreira/Usuario/Documents/NetBeansProjects/SistemaVendas/src/DAO/DaoPagamentos.java</file>
             <file>file:/C:/Users/Usuario/Desktop/Backup%20Valdineis%20Moreira/Usuario/Documents/NetBeansProjects/SistemaVendas/src/view/ViewVenda.java</file>
-            <file>file:/C:/Users/Usuario/Desktop/Backup%20Valdineis%20Moreira/Usuario/Documents/NetBeansProjects/SistemaVendas/src/view/ViewUsuario.java</file>
+            <file>file:/C:/Users/Usuario/Desktop/Backup%20Valdineis%20Moreira/Usuario/Documents/NetBeansProjects/SistemaVendas/src/controller/ControllerPagamentos.java</file>
+            <file>file:/C:/Users/Usuario/Desktop/Backup%20Valdineis%20Moreira/Usuario/Documents/NetBeansProjects/SistemaVendas/src/view/teste.java</file>
             <file>file:/C:/Users/Usuario/Desktop/Backup%20Valdineis%20Moreira/Usuario/Documents/NetBeansProjects/SistemaVendas/src/view/ViewCliente.java</file>
-            <file>file:/C:/Users/Usuario/Desktop/Backup%20Valdineis%20Moreira/Usuario/Documents/NetBeansProjects/SistemaVendas/src/view/ViewFornecedor.java</file>
-            <file>file:/C:/Users/Usuario/Desktop/Backup%20Valdineis%20Moreira/Usuario/Documents/NetBeansProjects/SistemaVendas/src/view/ViewLogin.java</file>
-            <file>file:/C:/Users/Usuario/Desktop/Backup%20Valdineis%20Moreira/Usuario/Documents/NetBeansProjects/SistemaVendas/src/view/ViewPrincipal.java</file>
+            <file>file:/C:/Users/Usuario/Desktop/Backup%20Valdineis%20Moreira/Usuario/Documents/NetBeansProjects/SistemaVendas/src/view/ViewGerenciarEstoque.java</file>
         </group>
     </open-files>
 </project-private>

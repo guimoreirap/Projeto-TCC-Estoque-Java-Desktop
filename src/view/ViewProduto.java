@@ -57,7 +57,6 @@ public class ViewProduto extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jtfPesquisar = new javax.swing.JTextField();
         jButtonPesquisar = new javax.swing.JButton();
-        jButtonCancelar = new javax.swing.JButton();
         jButtonExcluir = new javax.swing.JButton();
         jButtonAlterar = new javax.swing.JButton();
         jButtonNovo = new javax.swing.JButton();
@@ -70,6 +69,7 @@ public class ViewProduto extends javax.swing.JFrame {
         jtfNovoEstoque = new javax.swing.JFormattedTextField();
         jrbAdicionarEstoque = new javax.swing.JRadioButton();
         jrbRemoverEstoque = new javax.swing.JRadioButton();
+        jbVoltar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Produtos");
@@ -122,13 +122,6 @@ public class ViewProduto extends javax.swing.JFrame {
         jButtonPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonPesquisarActionPerformed(evt);
-            }
-        });
-
-        jButtonCancelar.setText("Cancelar");
-        jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonCancelarActionPerformed(evt);
             }
         });
 
@@ -215,6 +208,13 @@ public class ViewProduto extends javax.swing.JFrame {
                 .addGap(27, 27, 27))
         );
 
+        jbVoltar.setText("Voltar");
+        jbVoltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbVoltarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -223,8 +223,6 @@ public class ViewProduto extends javax.swing.JFrame {
                 .addGap(22, 22, 22)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonExcluir)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButtonNovo)
@@ -253,11 +251,15 @@ public class ViewProduto extends javax.swing.JFrame {
                                     .addComponent(jButtonPesquisar))))
                         .addGap(0, 14, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jbVoltar)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(22, 22, 22)
+                .addComponent(jbVoltar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jLabel2))
@@ -267,7 +269,7 @@ public class ViewProduto extends javax.swing.JFrame {
                     .addComponent(jtfNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(jtfPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -276,7 +278,6 @@ public class ViewProduto extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonCancelar)
                     .addComponent(jButtonExcluir)
                     .addComponent(jButtonAlterar)
                     .addComponent(jButtonNovo)
@@ -323,11 +324,6 @@ public class ViewProduto extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButtonNovoActionPerformed
 
-    private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
-        new ViewPrincipal().setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_jButtonCancelarActionPerformed
-
     private void jButtonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAlterarActionPerformed
         this.salvarAlterar = "alterar";
         this.habilitarGerenciarProduto();
@@ -359,6 +355,11 @@ public class ViewProduto extends javax.swing.JFrame {
     private void jtfPesquisarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfPesquisarKeyReleased
         this.filtrarProduto();
     }//GEN-LAST:event_jtfPesquisarKeyReleased
+
+    private void jbVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbVoltarActionPerformed
+        new ViewPrincipal().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jbVoltarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -424,6 +425,8 @@ public class ViewProduto extends javax.swing.JFrame {
         this.jtfValor.setText("");
         this.jtfNome.requestFocus();
         this.jtfNovoEstoque.setText("");
+        this.jtfEstoque.setEnabled(true);
+        this.jtfNovoEstoque.setEnabled(false);
         this.jrbAdicionarEstoque.setSelected(false);
         this.jrbRemoverEstoque.setSelected(false);
     }
@@ -523,7 +526,6 @@ public class ViewProduto extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroupEstoque;
     private javax.swing.JButton jButtonAlterar;
-    private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonExcluir;
     private javax.swing.JButton jButtonNovo;
     private javax.swing.JButton jButtonPesquisar;
@@ -536,6 +538,7 @@ public class ViewProduto extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableProdutos;
+    private javax.swing.JButton jbVoltar;
     private javax.swing.JRadioButton jrbAdicionarEstoque;
     private javax.swing.JRadioButton jrbRemoverEstoque;
     private javax.swing.JTextField jtfCodigo;

@@ -30,8 +30,6 @@ public class ViewPrincipal extends javax.swing.JFrame {
 
         uJPanelImagem1 = new componentes.UJPanelImagem();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jmiSair = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jmiClientes = new javax.swing.JMenuItem();
         jmiProdutos = new javax.swing.JMenuItem();
@@ -57,19 +55,6 @@ public class ViewPrincipal extends javax.swing.JFrame {
             uJPanelImagem1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 473, Short.MAX_VALUE)
         );
-
-        jMenu1.setText("Arquivos");
-
-        jmiSair.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.SHIFT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        jmiSair.setText("Sair");
-        jmiSair.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmiSairActionPerformed(evt);
-            }
-        });
-        jMenu1.add(jmiSair);
-
-        jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Cadastros");
 
@@ -131,10 +116,6 @@ public class ViewPrincipal extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jmiSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiSairActionPerformed
-       System.exit(0);
-    }//GEN-LAST:event_jmiSairActionPerformed
-
     private void jmiProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiProdutosActionPerformed
         new ViewProduto().setVisible(true);
         this.setVisible(false);
@@ -191,14 +172,12 @@ public class ViewPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jmiClientes;
     private javax.swing.JMenuItem jmiCompras;
     private javax.swing.JMenuItem jmiProdutos;
-    private javax.swing.JMenuItem jmiSair;
     private javax.swing.JMenuItem jmiUsuarios;
     private javax.swing.JMenuItem jmiVendas;
     private componentes.UJPanelImagem uJPanelImagem1;

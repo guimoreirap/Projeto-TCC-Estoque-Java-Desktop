@@ -29,7 +29,7 @@ public class ViewCliente extends javax.swing.JFrame {
     public ViewCliente() {
         initComponents();
         this.carregarClientes();
-        this.habilitarDesabilitarCampos(false);
+        //this.habilitarDesabilitarCampos(false);
 
     }
 
@@ -61,7 +61,6 @@ public class ViewCliente extends javax.swing.JFrame {
         jTableCliente = new javax.swing.JTable();
         jbSalvar = new javax.swing.JButton();
         jbAlterar = new javax.swing.JButton();
-        jbCancelar = new javax.swing.JButton();
         jbNovo = new javax.swing.JButton();
         jbExcluir = new javax.swing.JButton();
         jtfCep = new javax.swing.JFormattedTextField();
@@ -145,13 +144,6 @@ public class ViewCliente extends javax.swing.JFrame {
             }
         });
 
-        jbCancelar.setText("Cancelar");
-        jbCancelar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbCancelarActionPerformed(evt);
-            }
-        });
-
         jbNovo.setText("Novo");
         jbNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -193,8 +185,6 @@ public class ViewCliente extends javax.swing.JFrame {
                 .addGap(23, 23, 23)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jbCancelar)
-                        .addGap(18, 18, 18)
                         .addComponent(jbExcluir)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jbNovo)
@@ -282,7 +272,6 @@ public class ViewCliente extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbSalvar)
                     .addComponent(jbAlterar)
-                    .addComponent(jbCancelar)
                     .addComponent(jbNovo)
                     .addComponent(jbExcluir))
                 .addContainerGap())
@@ -319,7 +308,7 @@ public class ViewCliente extends javax.swing.JFrame {
 
     private void jbNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNovoActionPerformed
         this.limparTabela();
-        this.habilitarDesabilitarCampos(true);
+        //this.habilitarDesabilitarCampos(true);
         this.salvarAlterar = "salvar";
     }//GEN-LAST:event_jbNovoActionPerformed
 
@@ -329,7 +318,7 @@ public class ViewCliente extends javax.swing.JFrame {
         int linha = this.jTableCliente.getSelectedRow();
         try {
             int codigoCliente = (int) this.jTableCliente.getValueAt(linha, 0);
-            this.habilitarDesabilitarCampos(true);
+            //this.habilitarDesabilitarCampos(true);
             this.jtfNome.requestFocus();
             //recupera os dados do banco
             modelClientes = controllerClientes.retornarClienteController(codigoCliente);
@@ -368,11 +357,6 @@ public class ViewCliente extends javax.swing.JFrame {
             this.limparTabela();
         }
     }//GEN-LAST:event_jbExcluirActionPerformed
-
-    private void jbCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCancelarActionPerformed
-        this.limparTabela();
-        this.habilitarDesabilitarCampos(false);
-    }//GEN-LAST:event_jbCancelarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         new ViewPrincipal().setVisible(true);
@@ -453,7 +437,7 @@ public class ViewCliente extends javax.swing.JFrame {
     }
 
     //habilita/desabilita a edição dos campos da view
-    private void habilitarDesabilitarCampos(boolean condicao) {
+    /*private void habilitarDesabilitarCampos(boolean condicao) {
         jtfNome.setEnabled(condicao);
         jtfEndereco.setEnabled(condicao);
         jtfBairro.setEnabled(condicao);
@@ -462,7 +446,7 @@ public class ViewCliente extends javax.swing.JFrame {
         jcbUF.setEnabled(condicao);
         jtfTelefone.setEnabled(condicao);
         jbSalvar.setEnabled(condicao);
-    }
+    }*/
 
     //metodo para o botão salvar produto
     private void salvarCliente() {
@@ -539,7 +523,6 @@ public class ViewCliente extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableCliente;
     private javax.swing.JButton jbAlterar;
-    private javax.swing.JButton jbCancelar;
     private javax.swing.JButton jbExcluir;
     private javax.swing.JButton jbNovo;
     private javax.swing.JButton jbSalvar;

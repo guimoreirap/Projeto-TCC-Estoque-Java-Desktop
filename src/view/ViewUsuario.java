@@ -18,10 +18,11 @@ import util.Formatador;
 public class ViewUsuario extends javax.swing.JFrame {
 
     ArrayList<ModelUsuarios> listaModelUsuarios = new ArrayList<>();
-    ControllerUsuarios controllerProdutos = new ControllerUsuarios();
+    ControllerUsuarios controllerUsuario = new ControllerUsuarios();
     ModelUsuarios modelUsuarios = new ModelUsuarios();
     String salvarAlterar;
     Formatador formatador = new Formatador();
+    String senhaAtual;
 
     /**
      * Creates new form ViewUsuario
@@ -29,9 +30,9 @@ public class ViewUsuario extends javax.swing.JFrame {
     public ViewUsuario() {
         initComponents();
         this.carregarUsuarios();
-        this.habilitarDesabilitarCampos(false);
+        //this.habilitarDesabilitarCampos(false);
         this.jtfSenhaAtual.setEnabled(false);
-        
+
     }
 
     /**
@@ -53,7 +54,6 @@ public class ViewUsuario extends javax.swing.JFrame {
         jtfLogin = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableUsuario = new javax.swing.JTable();
-        jbCancelar = new javax.swing.JButton();
         jbExcluir = new javax.swing.JButton();
         jbSalvar = new javax.swing.JButton();
         jbNovo = new javax.swing.JButton();
@@ -63,6 +63,7 @@ public class ViewUsuario extends javax.swing.JFrame {
         jtfSenha = new javax.swing.JPasswordField();
         jtfConfirmarSenha = new javax.swing.JPasswordField();
         jtfSenhaAtual = new javax.swing.JPasswordField();
+        jbVoltar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Usuários");
@@ -99,13 +100,6 @@ public class ViewUsuario extends javax.swing.JFrame {
             jTableUsuario.getColumnModel().getColumn(0).setMinWidth(90);
             jTableUsuario.getColumnModel().getColumn(0).setMaxWidth(90);
         }
-
-        jbCancelar.setText("Cancelar");
-        jbCancelar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbCancelarActionPerformed(evt);
-            }
-        });
 
         jbExcluir.setText("Excluir");
         jbExcluir.addActionListener(new java.awt.event.ActionListener() {
@@ -147,8 +141,6 @@ public class ViewUsuario extends javax.swing.JFrame {
                 .addGap(28, 28, 28)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jbCancelar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jbExcluir)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jbNovo)
@@ -220,7 +212,6 @@ public class ViewUsuario extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jbCancelar)
                     .addComponent(jbExcluir)
                     .addComponent(jbSalvar)
                     .addComponent(jbAlterar)
@@ -228,18 +219,28 @@ public class ViewUsuario extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        jbVoltar.setText("Voltar");
+        jbVoltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbVoltarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbVoltar))
                 .addGap(0, 4, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addComponent(jbVoltar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -248,24 +249,18 @@ public class ViewUsuario extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jbCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCancelarActionPerformed
-        this.limparTabela();
-        this.habilitarDesabilitarCampos(false);
-        jtfSenhaAtual.setEnabled(false);
-    }//GEN-LAST:event_jbCancelarActionPerformed
-
     private void jbNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNovoActionPerformed
         this.limparTabela();
-        this.habilitarDesabilitarCampos(true);
+        //this.habilitarDesabilitarCampos(true);
         this.jtfNome.requestFocus();
         this.salvarAlterar = "salvar";
     }//GEN-LAST:event_jbNovoActionPerformed
 
     private void jbSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalvarActionPerformed
-        
-        if(salvarAlterar.equals("salvar")){
+
+        if (salvarAlterar.equals("salvar")) {
             this.salvarUsuario();
-        } else if(salvarAlterar.equals("alterar")){
+        } else if (salvarAlterar.equals("alterar")) {
             this.alterarUsuario();
         }
     }//GEN-LAST:event_jbSalvarActionPerformed
@@ -276,7 +271,7 @@ public class ViewUsuario extends javax.swing.JFrame {
         int codigoUsuario = (int) jTableUsuario.getValueAt(linha, 0);
 
         try {
-            controllerProdutos.excluirUsuarioController(codigoUsuario);
+            controllerUsuario.excluirUsuarioController(codigoUsuario);
             JOptionPane.showMessageDialog(
                     this, "Usuário excluído com sucesso.", "ATENÇÃO", JOptionPane.WARNING_MESSAGE);
         } catch (Exception e) {
@@ -291,28 +286,35 @@ public class ViewUsuario extends javax.swing.JFrame {
 
     private void jbAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAlterarActionPerformed
         this.salvarAlterar = "alterar";
-        
 
         int linha = this.jTableUsuario.getSelectedRow();
         try {
-            
+
             int codigoProduto = (int) this.jTableUsuario.getValueAt(linha, 0);
-            this.habilitarDesabilitarCampos(true);
+            //this.habilitarDesabilitarCampos(true);
             this.jtfNome.requestFocus();
             //recupera os dados do banco
-            modelUsuarios = controllerProdutos.retornarUsuarioController(codigoProduto);
+            modelUsuarios = controllerUsuario.retornarUsuarioController(codigoProduto);
             //seta nos campos na interface
             this.jtfCodigo.setText(String.valueOf(modelUsuarios.getUsuId()));
             this.jtfNome.setText(modelUsuarios.getUsuNome());
             this.jtfLogin.setText(String.valueOf(modelUsuarios.getUsuLogin()));
             jtfSenhaAtual.setEnabled(true);
-            //this.jtfValor.setText(String.valueOf(modelUsuarios.getProValor()));
+
+            //captura a senha
+            this.senhaAtual = modelUsuarios.getUsuSenha();
+
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(
                     this, "Código inválido ou nenhum registro selecionado.", "ERRO", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jbAlterarActionPerformed
+
+    private void jbVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbVoltarActionPerformed
+        new ViewPrincipal().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jbVoltarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -350,7 +352,7 @@ public class ViewUsuario extends javax.swing.JFrame {
     }
 
     public void carregarUsuarios() {
-        listaModelUsuarios = controllerProdutos.retornarListaUsuarioController(); //atribui os valores retornados a uma lista
+        listaModelUsuarios = controllerUsuario.retornarListaUsuarioController(); //atribui os valores retornados a uma lista
         DefaultTableModel modelo = (DefaultTableModel) jTableUsuario.getModel();
 
         //Cada vez que o metodo é chamado, a tabela é zerada as linhas - evita dados repetidos na tela
@@ -377,11 +379,11 @@ public class ViewUsuario extends javax.swing.JFrame {
         this.jtfConfirmarSenha.setText("");
         this.jtfSenhaAtual.setText("");
         this.jtfNome.requestFocus();
-        
+
     }
 
     //habilita/desabilita a edição dos campos da view
-    private void habilitarDesabilitarCampos(boolean condicao) {
+    /*private void habilitarDesabilitarCampos(boolean condicao) {
         jtfNome.setEnabled(condicao);
         jtfLogin.setEnabled(condicao);
         jtfSenha.setEnabled(condicao);
@@ -389,8 +391,7 @@ public class ViewUsuario extends javax.swing.JFrame {
         jtfConfirmarSenha.setEnabled(condicao);
         
         
-    }
-
+    }*/
     private void salvarUsuario() {
         //pega os valores dos campos da interface e coloca dentro de cada atributo do objeto
         modelUsuarios.setUsuNome(this.jtfNome.getText());
@@ -405,12 +406,12 @@ public class ViewUsuario extends javax.swing.JFrame {
                     this, "Senhas não conferem.", "ERRO", JOptionPane.ERROR_MESSAGE);
             this.carregarUsuarios();
             this.limparTabela();
-            this.habilitarDesabilitarCampos(false);
+            //this.habilitarDesabilitarCampos(false);
             return;
         }
 
         try {
-            controllerProdutos.salvarUsuarioController(modelUsuarios);
+            controllerUsuario.salvarUsuarioController(modelUsuarios);
             JOptionPane.showMessageDialog(
                     this, "Produto inserido com sucesso.", "ATENÇÃO", JOptionPane.WARNING_MESSAGE);
 
@@ -423,26 +424,46 @@ public class ViewUsuario extends javax.swing.JFrame {
             this.limparTabela();
         }
     }
-    
-    private void alterarUsuario(){
+
+    private void alterarUsuario() {
         //pega os valores dos campos da interface e coloca dentro de cada atributo do objeto
         modelUsuarios.setUsuId(Integer.parseInt(this.jtfCodigo.getText()));
         modelUsuarios.setUsuNome(this.jtfNome.getText());
         modelUsuarios.setUsuLogin(this.jtfLogin.getText());
-        //modelUsuarios.setProValor(formatador.converterVirgulaParaPontoReturnFloat(this.jtfValor.getText()));
+        modelUsuarios.setUsuSenha(String.valueOf(this.jtfSenhaAtual.getPassword()));
+        String senhaInserida = String.valueOf(this.jtfSenha.getPassword());
+        String senhaInseridaValidação = String.valueOf(this.jtfConfirmarSenha.getPassword());;
+        
+        //VERIFICA SE A SENHA ESTÁ CORRETA PARA PODER ALTERAR O USUARIO
+        if (controllerUsuario.getValidarUsuarioController(modelUsuarios)) {
+            System.out.println("entrou aqui");
 
-        try {
-            controllerProdutos.alterarUsuarioController(modelUsuarios);
-            JOptionPane.showMessageDialog(
-                    this, "Usuário alterado com sucesso.", "ATENÇÃO", JOptionPane.WARNING_MESSAGE);
+            //VERIFICA SE FOI PASSADO UMA NOVA SENHA E SE ELA ESTÁ SENDO VALIDADA EM DOIS CAMPOS
+            //TAMBEM VERIFICA SE O CAMPO NÃO ESTÁ VAZIO, POIS SE ESTIVER VAZIO ELE NÃO PODE ALTERAR A SENHA
+            if (senhaInserida.equals(senhaInseridaValidação) && !senhaInserida.equals("")) {
+                modelUsuarios.setUsuSenha(String.valueOf(this.jtfSenha.getPassword()));
+                System.out.println("Senha alterada: " + modelUsuarios.getUsuSenha());
+            } else {
+                System.out.println("Senha não foi alterada: " + modelUsuarios.getUsuSenha());
+            }
+            
+            //SE TODAS CONDIÇÕES FOREM VERDADEIRAS ELE ALTERA NO BANCO DE DADOS O USUARIO
+            try {
+                controllerUsuario.alterarUsuarioController(modelUsuarios);
+                JOptionPane.showMessageDialog(
+                        this, "Usuário alterado com sucesso.", "ATENÇÃO", JOptionPane.WARNING_MESSAGE);
 
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(
-                    this, "Ocorreu um erro ao inserir o Usuário no banco de dados.", "ERRO", JOptionPane.ERROR_MESSAGE);
-            e.printStackTrace();
-        } finally {
-            this.carregarUsuarios();
-            this.limparTabela();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(
+                        this, "Ocorreu um erro ao inserir o Usuário no banco de dados.", "ERRO", JOptionPane.ERROR_MESSAGE);
+                e.printStackTrace();
+            } finally {
+                this.carregarUsuarios();
+                this.limparTabela();
+            }
+            
+        } else {
+            System.out.println("Senha Incorretsa");
         }
     }
 
@@ -457,10 +478,10 @@ public class ViewUsuario extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableUsuario;
     private javax.swing.JButton jbAlterar;
-    private javax.swing.JButton jbCancelar;
     private javax.swing.JButton jbExcluir;
     private javax.swing.JButton jbNovo;
     private javax.swing.JButton jbSalvar;
+    private javax.swing.JButton jbVoltar;
     private javax.swing.JTextField jtfCodigo;
     private javax.swing.JPasswordField jtfConfirmarSenha;
     private javax.swing.JTextField jtfLogin;
