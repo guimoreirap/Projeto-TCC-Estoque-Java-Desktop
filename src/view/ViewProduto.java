@@ -321,6 +321,7 @@ public class ViewProduto extends javax.swing.JFrame {
         this.limparTabela();
         //this.habilitarDesabilitarCampos(true);
         this.salvarAlterar = "salvar";
+        this.desabilitarGerenciarProduto();
 
     }//GEN-LAST:event_jButtonNovoActionPerformed
 

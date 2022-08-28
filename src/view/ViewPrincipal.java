@@ -4,8 +4,6 @@
  */
 package view;
 
-import javax.swing.JFrame;
-
 /**
  *
  * @author Usuario
@@ -13,7 +11,7 @@ import javax.swing.JFrame;
 public class ViewPrincipal extends javax.swing.JFrame {
 
     /**
-     * Creates new form ViewPrincipal
+     * Creates new form ViewPrincipalTeste
      */
     public ViewPrincipal() {
         initComponents();
@@ -30,18 +28,15 @@ public class ViewPrincipal extends javax.swing.JFrame {
 
         uJPanelImagem1 = new componentes.UJPanelImagem();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu2 = new javax.swing.JMenu();
-        jmiClientes = new javax.swing.JMenuItem();
-        jmiProdutos = new javax.swing.JMenuItem();
-        jmiUsuarios = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
+        jMenuCadastros = new javax.swing.JMenu();
+        jmiCliente = new javax.swing.JMenuItem();
+        jmiProduto = new javax.swing.JMenuItem();
+        jmiUsuario = new javax.swing.JMenuItem();
+        jMenuMovimentações = new javax.swing.JMenu();
         jmiVendas = new javax.swing.JMenuItem();
-        jmiCompras = new javax.swing.JMenuItem();
+        jmiPagamentos = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Principal");
-        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        setResizable(false);
 
         uJPanelImagem1.setImagem(new java.io.File("C:\\Users\\Usuario\\Desktop\\Backup Valdineis Moreira\\Usuario\\Documents\\NetBeansProjects\\SistemaVendas\\src\\imagens\\neymaremessi.jpeg"));
 
@@ -49,42 +44,42 @@ public class ViewPrincipal extends javax.swing.JFrame {
         uJPanelImagem1.setLayout(uJPanelImagem1Layout);
         uJPanelImagem1Layout.setHorizontalGroup(
             uJPanelImagem1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 815, Short.MAX_VALUE)
+            .addGap(0, 684, Short.MAX_VALUE)
         );
         uJPanelImagem1Layout.setVerticalGroup(
             uJPanelImagem1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 473, Short.MAX_VALUE)
+            .addGap(0, 471, Short.MAX_VALUE)
         );
 
-        jMenu2.setText("Cadastros");
+        jMenuCadastros.setText("Cadastros");
 
-        jmiClientes.setText("Clientes");
-        jmiClientes.addActionListener(new java.awt.event.ActionListener() {
+        jmiCliente.setText("Cliente");
+        jmiCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmiClientesActionPerformed(evt);
+                jmiClienteActionPerformed(evt);
             }
         });
-        jMenu2.add(jmiClientes);
+        jMenuCadastros.add(jmiCliente);
 
-        jmiProdutos.setText("Produtos");
-        jmiProdutos.addActionListener(new java.awt.event.ActionListener() {
+        jmiProduto.setText("Produto");
+        jmiProduto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmiProdutosActionPerformed(evt);
+                jmiProdutoActionPerformed(evt);
             }
         });
-        jMenu2.add(jmiProdutos);
+        jMenuCadastros.add(jmiProduto);
 
-        jmiUsuarios.setText("Usuários");
-        jmiUsuarios.addActionListener(new java.awt.event.ActionListener() {
+        jmiUsuario.setText("Usuário");
+        jmiUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmiUsuariosActionPerformed(evt);
+                jmiUsuarioActionPerformed(evt);
             }
         });
-        jMenu2.add(jmiUsuarios);
+        jMenuCadastros.add(jmiUsuario);
 
-        jMenuBar1.add(jMenu2);
+        jMenuBar1.add(jMenuCadastros);
 
-        jMenu3.setText("Movimentações");
+        jMenuMovimentações.setText("Movimentações");
 
         jmiVendas.setText("Vendas");
         jmiVendas.addActionListener(new java.awt.event.ActionListener() {
@@ -92,12 +87,17 @@ public class ViewPrincipal extends javax.swing.JFrame {
                 jmiVendasActionPerformed(evt);
             }
         });
-        jMenu3.add(jmiVendas);
+        jMenuMovimentações.add(jmiVendas);
 
-        jmiCompras.setText("jMenuItem2");
-        jMenu3.add(jmiCompras);
+        jmiPagamentos.setText("Pagamentos");
+        jmiPagamentos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiPagamentosActionPerformed(evt);
+            }
+        });
+        jMenuMovimentações.add(jmiPagamentos);
 
-        jMenuBar1.add(jMenu3);
+        jMenuBar1.add(jMenuMovimentações);
 
         setJMenuBar(jMenuBar1);
 
@@ -105,7 +105,9 @@ public class ViewPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(uJPanelImagem1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(uJPanelImagem1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -116,24 +118,29 @@ public class ViewPrincipal extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jmiProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiProdutosActionPerformed
-        new ViewProduto().setVisible(true);
+    private void jmiPagamentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiPagamentosActionPerformed
+        new ViewPagamentos().setVisible(true);
         this.setVisible(false);
-    }//GEN-LAST:event_jmiProdutosActionPerformed
+    }//GEN-LAST:event_jmiPagamentosActionPerformed
 
-    private void jmiUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiUsuariosActionPerformed
-        new ViewUsuario().setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_jmiUsuariosActionPerformed
-
-    private void jmiClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiClientesActionPerformed
+    private void jmiClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiClienteActionPerformed
         new ViewCliente().setVisible(true);
         this.setVisible(false);
-    }//GEN-LAST:event_jmiClientesActionPerformed
+    }//GEN-LAST:event_jmiClienteActionPerformed
+
+    private void jmiProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiProdutoActionPerformed
+        new ViewProduto().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jmiProdutoActionPerformed
+
+    private void jmiUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiUsuarioActionPerformed
+        new ViewUsuario().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jmiUsuarioActionPerformed
 
     private void jmiVendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiVendasActionPerformed
-         new ViewVenda().setVisible(true);
-         this.setVisible(false);
+        new ViewVenda().setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_jmiVendasActionPerformed
 
     /**
@@ -162,6 +169,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(ViewPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -172,13 +180,13 @@ public class ViewPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jmiClientes;
-    private javax.swing.JMenuItem jmiCompras;
-    private javax.swing.JMenuItem jmiProdutos;
-    private javax.swing.JMenuItem jmiUsuarios;
+    private javax.swing.JMenu jMenuCadastros;
+    private javax.swing.JMenu jMenuMovimentações;
+    private javax.swing.JMenuItem jmiCliente;
+    private javax.swing.JMenuItem jmiPagamentos;
+    private javax.swing.JMenuItem jmiProduto;
+    private javax.swing.JMenuItem jmiUsuario;
     private javax.swing.JMenuItem jmiVendas;
     private componentes.UJPanelImagem uJPanelImagem1;
     // End of variables declaration//GEN-END:variables

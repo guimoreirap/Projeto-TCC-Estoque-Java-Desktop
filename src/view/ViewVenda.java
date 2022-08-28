@@ -99,7 +99,7 @@ public class ViewVenda extends javax.swing.JFrame {
         jbSalvar = new javax.swing.JButton();
         jbRemoverProduto = new javax.swing.JButton();
         jbAdicionarCliente = new javax.swing.JButton();
-        jbAdicionarCliente1 = new javax.swing.JButton();
+        jbAtualizarClientes = new javax.swing.JButton();
         jbAdicionarCliente2 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
@@ -109,6 +109,7 @@ public class ViewVenda extends javax.swing.JFrame {
         jtVendas = new javax.swing.JTable();
         jbExcluir = new javax.swing.JButton();
         jbAlterar = new javax.swing.JButton();
+        jbVoltar2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Vendas");
@@ -223,7 +224,7 @@ public class ViewVenda extends javax.swing.JFrame {
             }
         });
 
-        jbCancelar.setText("Cancelar");
+        jbCancelar.setText("Cancelar / Novo");
         jbCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbCancelarActionPerformed(evt);
@@ -251,10 +252,10 @@ public class ViewVenda extends javax.swing.JFrame {
             }
         });
 
-        jbAdicionarCliente1.setText("Att");
-        jbAdicionarCliente1.addActionListener(new java.awt.event.ActionListener() {
+        jbAtualizarClientes.setText("Att");
+        jbAtualizarClientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbAdicionarCliente1ActionPerformed(evt);
+                jbAtualizarClientesActionPerformed(evt);
             }
         });
 
@@ -298,7 +299,7 @@ public class ViewVenda extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jbAdicionar))
                             .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap())
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 660, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -306,8 +307,11 @@ public class ViewVenda extends javax.swing.JFrame {
                                 .addComponent(jbCancelar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jbSalvar)))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
                             .addComponent(jtfCodigoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -319,28 +323,33 @@ public class ViewVenda extends javax.swing.JFrame {
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jbAdicionarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(32, 32, 32)
+                        .addGap(32, 32, 32))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jbAdicionarCliente2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(512, 512, 512)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jbAtualizarClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jbAdicionarCliente1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jbAdicionarCliente2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(29, 29, 29))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jtfNumeroVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addContainerGap())))))
+                                .addComponent(jtfNumeroVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap())))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(5, 5, 5)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jbAdicionarCliente1)
-                    .addComponent(jbAdicionarCliente2))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(5, 5, 5)
+                        .addComponent(jbAtualizarClientes))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jbAdicionarCliente2)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
@@ -449,6 +458,13 @@ public class ViewVenda extends javax.swing.JFrame {
             }
         });
 
+        jbVoltar2.setText("Voltar");
+        jbVoltar2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbVoltar2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -456,6 +472,7 @@ public class ViewVenda extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jbVoltar2)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 652, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jbExcluir)
@@ -472,6 +489,8 @@ public class ViewVenda extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(jbVoltar2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
                 .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -479,7 +498,7 @@ public class ViewVenda extends javax.swing.JFrame {
                     .addComponent(jbPesquisar))
                 .addGap(30, 30, 30)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
+                .addGap(38, 38, 38)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbExcluir)
                     .addComponent(jbAlterar))
@@ -690,10 +709,11 @@ public class ViewVenda extends javax.swing.JFrame {
         new ViewCliente().setVisible(true);
     }//GEN-LAST:event_jbAdicionarClienteActionPerformed
 
-    private void jbAdicionarCliente1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAdicionarCliente1ActionPerformed
+    private void jbAtualizarClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAtualizarClientesActionPerformed
         this.listarProdutos();
         this.listarClientes();
-    }//GEN-LAST:event_jbAdicionarCliente1ActionPerformed
+        this.jtfCodigoCliente.requestFocus();
+    }//GEN-LAST:event_jbAtualizarClientesActionPerformed
 
     private void jtfCodigoClienteInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_jtfCodigoClienteInputMethodTextChanged
 
@@ -703,6 +723,11 @@ public class ViewVenda extends javax.swing.JFrame {
         new ViewPrincipal().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jbAdicionarCliente2ActionPerformed
+
+    private void jbVoltar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbVoltar2ActionPerformed
+        new ViewPrincipal().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jbVoltar2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1006,14 +1031,15 @@ public class ViewVenda extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JButton jbAdicionar;
     private javax.swing.JButton jbAdicionarCliente;
-    private javax.swing.JButton jbAdicionarCliente1;
     private javax.swing.JButton jbAdicionarCliente2;
     private javax.swing.JButton jbAlterar;
+    private javax.swing.JButton jbAtualizarClientes;
     private javax.swing.JButton jbCancelar;
     private javax.swing.JButton jbExcluir;
     private javax.swing.JButton jbPesquisar;
     private javax.swing.JButton jbRemoverProduto;
     private javax.swing.JButton jbSalvar;
+    private javax.swing.JButton jbVoltar2;
     private componentes.UJComboBox jcbCliente;
     private componentes.UJComboBox jcbProduto;
     private javax.swing.JTable jtProdutosVendas;

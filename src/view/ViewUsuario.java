@@ -438,7 +438,6 @@ public class ViewUsuario extends javax.swing.JFrame {
 
         //VERIFICA SE A SENHA ESTÁ CORRETA PARA PODER ALTERAR O USUARIO
         if (controllerUsuario.getValidarUsuarioSenhaController(modelUsuarios)) {
-            System.out.println("entrou aqui");
 
             //VERIFICA SE O CAMPO NÃO ESTÁ VAZIO, POIS SE ESTIVER VAZIO ELE NÃO PODE ALTERAR A SENHA
             if (!senhaInserida.equals("") && !senhaInseridaValidação.equals("")) {
@@ -456,7 +455,8 @@ public class ViewUsuario extends javax.swing.JFrame {
                     return;
                 }
             } else {
-                System.out.println("Senha não foi alterada");
+                JOptionPane.showMessageDialog(
+                            this, "Senha não foi alterada.", "ERRO", JOptionPane.ERROR_MESSAGE);
             }
 
             //SE TODAS CONDIÇÕES FOREM VERDADEIRAS ELE ALTERA NO BANCO DE DADOS O USUARIO

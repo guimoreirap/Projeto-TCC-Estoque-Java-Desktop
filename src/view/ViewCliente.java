@@ -23,7 +23,7 @@ public class ViewCliente extends javax.swing.JFrame {
     ArrayList<ModelClientes> listaModelClientes = new ArrayList<>();
     ControllerClientes controllerClientes = new ControllerClientes();
     ModelClientes modelClientes = new ModelClientes();
-    String salvarAlterar;
+    String salvarAlterar = "salvar";
     Formatador formatador = new Formatador();
 
     public ViewCliente() {
