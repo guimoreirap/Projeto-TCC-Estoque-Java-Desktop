@@ -19,4 +19,8 @@ public class ControllerVendasCliente {
         return this.daoVendasCliente.getListaVendasClienteDAO();
     }
     
+    public ArrayList<ModelVendasCliente> getListaVendasClienteController(int codigo) {
+        return this.daoVendasCliente.getListaVendasClienteDAO(codigo);
+    }
+    
 }
