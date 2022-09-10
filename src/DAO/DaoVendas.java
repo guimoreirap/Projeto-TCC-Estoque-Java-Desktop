@@ -23,12 +23,14 @@ public class DaoVendas extends ConexaoMySql {
                     + "ven_data_venda,"
                     + "ven_valor_liquido, "
                     + "ven_valor_bruto, "
+                    + "ven_valor_recebido, "
                     + "ven_desconto "
                     + ") VALUES ("
                     + "'" + pModelVendas.getCliente() + "',"
                     + "'" + pModelVendas.getVenDataVenda() + "',"
                     + "'" + pModelVendas.getVenValorLiquido() + "',"
                     + "'" + pModelVendas.getVenValorBruto() + "',"
+                    + "'" + pModelVendas.getVenValorRecebido()+ "',"
                     + "'" + pModelVendas.getVenValorDesconto() + "');"
             );
         } catch (Exception e) {

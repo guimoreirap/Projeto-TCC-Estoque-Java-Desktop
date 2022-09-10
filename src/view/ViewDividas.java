@@ -16,13 +16,14 @@ import model.ModelVendasCliente;
  * @author Usuario
  */
 public class ViewDividas extends javax.swing.JFrame {
-    
+
     ModelClientes modelCliente = new ModelClientes();
     ControllerClientes controllerCliente = new ControllerClientes();
     ArrayList<ModelClientes> listaModelClientes = new ArrayList<>();
-    
+
     ControllerVendasCliente controllerVendasCliente = new ControllerVendasCliente();
     ArrayList<ModelVendasCliente> listaModelVendasCliente = new ArrayList<>();
+
     /**
      * Creates new form ViewDividas
      */
@@ -148,7 +149,7 @@ public class ViewDividas extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jcbClientePopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_jcbClientePopupMenuWillBecomeInvisible
-       if (jcbCliente.isPopupVisible()) {
+        if (jcbCliente.isPopupVisible()) {
             this.carregarComboBoxClientes();
         }
     }//GEN-LAST:event_jcbClientePopupMenuWillBecomeInvisible
@@ -192,7 +193,7 @@ public class ViewDividas extends javax.swing.JFrame {
             }
         });
     }
-    
+
     //Metodo para carregar os clientes dentro do Combo Box
     private void carregarComboBoxClientes() {
         modelCliente = controllerCliente.retornarClienteController(jcbCliente.getSelectedItem().toString());
@@ -200,7 +201,7 @@ public class ViewDividas extends javax.swing.JFrame {
         jtfCodigo.setText(String.valueOf(modelCliente.getIdCliente()));
         this.carregarVendas();
     }
-    
+
     //Metodo para adicionar a lista com os clientes dentro do ComboBox
     private void listarClientes() {
         //retorna todos os clientes pra dentro da lista
@@ -213,7 +214,7 @@ public class ViewDividas extends javax.swing.JFrame {
             jcbCliente.addItem(listaModelClientes.get(i).getCliNome());
         }
     }
-    
+
     //Metodo para passar o nome do cliente ao inserir o código no campo Codigo
     private void setComboBoxCliente() {
         try {
@@ -224,7 +225,7 @@ public class ViewDividas extends javax.swing.JFrame {
         } catch (Exception e) {
         }
     }
-    
+
     //Metodo para carregar as vendas do cliente na tabela
     private void carregarVendas() {
         int codigo = Integer.parseInt(jtfCodigo.getText());
@@ -234,17 +235,17 @@ public class ViewDividas extends javax.swing.JFrame {
         int cont = listaModelVendasCliente.size();
 
         for (int i = 0; i < cont; i++) {
-            modelo.addRow(new Object[]{
-                listaModelVendasCliente.get(i).getModelVendas().getVenId(),
-                listaModelVendasCliente.get(i).getModelVendas().getVenDataVenda(),
-                listaModelVendasCliente.get(i).getModelVendas().getVenValorLiquido()
-//                listaModelVendasCliente.get(i).getModelVendas().getVenValorPago(),
-//                listaModelVendasCliente.get(i).getModelVendas().getVenValorLiquido() - 
-//                listaModelVendasCliente.get(i).getModelVendas().getVenValorPago()    ,
-                 //ARRUMAR AQUI  
-                
-            });
+            if (listaModelVendasCliente.get(i).getModelVendas().getVenValorLiquido() >= listaModelVendasCliente.get(i).getModelVendas().getVenValorRecebido()) {
+                modelo.addRow(new Object[]{
+                    listaModelVendasCliente.get(i).getModelVendas().getVenId(),
+                    listaModelVendasCliente.get(i).getModelVendas().getVenDataVenda(),
+                    listaModelVendasCliente.get(i).getModelVendas().getVenValorLiquido(),
+                    listaModelVendasCliente.get(i).getModelVendas().getVenValorRecebido(),
+                    listaModelVendasCliente.get(i).getModelVendas().getVenValorLiquido()
+                    - listaModelVendasCliente.get(i).getModelVendas().getVenValorRecebido()
+                });
 
+            }
         }
     }
 

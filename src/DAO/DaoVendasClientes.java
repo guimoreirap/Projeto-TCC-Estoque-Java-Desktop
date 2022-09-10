@@ -94,6 +94,7 @@ public class DaoVendasClientes extends ConexaoMySql {
                     + "tbl_vendas.ven_valor_liquido,"
                     + "tbl_vendas.ven_valor_bruto,"
                     + "tbl_vendas.ven_desconto,"
+                    + "tbl_vendas.ven_valor_recebido,"
                     + "tbl_cliente.pk_id_cliente,"
                     + "tbl_cliente.cli_nome,"
                     + "tbl_cliente.cli_endereco,"
@@ -115,15 +116,16 @@ public class DaoVendasClientes extends ConexaoMySql {
                 modelVendas.setVenValorLiquido(this.getResultSet().getDouble(4));
                 modelVendas.setVenValorBruto(this.getResultSet().getDouble(5));
                 modelVendas.setVenValorDesconto(this.getResultSet().getDouble(6));
+                modelVendas.setVenValorRecebido(this.getResultSet().getDouble(7));
                 //CLIENTES
-                modelClientes.setIdCliente(this.getResultSet().getInt(7));
-                modelClientes.setCliNome(this.getResultSet().getString(8));
-                modelClientes.setCliEndereco(this.getResultSet().getString(9));
-                modelClientes.setCliBairro(this.getResultSet().getString(10));
-                modelClientes.setCliCidade(this.getResultSet().getString(11));
-                modelClientes.setCliUf(this.getResultSet().getString(12));
-                modelClientes.setCliCep(this.getResultSet().getString(13));
-                modelClientes.setCliTelefone(this.getResultSet().getString(14));
+                modelClientes.setIdCliente(this.getResultSet().getInt(8));
+                modelClientes.setCliNome(this.getResultSet().getString(9));
+                modelClientes.setCliEndereco(this.getResultSet().getString(10));
+                modelClientes.setCliBairro(this.getResultSet().getString(11));
+                modelClientes.setCliCidade(this.getResultSet().getString(12));
+                modelClientes.setCliUf(this.getResultSet().getString(13));
+                modelClientes.setCliCep(this.getResultSet().getString(14));
+                modelClientes.setCliTelefone(this.getResultSet().getString(15));
                 
                 modelVendasCliente.setModelVendas(modelVendas);
                 modelVendasCliente.setModelClientes(modelClientes);

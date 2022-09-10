@@ -17,6 +17,15 @@ public class ModelVendas {
     private double venValorLiquido;
     private double venValorBruto;
     private double venValorDesconto;
+    private double venValorRecebido;
+
+    public double getVenValorRecebido() {
+        return venValorRecebido;
+    }
+
+    public void setVenValorRecebido(double venValorPago) {
+        this.venValorRecebido = venValorPago;
+    }
 
     public int getVenId() {
         return venId;
