@@ -143,6 +143,11 @@ public class ViewVenda extends javax.swing.JFrame {
             public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
             }
         });
+        jcbCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbClienteActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Nome do Cliente:");
 
@@ -585,6 +590,15 @@ public class ViewVenda extends javax.swing.JFrame {
             for (int i = 0; i < cont; i++) {
                 modelo.setNumRows(0);
             }
+            
+            if(modelProdutos.getProEstoque() < Integer.parseInt(jtfQuantidade.getText())){
+                JOptionPane.showMessageDialog(this, "Quantidade em estoque insuficiente.\n"
+                        + "Quantidade disponível: " + modelProdutos.getProEstoque(), "ERRO", JOptionPane.ERROR_MESSAGE);
+                return;
+            } else if(Integer.parseInt(jtfQuantidade.getText()) <= 0){
+                JOptionPane.showMessageDialog(this, "Insira uma quantia válida.\n", "ERRO", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
 
             modelo.addRow(new Object[]{
                 modelProdutos.getIdProduto(),
@@ -728,6 +742,10 @@ public class ViewVenda extends javax.swing.JFrame {
         new ViewPrincipal().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jbVoltar2ActionPerformed
+
+    private void jcbClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbClienteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jcbClienteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -966,6 +984,7 @@ public class ViewVenda extends javax.swing.JFrame {
         int cont = jtProdutosVendas.getRowCount();
         for (int i = 0; i < cont; i++) {
             codigoProduto = (int) jtProdutosVendas.getValueAt(i, 0);
+            
             modelVendasProdutos = new ModelVendasProdutos();
             modelProdutos = new ModelProdutos();
 
@@ -975,16 +994,18 @@ public class ViewVenda extends javax.swing.JFrame {
             modelVendasProdutos.setVenProValor((double) jtProdutosVendas.getValueAt(i, 3));
             modelVendasProdutos.setVenProQuantidade(Integer.parseInt(jtProdutosVendas.getValueAt(i, 2).toString()));
 
-            //diminuindo quantidade em estoque
+            //Diminuindo produtos em estoque
             modelProdutos.setIdProduto(codigoProduto);
             modelProdutos.setProEstoque(controllerProdutos.retornarProdutoController(codigoProduto).getProEstoque()
                     - Integer.parseInt(jtProdutosVendas.getValueAt(i, 2).toString()));
+            
 
             listaModelVendasProdutos.add(modelVendasProdutos);
             listaModelProdutos.add(modelProdutos);
         }
         //SALVA OS NOVOS PRODUTOS DA VENDA
         if (controllerVendasProdutos.salvarVendaProdutoController(listaModelVendasProdutos)) {
+            controllerProdutos.alterarEstoqueProdutoController(listaModelProdutos);//MEXENDO AQ
             JOptionPane.showMessageDialog(
                     this, "Produtos de venda salva com sucesso", "ATENÇÃO", JOptionPane.WARNING_MESSAGE);
             carregarVendas();

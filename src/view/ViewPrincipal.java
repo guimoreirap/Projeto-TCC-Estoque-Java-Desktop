@@ -89,7 +89,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
         });
         jMenuMovimentações.add(jmiVendas);
 
-        jmiPagamentos.setText("Pagamentos");
+        jmiPagamentos.setText("Compras / Pagamentos");
         jmiPagamentos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmiPagamentosActionPerformed(evt);
