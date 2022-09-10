@@ -164,6 +164,11 @@ public class ViewProduto extends javax.swing.JFrame {
         jLabel4.setText("Valor:");
 
         jtfNovoEstoque.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
+        jtfNovoEstoque.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtfNovoEstoqueActionPerformed(evt);
+            }
+        });
 
         jrbAdicionarEstoque.setText("Adicionar");
 
@@ -329,6 +334,7 @@ public class ViewProduto extends javax.swing.JFrame {
         this.salvarAlterar = "alterar";
         this.habilitarGerenciarProduto();
         this.jtfEstoque.setEnabled(false);
+        this.jtfNovoEstoque.setText("0");
 
         int linha = this.jTableProdutos.getSelectedRow();
         try {
@@ -341,7 +347,9 @@ public class ViewProduto extends javax.swing.JFrame {
             this.jtfCodigo.setText(String.valueOf(modelProdutos.getIdProduto()));
             this.jtfNome.setText(modelProdutos.getProNome());
             this.jtfEstoque.setText(String.valueOf(modelProdutos.getProEstoque()));
-            this.jtfValor.setText(String.valueOf(modelProdutos.getProValor()));
+            //this.jtfValor.setText(String.valueOf(modelProdutos.getProValor()));
+            //Altera os pontos por virgula, para nao bugar ao salvar o valor
+            this.jtfValor.setText(String.valueOf(modelProdutos.getProValor()).replace(".", ",")); 
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(
@@ -361,6 +369,10 @@ public class ViewProduto extends javax.swing.JFrame {
         new ViewPrincipal().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jbVoltarActionPerformed
+
+    private void jtfNovoEstoqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfNovoEstoqueActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtfNovoEstoqueActionPerformed
 
     /**
      * @param args the command line arguments
@@ -444,7 +456,8 @@ public class ViewProduto extends javax.swing.JFrame {
         //pega os valores dos campos da interface e coloca dentro de cada atributo do objeto
         modelProdutos.setProNome(this.jtfNome.getText());
         modelProdutos.setProEstoque(Integer.parseInt(this.jtfEstoque.getText()));
-        modelProdutos.setProValor(formatador.converterVirgulaParaPontoReturnFloat(this.jtfValor.getText()));
+//        modelProdutos.setProValor(formatador.converterVirgulaParaPontoReturnFloat(this.jtfValor.getText()));
+        modelProdutos.setProValor(Double.parseDouble(this.jtfValor.getText().replaceAll(",", ".")));
 
         try {
             controllerProdutos.salvarProdutoController(modelProdutos);

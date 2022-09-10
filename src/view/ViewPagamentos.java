@@ -257,7 +257,7 @@ public class ViewPagamentos extends javax.swing.JFrame {
             double valor = (double) jTablePagamentos.getValueAt(linha, 4);
             this.jtfCodigo.setText(String.valueOf(modelPagamentos.getPagId()));
             this.jtfEmpresa.setText(modelPagamentos.getPagEmpresa());
-            this.jtfValor.setText(String.valueOf(valor));
+            this.jtfValor.setText(String.valueOf(valor).replace(".", ","));
             this.jcbMetodo.setSelectedItem(modelPagamentos.getPagMetodo());
 
         } catch (Exception e) {
@@ -366,7 +366,7 @@ public class ViewPagamentos extends javax.swing.JFrame {
         try {
             modelPagamentos.setPagEmpresa(this.jtfEmpresa.getText());
             modelPagamentos.setPagMetodo(this.jcbMetodo.getSelectedItem().toString());
-            modelPagamentos.setPagValor(Double.parseDouble(this.jtfValor.getText()));
+            modelPagamentos.setPagValor(Double.parseDouble(this.jtfValor.getText().replaceAll(",", ".")));
             modelPagamentos.setPagData(blDatas.converterDataParaDateUS(new java.util.Date(
                     System.currentTimeMillis())));
             controllerPagamentos.salvarPagamentoController(modelPagamentos);
@@ -388,7 +388,7 @@ public class ViewPagamentos extends javax.swing.JFrame {
             //pega os valores dos campos da interface e coloca dentro de cada atributo do objeto
             modelPagamentos.setPagEmpresa(this.jtfEmpresa.getText());
             modelPagamentos.setPagMetodo(this.jcbMetodo.getSelectedItem().toString());
-            modelPagamentos.setPagValor(Double.parseDouble(this.jtfValor.getText()));
+            modelPagamentos.setPagValor(Double.parseDouble(this.jtfValor.getText().replaceAll(",", ".")));
             modelPagamentos.setPagData(blDatas.converterDataParaDateUS(new java.util.Date(
                     System.currentTimeMillis())));
 

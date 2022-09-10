@@ -630,7 +630,7 @@ public class ViewVenda extends javax.swing.JFrame {
         if (jtfDesconto.getText().equals("")) {
             desconto = 0;
         } else {
-            desconto = Double.parseDouble(jtfDesconto.getText());
+            desconto = Double.parseDouble(jtfDesconto.getText().replaceAll(",", "."));
         }
 
         //SETA OS VALORES DOS CAMPOS PRA VENDA
@@ -668,7 +668,7 @@ public class ViewVenda extends javax.swing.JFrame {
         //atribui os valores das variaveis nos campos no formulario de Vendas
         jtfNumeroVenda.setText(String.valueOf(codigoVenda));
         jtfCodigoCliente.setText(String.valueOf(codigoCliente));
-        jtfDesconto.setText(String.valueOf(desconto));
+        jtfDesconto.setText(String.valueOf(desconto).replace(".", ","));
 
         modelCliente = controllerCliente.retornarClienteController(codigoVenda);
         listaModelProdutosVendasProdutos = controllerProdutosVendasProdutos.
@@ -844,7 +844,7 @@ public class ViewVenda extends javax.swing.JFrame {
 
     private void aplicarDesconto() {
         double valorTotalVenda = Double.parseDouble(jtfValorTotal.getText());
-        double desconto = Double.parseDouble(jtfDesconto.getText());
+        double desconto = Double.parseDouble(jtfDesconto.getText().replaceAll(",", "."));
 
         if (desconto <= valorTotalVenda) {
             jtfValorTotal.setText(String.valueOf(valorTotalVenda - desconto));
