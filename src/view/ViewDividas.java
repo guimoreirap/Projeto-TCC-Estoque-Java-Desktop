@@ -5,6 +5,7 @@
 package view;
 
 import controller.ControllerClientes;
+import controller.ControllerRecebimentos;
 import controller.ControllerVendas;
 import controller.ControllerVendasCliente;
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.ModelClientes;
+import model.ModelRecebimentos;
 import model.ModelVendas;
 import model.ModelVendasCliente;
 import util.BLDatas;
@@ -28,6 +30,9 @@ public class ViewDividas extends javax.swing.JFrame {
     ModelClientes modelCliente = new ModelClientes();
     ControllerClientes controllerCliente = new ControllerClientes();
     ArrayList<ModelClientes> listaModelClientes = new ArrayList<>();
+
+    ModelRecebimentos modelRecebimentos = new ModelRecebimentos();
+    ControllerRecebimentos controllerRecebimentos = new ControllerRecebimentos();
 
     ControllerVendasCliente controllerVendasCliente = new ControllerVendasCliente();
     ArrayList<ModelVendasCliente> listaModelVendasCliente = new ArrayList<>();
@@ -423,14 +428,31 @@ public class ViewDividas extends javax.swing.JFrame {
 
     private void jbEfetuarRecebimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEfetuarRecebimentoActionPerformed
         try {
+            //Passa o ID da Venda e o novo valor de Valor Recebido para o objeto modelVendas
             modelVendas.setVenId(Integer.parseInt(jtfCodigoVenda.getText()));
             modelVendas.setVenValorRecebido(
                     Double.parseDouble(jtfValorPago.getText())
                     + Double.parseDouble(jtfValorReceber.getText()));
+            //controllerVenda efetua o update no banco de dados com o novo valor de Valor Recebido
             controllerVenda.efetuarRecebimento(modelVendas);
+
+            //-------------------------------------------------------------------------------
+            //Passa os dados para registrar um novo Recebimento no banco de dados
+            modelRecebimentos.setRecCliente(Integer.parseInt(jtfCodigoCliente.getText()));
+            modelRecebimentos.setRecVenda(Integer.parseInt(jtfCodigoVenda.getText()));
+            modelRecebimentos.setRecData(bLDatas.converterDataParaDateUS(new java.util.Date(System.currentTimeMillis())));
+            modelRecebimentos.setRecMetodo(jcMetodoPagamento.getSelectedItem().toString());
+            modelRecebimentos.setRecValor(Double.parseDouble(jtfValorReceber.getText()));
+
+            //controllerRecebimentos insere um novo recebimento no banco de dados
+            controllerRecebimentos.salvarRecebimento(modelRecebimentos);
             JOptionPane.showMessageDialog(this, "Recebimento efetuado com sucesso.", "AVISO", JOptionPane.WARNING_MESSAGE);
+
+            //Volta a tela para a primeira página
             jTabbedPane1.setSelectedIndex(0);
             this.limparCamposRecebimento();
+
+            //Faz requestFocus para atualizar os novos valores das vendas do cliente
             jtfCodigo.requestFocus();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Não foi possível efetuar recebimento.", "ERRO", JOptionPane.ERROR_MESSAGE);

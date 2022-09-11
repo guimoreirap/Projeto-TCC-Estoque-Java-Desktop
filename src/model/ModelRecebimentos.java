@@ -13,6 +13,7 @@ import java.util.Date;
 public class ModelRecebimentos {
     private int recId;
     private int recCliente;
+    private int recVenda;
     private Date recData;
     private double recValor;
     private String recMetodo;
@@ -56,5 +57,14 @@ public class ModelRecebimentos {
     public void setRecMetodo(String recMetodo) {
         this.recMetodo = recMetodo;
     }
+
+    public int getRecVenda() {
+        return recVenda;
+    }
+
+    public void setRecVenda(int recVenda) {
+        this.recVenda = recVenda;
+    }
+    
     
 }
