@@ -929,15 +929,8 @@ public class ViewVenda extends javax.swing.JFrame {
         int codigoVenda = 0, codigoProduto = 0;
         //retorna os produtos para o estoque e altera a venda
 
-//            if (!jtfNumeroVenda.equals("")) {
-//                modelVendas.setVenId(Integer.parseInt(jtfNumeroVenda.getText()));
-//            }
         int linha = jtVendas.getSelectedRow();
         codigoVenda = (int) jtVendas.getValueAt(linha, 0);
-
-        System.out.println(codigoVenda);
-        //ta chegando aqui
-        //o erro deve ta pra baixo
         listaModelProdutos = new ArrayList<>();
         listaModelProdutosVendasProdutos = controllerProdutosVendasProdutos.getListaProdutosVendasProdutosController(codigoVenda);
 

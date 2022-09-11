@@ -5,12 +5,16 @@
 package view;
 
 import controller.ControllerClientes;
+import controller.ControllerVendas;
 import controller.ControllerVendasCliente;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.ModelClientes;
+import model.ModelVendas;
 import model.ModelVendasCliente;
+import util.BLDatas;
 
 /**
  *
@@ -18,14 +22,21 @@ import model.ModelVendasCliente;
  */
 public class ViewDividas extends javax.swing.JFrame {
 
+    ModelVendas modelVendas = new ModelVendas();
+    ControllerVendas controllerVenda = new ControllerVendas();
+
     ModelClientes modelCliente = new ModelClientes();
     ControllerClientes controllerCliente = new ControllerClientes();
     ArrayList<ModelClientes> listaModelClientes = new ArrayList<>();
 
     ControllerVendasCliente controllerVendasCliente = new ControllerVendasCliente();
     ArrayList<ModelVendasCliente> listaModelVendasCliente = new ArrayList<>();
+
     double valorTotal = 0;
     int linha = 0;
+
+    //Formata a data para o formato US
+    BLDatas bLDatas = new BLDatas();
 
     /**
      * Creates new form ViewDividas
@@ -116,6 +127,9 @@ public class ViewDividas extends javax.swing.JFrame {
         jLabel2.setText("Cliente");
 
         jtfCodigo.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jtfCodigoFocusGained(evt);
+            }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 jtfCodigoFocusLost(evt);
             }
@@ -408,7 +422,19 @@ public class ViewDividas extends javax.swing.JFrame {
     }//GEN-LAST:event_jtfCodigoClienteFocusLost
 
     private void jbEfetuarRecebimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEfetuarRecebimentoActionPerformed
-
+        try {
+            modelVendas.setVenId(Integer.parseInt(jtfCodigoVenda.getText()));
+            modelVendas.setVenValorRecebido(
+                    Double.parseDouble(jtfValorPago.getText())
+                    + Double.parseDouble(jtfValorReceber.getText()));
+            controllerVenda.efetuarRecebimento(modelVendas);
+            JOptionPane.showMessageDialog(this, "Recebimento efetuado com sucesso.", "AVISO", JOptionPane.WARNING_MESSAGE);
+            jTabbedPane1.setSelectedIndex(0);
+            this.limparCamposRecebimento();
+            jtfCodigo.requestFocus();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Não foi possível efetuar recebimento.", "ERRO", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jbEfetuarRecebimentoActionPerformed
 
     private void jtfCodigoVendaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfCodigoVendaFocusLost
@@ -423,7 +449,7 @@ public class ViewDividas extends javax.swing.JFrame {
             //Pega os valores nas colunas de venda e atribui às variaveis
             int codigoVenda = (int) jtDividas.getValueAt(linha, 0);
             int codigoCliente = Integer.parseInt(jtfCodigo.getText());
-            
+
             //atribui os valores das variaveis nos campos no formulario de Vendas
             jtfCodigoVenda.setText(String.valueOf(codigoVenda));
             jtfCodigoCliente.setText(String.valueOf(codigoCliente));
@@ -433,12 +459,11 @@ public class ViewDividas extends javax.swing.JFrame {
             jtfValorPago.setText(String.valueOf(jtDividas.getValueAt(linha, 3)));
             jtfValorRestante.setText(String.valueOf(jtDividas.getValueAt(linha, 4)));
             jtfValorReceber.requestFocus();
-            
 
             jTabbedPane1.setSelectedIndex(1);
         } catch (Exception e) {
             e.printStackTrace();
-           jTabbedPane1.setSelectedIndex(1);;;
+            jTabbedPane1.setSelectedIndex(1);;;
             JOptionPane.showMessageDialog(this, "Erro inesperado.", "ERRO", JOptionPane.ERROR_MESSAGE);
 
         }
@@ -452,6 +477,11 @@ public class ViewDividas extends javax.swing.JFrame {
         this.limparCamposRecebimento();
         jTabbedPane1.setSelectedIndex(0);
     }//GEN-LAST:event_jbCancelarActionPerformed
+
+    private void jtfCodigoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfCodigoFocusGained
+        this.setComboBoxCliente();
+        this.carregarVendas();
+    }//GEN-LAST:event_jtfCodigoFocusGained
 
     /**
      * @param args the command line arguments
@@ -551,8 +581,8 @@ public class ViewDividas extends javax.swing.JFrame {
     private void somarValorTotal() {
         this.jtfValorTotal.setText(this.valorTotal + "");
     }
-    
-    private void limparCamposRecebimento(){
+
+    private void limparCamposRecebimento() {
         jtfCodigoCliente.setText("");
         jtfCodigoVenda.setText("");
         jtfCliente.setText("");

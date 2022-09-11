@@ -40,4 +40,8 @@ public class ControllerVendas {
     public ArrayList<ModelVendas> retornarListaVendaController() {
         return this.daoVendas.retornarListaVendasDAO();
     }
+
+    public boolean efetuarRecebimento(ModelVendas pModelVendas) {
+        return this.daoVendas.efetuarRecebimentoDAO(pModelVendas);
+    }
 }

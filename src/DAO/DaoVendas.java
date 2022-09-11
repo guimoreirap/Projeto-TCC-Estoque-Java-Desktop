@@ -30,7 +30,7 @@ public class DaoVendas extends ConexaoMySql {
                     + "'" + pModelVendas.getVenDataVenda() + "',"
                     + "'" + pModelVendas.getVenValorLiquido() + "',"
                     + "'" + pModelVendas.getVenValorBruto() + "',"
-                    + "'" + pModelVendas.getVenValorRecebido()+ "',"
+                    + "'" + pModelVendas.getVenValorRecebido() + "',"
                     + "'" + pModelVendas.getVenValorDesconto() + "');"
             );
         } catch (Exception e) {
@@ -65,6 +65,7 @@ public class DaoVendas extends ConexaoMySql {
                     + "ven_data_venda = '" + pModelVendas.getVenDataVenda() + "',"
                     + "ven_valor_liquido = '" + pModelVendas.getVenValorLiquido() + "',"
                     + "ven_valor_bruto = '" + pModelVendas.getVenValorBruto() + "',"
+                    + "ven_valor_recebido = '" + pModelVendas.getVenValorRecebido() + "',"
                     + "ven_desconto = '" + pModelVendas.getVenValorDesconto() + "'"
                     + " WHERE pk_id_venda = '" + pModelVendas.getVenId() + "';");
         } catch (Exception e) {
@@ -73,22 +74,6 @@ public class DaoVendas extends ConexaoMySql {
         } finally {
             this.fecharConexao();
         }
-        
-        /*try {
-            this.conectar();
-            return this.executarUpdateDeleteSQL(""
-                    + "UPDATE tbl_produto SET "
-                    + "pro_nome = '" + pModelProdutos.getProNome() + "',"
-                    + "pro_valor = '" + pModelProdutos.getProValor() + "',"
-                    + "pro_estoque = '" + pModelProdutos.getProEstoque() + "'"
-                    + " WHERE pk_id_produto = '" + pModelProdutos.getIdProduto() + "';");
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        } finally {
-            this.fecharConexao();
-        }*/
-
     }
 
     public ModelVendas retornarVendaDAO(int pIdVenda) {
@@ -152,5 +137,20 @@ public class DaoVendas extends ConexaoMySql {
         }
 
         return listaModelVendas;
+    }
+
+    public boolean efetuarRecebimentoDAO(ModelVendas pModelVendas) {
+        try {
+            this.conectar();
+            return this.executarUpdateDeleteSQL(""
+                    + "UPDATE tbl_vendas SET "
+                    + "ven_valor_recebido = '" + pModelVendas.getVenValorRecebido() + "'"
+                    + " WHERE pk_id_venda = '" + pModelVendas.getVenId() + "';");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            this.fecharConexao();
+        }
     }
 }

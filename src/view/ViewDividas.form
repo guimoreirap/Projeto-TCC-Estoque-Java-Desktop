@@ -197,6 +197,7 @@
             </Component>
             <Component class="javax.swing.JTextField" name="jtfCodigo">
               <Events>
+                <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jtfCodigoFocusGained"/>
                 <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jtfCodigoFocusLost"/>
               </Events>
             </Component>
