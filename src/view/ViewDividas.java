@@ -154,6 +154,11 @@ public class ViewDividas extends javax.swing.JFrame {
         jLabel1.setText("Código");
 
         jbVoltarDividas.setText("Voltar");
+        jbVoltarDividas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbVoltarDividasActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -214,6 +219,11 @@ public class ViewDividas extends javax.swing.JFrame {
         jTabbedPane1.addTab("Dívidas", jPanel2);
 
         jbVoltar1.setText("Voltar");
+        jbVoltar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbVoltar1ActionPerformed(evt);
+            }
+        });
 
         jLabel4.setText("Código do cliente:");
 
@@ -432,6 +442,11 @@ public class ViewDividas extends javax.swing.JFrame {
         }
 
         jbVoltar2.setText("Voltar");
+        jbVoltar2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbVoltar2ActionPerformed(evt);
+            }
+        });
 
         jbAlterar.setText("Alterar");
         jbAlterar.addActionListener(new java.awt.event.ActionListener() {
@@ -531,6 +546,7 @@ public class ViewDividas extends javax.swing.JFrame {
             //Volta a tela para a primeira página
             jTabbedPane1.setSelectedIndex(0);
             this.limparCamposRecebimento();
+            this.carregarRecebimentos();
 
             //Faz requestFocus para atualizar os novos valores das vendas do cliente
             jtfCodigo.requestFocus();
@@ -598,8 +614,37 @@ public class ViewDividas extends javax.swing.JFrame {
     }//GEN-LAST:event_jbAlterarActionPerformed
 
     private void jbExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbExcluirActionPerformed
+        //Exclui um produto no banco
+        int linha = jTableHistorico.getSelectedRow();
+        int codigoPagamento = (int) jTableHistorico.getValueAt(linha, 1);
 
+        try {
+            controllerRecebimentos.excluirRecebimentoController(codigoPagamento);
+            JOptionPane.showMessageDialog(
+                    this, "Pagamento excluído com sucesso.", "ATENÇÃO", JOptionPane.WARNING_MESSAGE);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(
+                    this, "Ocorreu um erro ao excluir o pagamento no banco de dados.", "ERRO", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        } finally {
+            this.carregarRecebimentos();
+        }
     }//GEN-LAST:event_jbExcluirActionPerformed
+
+    private void jbVoltarDividasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbVoltarDividasActionPerformed
+        new ViewPrincipal().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jbVoltarDividasActionPerformed
+
+    private void jbVoltar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbVoltar1ActionPerformed
+        new ViewPrincipal().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jbVoltar1ActionPerformed
+
+    private void jbVoltar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbVoltar2ActionPerformed
+        new ViewPrincipal().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jbVoltar2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -716,7 +761,7 @@ public class ViewDividas extends javax.swing.JFrame {
 
     private void carregarRecebimentos() {
         //atribui os valores retornados a uma lista
-        listaModelRecebimentos = controllerRecebimentos.retornarListaRecebimentosController(); 
+        listaModelRecebimentos = controllerRecebimentos.retornarListaRecebimentosController();
         DefaultTableModel modelo = (DefaultTableModel) jTableHistorico.getModel();
 
         //Cada vez que o metodo é chamado, a tabela é zerada as linhas - evita dados repetidos na tela
@@ -736,6 +781,10 @@ public class ViewDividas extends javax.swing.JFrame {
             });
         }
 
+    }
+
+    public String format(double x) {
+        return String.format("%.2f", x);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

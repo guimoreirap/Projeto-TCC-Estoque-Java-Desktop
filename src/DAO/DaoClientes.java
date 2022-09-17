@@ -161,7 +161,7 @@ public class DaoClientes extends ConexaoMySql{
                     + "cli_uf,"
                     + "cli_cep,"
                     + "cli_telefone "
-                    + "FROM tbl_cliente;");
+                    + "FROM tbl_cliente ORDER BY cli_nome;");
             while(this.getResultSet().next()){
                 modelClientes = new ModelClientes();
                 modelClientes.setIdCliente(this.getResultSet().getInt(1));

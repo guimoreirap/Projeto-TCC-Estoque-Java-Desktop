@@ -49,7 +49,7 @@ public class DaoRecebimentos extends ConexaoMySql {
                     + "rec_data,"
                     + "rec_valor,"
                     + "rec_metodo "
-                    + "FROM tbl_recebimento ORDER BY pk_id_recebimento DESC;");
+                    + "FROM tbl_recebimento ORDER BY pk_id_recebimento ASC;");
             while (this.getResultSet().next()) {
                 modelRecebimentos = new ModelRecebimentos();
                 modelRecebimentos.setRecId(this.getResultSet().getInt(1));
@@ -68,5 +68,19 @@ public class DaoRecebimentos extends ConexaoMySql {
         }
 
         return listaModelRecebimentos;
+    }
+    
+    public boolean excluirRecebimentoDAO(int pIdRecebimento) {
+        try {
+            this.conectar();
+            return this.executarUpdateDeleteSQL(
+                    "DELETE FROM tbl_recebimento WHERE pk_id_recebimento  = '" + pIdRecebimento + "';");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            this.fecharConexao();
+        }
+
     }
 }

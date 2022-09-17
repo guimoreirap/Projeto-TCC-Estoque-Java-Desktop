@@ -119,7 +119,7 @@ public class DaoVendas extends ConexaoMySql {
                     + "ven_valor_liquido, "
                     + "ven_valor_bruto, "
                     + "ven_desconto "
-                    + "FROM tbl_vendas;");
+                    + "FROM tbl_vendas ORDER BY fk_cliente;");
             while (this.getResultSet().next()) {
                 modelVendas.setVenId(this.getResultSet().getInt(1));
                 modelVendas.setCliente(this.getResultSet().getInt(2));

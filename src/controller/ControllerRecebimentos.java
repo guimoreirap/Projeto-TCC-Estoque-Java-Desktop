@@ -19,6 +19,10 @@ public class ControllerRecebimentos {
         return this.daoRecebimentos.salvarRecebimentoDAO(modelRecebimentos);
     }
     
+    public boolean excluirRecebimentoController(int pCodigo) {
+        return this.daoRecebimentos.excluirRecebimentoDAO(pCodigo);
+    }
+    
     //recebe requisição de retornar produtos de DAO
     public ArrayList<ModelRecebimentos> retornarListaRecebimentosController(){
         return this.daoRecebimentos.retornarListaRecebimentosDAO();

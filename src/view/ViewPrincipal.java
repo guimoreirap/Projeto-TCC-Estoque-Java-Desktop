@@ -35,6 +35,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
         jMenuMovimentações = new javax.swing.JMenu();
         jmiVendas = new javax.swing.JMenuItem();
         jmiPagamentos = new javax.swing.JMenuItem();
+        jmiRecebimentos = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -97,6 +98,14 @@ public class ViewPrincipal extends javax.swing.JFrame {
         });
         jMenuMovimentações.add(jmiPagamentos);
 
+        jmiRecebimentos.setText("Dívidas / Recebimentos");
+        jmiRecebimentos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiRecebimentosActionPerformed(evt);
+            }
+        });
+        jMenuMovimentações.add(jmiRecebimentos);
+
         jMenuBar1.add(jMenuMovimentações);
 
         setJMenuBar(jMenuBar1);
@@ -143,6 +152,11 @@ public class ViewPrincipal extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_jmiVendasActionPerformed
 
+    private void jmiRecebimentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiRecebimentosActionPerformed
+        new ViewDividas().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jmiRecebimentosActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -186,6 +200,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmiCliente;
     private javax.swing.JMenuItem jmiPagamentos;
     private javax.swing.JMenuItem jmiProduto;
+    private javax.swing.JMenuItem jmiRecebimentos;
     private javax.swing.JMenuItem jmiUsuario;
     private javax.swing.JMenuItem jmiVendas;
     private componentes.UJPanelImagem uJPanelImagem1;
