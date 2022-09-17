@@ -36,4 +36,37 @@ public class DaoRecebimentos extends ConexaoMySql {
             this.fecharConexao();
         }
     }
+
+    public ArrayList<ModelRecebimentos> retornarListaRecebimentosDAO() {
+        ArrayList<ModelRecebimentos> listaModelRecebimentos = new ArrayList<>();
+        ModelRecebimentos modelRecebimentos = new ModelRecebimentos();
+        try {
+            this.conectar();
+            this.executarSQL("SELECT "
+                    + "pk_id_recebimento,"
+                    + "fk_venda,"
+                    + "fk_cliente,"
+                    + "rec_data,"
+                    + "rec_valor,"
+                    + "rec_metodo "
+                    + "FROM tbl_recebimento ORDER BY pk_id_recebimento DESC;");
+            while (this.getResultSet().next()) {
+                modelRecebimentos = new ModelRecebimentos();
+                modelRecebimentos.setRecId(this.getResultSet().getInt(1));
+                modelRecebimentos.setRecVenda(this.getResultSet().getInt(2));
+                modelRecebimentos.setRecCliente(this.getResultSet().getInt(3));
+                modelRecebimentos.setRecData(this.getResultSet().getDate(4));
+                modelRecebimentos.setRecValor(this.getResultSet().getDouble(5));
+                modelRecebimentos.setRecMetodo(this.getResultSet().getString(6));
+                listaModelRecebimentos.add(modelRecebimentos);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            this.fecharConexao();
+        }
+
+        return listaModelRecebimentos;
+    }
 }

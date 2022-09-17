@@ -5,6 +5,7 @@
 package controller;
 
 import DAO.DaoRecebimentos;
+import java.util.ArrayList;
 import model.ModelRecebimentos;
 
 /**
@@ -16,6 +17,11 @@ public class ControllerRecebimentos {
     
     public int salvarRecebimento(ModelRecebimentos modelRecebimentos) {
         return this.daoRecebimentos.salvarRecebimentoDAO(modelRecebimentos);
+    }
+    
+    //recebe requisição de retornar produtos de DAO
+    public ArrayList<ModelRecebimentos> retornarListaRecebimentosController(){
+        return this.daoRecebimentos.retornarListaRecebimentosDAO();
     }
     
 }

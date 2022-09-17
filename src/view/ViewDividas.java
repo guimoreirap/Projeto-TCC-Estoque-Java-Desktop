@@ -33,6 +33,7 @@ public class ViewDividas extends javax.swing.JFrame {
 
     ModelRecebimentos modelRecebimentos = new ModelRecebimentos();
     ControllerRecebimentos controllerRecebimentos = new ControllerRecebimentos();
+    ArrayList<ModelRecebimentos> listaModelRecebimentos = new ArrayList<>();
 
     ControllerVendasCliente controllerVendasCliente = new ControllerVendasCliente();
     ArrayList<ModelVendasCliente> listaModelVendasCliente = new ArrayList<>();
@@ -49,6 +50,7 @@ public class ViewDividas extends javax.swing.JFrame {
     public ViewDividas() {
         initComponents();
         this.listarClientes();
+        this.carregarRecebimentos();
     }
 
     /**
@@ -60,6 +62,7 @@ public class ViewDividas extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenu1 = new javax.swing.JMenu();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
         jbRealizarRecebimento = new javax.swing.JButton();
@@ -71,7 +74,7 @@ public class ViewDividas extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jtfCodigo = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        jbVoltar = new javax.swing.JButton();
+        jbVoltarDividas = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jbVoltar1 = new javax.swing.JButton();
@@ -96,6 +99,14 @@ public class ViewDividas extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         jtfValorReceber = new javax.swing.JTextField();
         jbCompletarValorRestante = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTableHistorico = new javax.swing.JTable();
+        jbVoltar2 = new javax.swing.JButton();
+        jbAlterar = new javax.swing.JButton();
+        jbExcluir = new javax.swing.JButton();
+
+        jMenu1.setText("jMenu1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Dívidas");
@@ -142,7 +153,7 @@ public class ViewDividas extends javax.swing.JFrame {
 
         jLabel1.setText("Código");
 
-        jbVoltar.setText("Voltar");
+        jbVoltarDividas.setText("Voltar");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -152,12 +163,6 @@ public class ViewDividas extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jbRealizarRecebimento)
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 427, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(jtfValorTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGap(28, 28, 28)
@@ -170,15 +175,23 @@ public class ViewDividas extends javax.swing.JFrame {
                                     .addComponent(jcbCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGap(27, 27, 27)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 576, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addComponent(jbVoltar))
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 576, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addGap(427, 427, 427)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jbRealizarRecebimento)
+                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                    .addComponent(jLabel3)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(jtfValorTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addComponent(jbVoltarDividas))
                 .addContainerGap(25, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(7, 7, 7)
-                .addComponent(jbVoltar)
+                .addComponent(jbVoltarDividas)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
@@ -195,7 +208,7 @@ public class ViewDividas extends javax.swing.JFrame {
                     .addComponent(jtfValorTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jbRealizarRecebimento)
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Dívidas", jPanel2);
@@ -345,7 +358,7 @@ public class ViewDividas extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jtfCodigoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jtfCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jtfData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -396,6 +409,80 @@ public class ViewDividas extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Recebimento", jPanel3);
 
+        jTableHistorico.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Data", "Código", "Código da venda", "Cliente", "Método", "Valor"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(jTableHistorico);
+        if (jTableHistorico.getColumnModel().getColumnCount() > 0) {
+            jTableHistorico.getColumnModel().getColumn(2).setMinWidth(130);
+            jTableHistorico.getColumnModel().getColumn(2).setPreferredWidth(130);
+        }
+
+        jbVoltar2.setText("Voltar");
+
+        jbAlterar.setText("Alterar");
+        jbAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbAlterarActionPerformed(evt);
+            }
+        });
+
+        jbExcluir.setText("Excluir");
+        jbExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbExcluirActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(37, 37, 37)
+                .addComponent(jbExcluir)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jbAlterar)
+                .addGap(47, 47, 47))
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jbVoltar2))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 578, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(32, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jbVoltar2)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jbExcluir)
+                    .addComponent(jbAlterar))
+                .addGap(19, 19, 19))
+        );
+
+        jTabbedPane1.addTab("Histórico", jPanel4);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -411,20 +498,13 @@ public class ViewDividas extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jcbClientePopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_jcbClientePopupMenuWillBecomeInvisible
-        if (jcbCliente.isPopupVisible()) {
-            this.carregarComboBoxClientes();
-        }
-    }//GEN-LAST:event_jcbClientePopupMenuWillBecomeInvisible
+    private void jbCompletarValorRestanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCompletarValorRestanteActionPerformed
+        jtfValorReceber.setText(String.valueOf(jtDividas.getValueAt(linha, 4)));
+    }//GEN-LAST:event_jbCompletarValorRestanteActionPerformed
 
-    private void jtfCodigoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfCodigoFocusLost
-        this.setComboBoxCliente();
-        this.carregarVendas();
-    }//GEN-LAST:event_jtfCodigoFocusLost
-
-    private void jtfCodigoClienteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfCodigoClienteFocusLost
-
-    }//GEN-LAST:event_jtfCodigoClienteFocusLost
+    private void jtfCodigoVendaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfCodigoVendaFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtfCodigoVendaFocusLost
 
     private void jbEfetuarRecebimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEfetuarRecebimentoActionPerformed
         try {
@@ -456,12 +536,34 @@ public class ViewDividas extends javax.swing.JFrame {
             jtfCodigo.requestFocus();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Não foi possível efetuar recebimento.", "ERRO", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
         }
     }//GEN-LAST:event_jbEfetuarRecebimentoActionPerformed
 
-    private void jtfCodigoVendaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfCodigoVendaFocusLost
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jtfCodigoVendaFocusLost
+    private void jbCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCancelarActionPerformed
+        this.limparCamposRecebimento();
+        jTabbedPane1.setSelectedIndex(0);
+    }//GEN-LAST:event_jbCancelarActionPerformed
+
+    private void jtfCodigoClienteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfCodigoClienteFocusLost
+
+    }//GEN-LAST:event_jtfCodigoClienteFocusLost
+
+    private void jtfCodigoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfCodigoFocusLost
+        this.setComboBoxCliente();
+        this.carregarVendas();
+    }//GEN-LAST:event_jtfCodigoFocusLost
+
+    private void jtfCodigoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfCodigoFocusGained
+        this.setComboBoxCliente();
+        this.carregarVendas();
+    }//GEN-LAST:event_jtfCodigoFocusGained
+
+    private void jcbClientePopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_jcbClientePopupMenuWillBecomeInvisible
+        if (jcbCliente.isPopupVisible()) {
+            this.carregarComboBoxClientes();
+        }
+    }//GEN-LAST:event_jcbClientePopupMenuWillBecomeInvisible
 
     private void jbRealizarRecebimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbRealizarRecebimentoActionPerformed
         //Ao clicar aqui, os dados da venda selecionada será passada para a tab Recebimento para inserir o recebimento
@@ -491,19 +593,13 @@ public class ViewDividas extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jbRealizarRecebimentoActionPerformed
 
-    private void jbCompletarValorRestanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCompletarValorRestanteActionPerformed
-        jtfValorReceber.setText(String.valueOf(jtDividas.getValueAt(linha, 4)));
-    }//GEN-LAST:event_jbCompletarValorRestanteActionPerformed
+    private void jbAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAlterarActionPerformed
 
-    private void jbCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCancelarActionPerformed
-        this.limparCamposRecebimento();
-        jTabbedPane1.setSelectedIndex(0);
-    }//GEN-LAST:event_jbCancelarActionPerformed
+    }//GEN-LAST:event_jbAlterarActionPerformed
 
-    private void jtfCodigoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfCodigoFocusGained
-        this.setComboBoxCliente();
-        this.carregarVendas();
-    }//GEN-LAST:event_jtfCodigoFocusGained
+    private void jbExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbExcluirActionPerformed
+
+    }//GEN-LAST:event_jbExcluirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -569,6 +665,7 @@ public class ViewDividas extends javax.swing.JFrame {
             //pega o nome do cliente e adiciona no combo box ao tirar o foco do campo COd. Cliente
             jcbCliente.setSelectedItem(modelCliente.getCliNome());
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -582,7 +679,9 @@ public class ViewDividas extends javax.swing.JFrame {
         int cont = listaModelVendasCliente.size();
 
         for (int i = 0; i < cont; i++) {
-            if (listaModelVendasCliente.get(i).getModelVendas().getVenValorLiquido() >= listaModelVendasCliente.
+            //Verifica se a venda possui alguma pendencia em pagamento, caso ela foi totalmente paga o sistema
+            //não irá mostrar ela ao usuário
+            if (listaModelVendasCliente.get(i).getModelVendas().getVenValorLiquido() > listaModelVendasCliente.
                     get(i).getModelVendas().getVenValorRecebido()) {
                 modelo.addRow(new Object[]{
                     listaModelVendasCliente.get(i).getModelVendas().getVenId(),
@@ -615,6 +714,30 @@ public class ViewDividas extends javax.swing.JFrame {
         jtfValorReceber.setText("");
     }
 
+    private void carregarRecebimentos() {
+        //atribui os valores retornados a uma lista
+        listaModelRecebimentos = controllerRecebimentos.retornarListaRecebimentosController(); 
+        DefaultTableModel modelo = (DefaultTableModel) jTableHistorico.getModel();
+
+        //Cada vez que o metodo é chamado, a tabela é zerada as linhas - evita dados repetidos na tela
+        modelo.setNumRows(0);
+
+        //inserir produtos na tabela
+        int count = listaModelRecebimentos.size(); //pega o tamanho da lista pra percorrer todos os dados dela
+        for (int i = 0; i < count; i++) {
+            modelo.addRow(new Object[]{ //adiciona uma linha 
+                //passa o que cada coluna da linha apresentará em ordem
+                listaModelRecebimentos.get(i).getRecData(),
+                listaModelRecebimentos.get(i).getRecId(),
+                listaModelRecebimentos.get(i).getRecVenda(),
+                listaModelRecebimentos.get(i).getRecCliente(),
+                listaModelRecebimentos.get(i).getRecMetodo(),
+                listaModelRecebimentos.get(i).getRecValor()
+            });
+        }
+
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -628,17 +751,24 @@ public class ViewDividas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTable jTableHistorico;
+    private javax.swing.JButton jbAlterar;
     private javax.swing.JButton jbCancelar;
     private javax.swing.JButton jbCompletarValorRestante;
     private javax.swing.JButton jbEfetuarRecebimento;
+    private javax.swing.JButton jbExcluir;
     private javax.swing.JButton jbRealizarRecebimento;
-    private javax.swing.JButton jbVoltar;
     private javax.swing.JButton jbVoltar1;
+    private javax.swing.JButton jbVoltar2;
+    private javax.swing.JButton jbVoltarDividas;
     private javax.swing.JComboBox<String> jcMetodoPagamento;
     private componentes.UJComboBox jcbCliente;
     private javax.swing.JTable jtDividas;
