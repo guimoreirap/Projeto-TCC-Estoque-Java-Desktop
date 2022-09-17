@@ -87,6 +87,7 @@ public class DaoVendas extends ConexaoMySql {
                     + "ven_data_venda,"
                     + "ven_valor_liquido, "
                     + "ven_valor_bruto, "
+                    + "ven_valor_recebido, "
                     + "ven_desconto "
                     + "FROM tbl_vendas WHERE pk_id_venda = '" + pIdVenda + "';");
             while (this.getResultSet().next()) {
@@ -95,7 +96,8 @@ public class DaoVendas extends ConexaoMySql {
                 modelVendas.setVenDataVenda(this.getResultSet().getDate(3));
                 modelVendas.setVenValorLiquido(this.getResultSet().getDouble(4));
                 modelVendas.setVenValorBruto(this.getResultSet().getDouble(5));
-                modelVendas.setVenValorDesconto(this.getResultSet().getDouble(6));
+                modelVendas.setVenValorRecebido(this.getResultSet().getDouble(6));
+                modelVendas.setVenValorDesconto(this.getResultSet().getDouble(7));
             }
 
         } catch (Exception e) {
@@ -146,6 +148,22 @@ public class DaoVendas extends ConexaoMySql {
                     + "UPDATE tbl_vendas SET "
                     + "ven_valor_recebido = '" + pModelVendas.getVenValorRecebido() + "'"
                     + " WHERE pk_id_venda = '" + pModelVendas.getVenId() + "';");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            this.fecharConexao();
+        }
+    }
+    
+    public boolean alterarValorRecebimentoEmVendaDAO(double valorLiquido, double valorRecebido, int idVenda) {
+        try {
+            this.conectar();
+            return this.executarUpdateDeleteSQL(""
+                    + "UPDATE tbl_vendas SET "
+                    + "ven_valor_liquido = '" + valorLiquido + "',"
+                    + "ven_valor_recebido = '" + valorRecebido + "',"
+                    + " WHERE pk_id_venda = '" + idVenda + "';");
         } catch (Exception e) {
             e.printStackTrace();
             return false;

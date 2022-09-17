@@ -23,9 +23,17 @@ public class ControllerRecebimentos {
         return this.daoRecebimentos.excluirRecebimentoDAO(pCodigo);
     }
     
+    public boolean alterarRecebimentoController(ModelRecebimentos pModelPagamentos) {
+        return this.daoRecebimentos.alterarRecebimentoDAO(pModelPagamentos);
+    }
+    
     //recebe requisição de retornar produtos de DAO
     public ArrayList<ModelRecebimentos> retornarListaRecebimentosController(){
         return this.daoRecebimentos.retornarListaRecebimentosDAO();
+    }
+
+    public ModelRecebimentos retornarRecebimentoController(int codigoPagamento) {
+        return this.daoRecebimentos.retornarRecebimentoDAO(codigoPagamento);
     }
     
 }

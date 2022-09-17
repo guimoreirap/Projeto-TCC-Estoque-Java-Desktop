@@ -437,8 +437,16 @@ public class ViewDividas extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(jTableHistorico);
         if (jTableHistorico.getColumnModel().getColumnCount() > 0) {
-            jTableHistorico.getColumnModel().getColumn(2).setMinWidth(130);
-            jTableHistorico.getColumnModel().getColumn(2).setPreferredWidth(130);
+            jTableHistorico.getColumnModel().getColumn(1).setMinWidth(70);
+            jTableHistorico.getColumnModel().getColumn(1).setPreferredWidth(70);
+            jTableHistorico.getColumnModel().getColumn(2).setMinWidth(90);
+            jTableHistorico.getColumnModel().getColumn(2).setPreferredWidth(90);
+            jTableHistorico.getColumnModel().getColumn(3).setMinWidth(150);
+            jTableHistorico.getColumnModel().getColumn(3).setPreferredWidth(150);
+            jTableHistorico.getColumnModel().getColumn(4).setMinWidth(100);
+            jTableHistorico.getColumnModel().getColumn(4).setPreferredWidth(100);
+            jTableHistorico.getColumnModel().getColumn(5).setMinWidth(50);
+            jTableHistorico.getColumnModel().getColumn(5).setPreferredWidth(50);
         }
 
         jbVoltar2.setText("Voltar");
@@ -473,14 +481,13 @@ public class ViewDividas extends javax.swing.JFrame {
                 .addComponent(jbAlterar)
                 .addGap(47, 47, 47))
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jbVoltar2))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 578, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jbVoltar2)
+                .addContainerGap(567, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2)
+                .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -603,32 +610,65 @@ public class ViewDividas extends javax.swing.JFrame {
             jTabbedPane1.setSelectedIndex(1);
         } catch (Exception e) {
             e.printStackTrace();
-            jTabbedPane1.setSelectedIndex(1);;;
+            jTabbedPane1.setSelectedIndex(1);
             JOptionPane.showMessageDialog(this, "Erro inesperado.", "ERRO", JOptionPane.ERROR_MESSAGE);
 
         }
     }//GEN-LAST:event_jbRealizarRecebimentoActionPerformed
 
     private void jbAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAlterarActionPerformed
+        /*//this.salvarAlterar = "alterar";
 
+        int linha = this.jTableHistorico.getSelectedRow();
+        try {
+            jTabbedPane1.setSelectedIndex(1);
+            int codigoRecebimento = (int) this.jTableHistorico.getValueAt(linha, 1);
+
+            //recupera os dados do banco
+            modelRecebimentos = controllerRecebimentos.retornarRecebimentoController(codigoRecebimento);
+            modelCliente = controllerCliente.retornarClienteController(modelRecebimentos.getRecCliente());
+            modelVendas = controllerVenda.retornarVendaController(modelRecebimentos.getRecVenda());
+            
+            double valorRecebidoAntigo = modelVendas.getVenValorRecebido();
+            double valorRecebidoNovo = valorRecebidoAntigo - modelRecebimentos.getRecValor();
+            System.out.println("Valor Recebido Antigo : " + valorRecebidoAntigo + "\n"
+                    + "Valor Recebido Novo: " + valorRecebidoNovo);
+            
+            //atribui os valores das variaveis nos campos no formulario de Vendas
+            jtfCodigoVenda.setText(String.valueOf(modelRecebimentos.getRecVenda()));
+            jtfCodigoCliente.setText(String.valueOf(modelRecebimentos.getRecCliente()));
+            jtfCliente.setText(String.valueOf((modelCliente.getCliNome())));
+            jtfData.setText(String.valueOf(modelRecebimentos.getRecData()));
+            jtfValorVenda.setText(String.valueOf(modelVendas.getVenValorLiquido()));
+            jtfValorPago.setText(String.valueOf(valorRecebidoNovo));
+            jtfValorRestante.setText(String.valueOf(
+                    modelVendas.getVenValorLiquido() - modelVendas.getVenValorRecebido()));
+            jtfValorReceber.setText(String.valueOf(modelRecebimentos.getRecValor()));
+            
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(
+                    this, "Código inválido ou nenhum registro selecionado.", "ERRO", JOptionPane.ERROR_MESSAGE);
+        }*/
     }//GEN-LAST:event_jbAlterarActionPerformed
 
     private void jbExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbExcluirActionPerformed
-        //Exclui um produto no banco
+        /*//Exclui um produto no banco
         int linha = jTableHistorico.getSelectedRow();
         int codigoPagamento = (int) jTableHistorico.getValueAt(linha, 1);
 
         try {
             controllerRecebimentos.excluirRecebimentoController(codigoPagamento);
             JOptionPane.showMessageDialog(
-                    this, "Pagamento excluído com sucesso.", "ATENÇÃO", JOptionPane.WARNING_MESSAGE);
+                    this, "Recebimento excluído com sucesso.", "ATENÇÃO", JOptionPane.WARNING_MESSAGE);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(
-                    this, "Ocorreu um erro ao excluir o pagamento no banco de dados.", "ERRO", JOptionPane.ERROR_MESSAGE);
+                    this, "Ocorreu um erro ao excluir o recebimento no banco de dados.", "ERRO", JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
         } finally {
             this.carregarRecebimentos();
-        }
+        }*/
     }//GEN-LAST:event_jbExcluirActionPerformed
 
     private void jbVoltarDividasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbVoltarDividasActionPerformed
@@ -770,12 +810,15 @@ public class ViewDividas extends javax.swing.JFrame {
         //inserir produtos na tabela
         int count = listaModelRecebimentos.size(); //pega o tamanho da lista pra percorrer todos os dados dela
         for (int i = 0; i < count; i++) {
+            modelCliente = controllerCliente.retornarClienteController(listaModelRecebimentos.get(i).getRecCliente());
+            String cliente = modelCliente.getCliNome();
+            
             modelo.addRow(new Object[]{ //adiciona uma linha 
                 //passa o que cada coluna da linha apresentará em ordem
                 listaModelRecebimentos.get(i).getRecData(),
                 listaModelRecebimentos.get(i).getRecId(),
                 listaModelRecebimentos.get(i).getRecVenda(),
-                listaModelRecebimentos.get(i).getRecCliente(),
+                cliente,
                 listaModelRecebimentos.get(i).getRecMetodo(),
                 listaModelRecebimentos.get(i).getRecValor()
             });

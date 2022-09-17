@@ -69,7 +69,7 @@ public class DaoRecebimentos extends ConexaoMySql {
 
         return listaModelRecebimentos;
     }
-    
+
     public boolean excluirRecebimentoDAO(int pIdRecebimento) {
         try {
             this.conectar();
@@ -82,5 +82,53 @@ public class DaoRecebimentos extends ConexaoMySql {
             this.fecharConexao();
         }
 
+    }
+
+    public boolean alterarRecebimentoDAO(ModelRecebimentos pModelRecebimentos) {
+        try {
+            this.conectar();
+            return this.executarUpdateDeleteSQL(""
+                    + "UPDATE tbl_recebimento SET "
+                    + "rec_data = '" + pModelRecebimentos.getRecData() + "',"
+                    + "rec_valor = '" + pModelRecebimentos.getRecValor() + "',"
+                    + "rec_metodo = '" + pModelRecebimentos.getRecMetodo() + "'"
+                    + " WHERE pk_id_recebimento  = '" + pModelRecebimentos.getRecId() + "';");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            this.fecharConexao();
+        }
+    }
+
+    public ModelRecebimentos retornarRecebimentoDAO(int codigoRecebimento) {
+        ModelRecebimentos modelRecebimentos = new ModelRecebimentos();
+
+        try {
+            this.conectar();
+            this.executarSQL("SELECT "
+                    + "pk_id_recebimento,"
+                    + "fk_venda,"
+                    + "fk_cliente,"
+                    + "rec_data,"
+                    + "rec_valor,"
+                    + "rec_metodo "
+                    + "FROM tbl_recebimento WHERE pk_id_recebimento  = '" + codigoRecebimento + "';");
+            while (this.getResultSet().next()) {
+                modelRecebimentos.setRecId(this.getResultSet().getInt(1));
+                modelRecebimentos.setRecVenda(this.getResultSet().getInt(2));
+                modelRecebimentos.setRecCliente(this.getResultSet().getInt(3));
+                modelRecebimentos.setRecData(this.getResultSet().getDate(4));
+                modelRecebimentos.setRecValor(this.getResultSet().getDouble(5));
+                modelRecebimentos.setRecMetodo(this.getResultSet().getString(6));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            this.fecharConexao();
+        }
+
+        return modelRecebimentos;
     }
 }
