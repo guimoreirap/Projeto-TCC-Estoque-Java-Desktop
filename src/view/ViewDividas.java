@@ -103,8 +103,6 @@ public class ViewDividas extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         jTableHistorico = new javax.swing.JTable();
         jbVoltar2 = new javax.swing.JButton();
-        jbAlterar = new javax.swing.JButton();
-        jbExcluir = new javax.swing.JButton();
 
         jMenu1.setText("jMenu1");
 
@@ -456,30 +454,10 @@ public class ViewDividas extends javax.swing.JFrame {
             }
         });
 
-        jbAlterar.setText("Alterar");
-        jbAlterar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbAlterarActionPerformed(evt);
-            }
-        });
-
-        jbExcluir.setText("Excluir");
-        jbExcluir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbExcluirActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(37, 37, 37)
-                .addComponent(jbExcluir)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jbAlterar)
-                .addGap(47, 47, 47))
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jbVoltar2)
@@ -496,11 +474,7 @@ public class ViewDividas extends javax.swing.JFrame {
                 .addComponent(jbVoltar2)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jbExcluir)
-                    .addComponent(jbAlterar))
-                .addGap(19, 19, 19))
+                .addContainerGap(72, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Histórico", jPanel4);
@@ -615,61 +589,6 @@ public class ViewDividas extends javax.swing.JFrame {
 
         }
     }//GEN-LAST:event_jbRealizarRecebimentoActionPerformed
-
-    private void jbAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAlterarActionPerformed
-        /*//this.salvarAlterar = "alterar";
-
-        int linha = this.jTableHistorico.getSelectedRow();
-        try {
-            jTabbedPane1.setSelectedIndex(1);
-            int codigoRecebimento = (int) this.jTableHistorico.getValueAt(linha, 1);
-
-            //recupera os dados do banco
-            modelRecebimentos = controllerRecebimentos.retornarRecebimentoController(codigoRecebimento);
-            modelCliente = controllerCliente.retornarClienteController(modelRecebimentos.getRecCliente());
-            modelVendas = controllerVenda.retornarVendaController(modelRecebimentos.getRecVenda());
-            
-            double valorRecebidoAntigo = modelVendas.getVenValorRecebido();
-            double valorRecebidoNovo = valorRecebidoAntigo - modelRecebimentos.getRecValor();
-            System.out.println("Valor Recebido Antigo : " + valorRecebidoAntigo + "\n"
-                    + "Valor Recebido Novo: " + valorRecebidoNovo);
-            
-            //atribui os valores das variaveis nos campos no formulario de Vendas
-            jtfCodigoVenda.setText(String.valueOf(modelRecebimentos.getRecVenda()));
-            jtfCodigoCliente.setText(String.valueOf(modelRecebimentos.getRecCliente()));
-            jtfCliente.setText(String.valueOf((modelCliente.getCliNome())));
-            jtfData.setText(String.valueOf(modelRecebimentos.getRecData()));
-            jtfValorVenda.setText(String.valueOf(modelVendas.getVenValorLiquido()));
-            jtfValorPago.setText(String.valueOf(valorRecebidoNovo));
-            jtfValorRestante.setText(String.valueOf(
-                    modelVendas.getVenValorLiquido() - modelVendas.getVenValorRecebido()));
-            jtfValorReceber.setText(String.valueOf(modelRecebimentos.getRecValor()));
-            
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(
-                    this, "Código inválido ou nenhum registro selecionado.", "ERRO", JOptionPane.ERROR_MESSAGE);
-        }*/
-    }//GEN-LAST:event_jbAlterarActionPerformed
-
-    private void jbExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbExcluirActionPerformed
-        /*//Exclui um produto no banco
-        int linha = jTableHistorico.getSelectedRow();
-        int codigoPagamento = (int) jTableHistorico.getValueAt(linha, 1);
-
-        try {
-            controllerRecebimentos.excluirRecebimentoController(codigoPagamento);
-            JOptionPane.showMessageDialog(
-                    this, "Recebimento excluído com sucesso.", "ATENÇÃO", JOptionPane.WARNING_MESSAGE);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(
-                    this, "Ocorreu um erro ao excluir o recebimento no banco de dados.", "ERRO", JOptionPane.ERROR_MESSAGE);
-            e.printStackTrace();
-        } finally {
-            this.carregarRecebimentos();
-        }*/
-    }//GEN-LAST:event_jbExcluirActionPerformed
 
     private void jbVoltarDividasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbVoltarDividasActionPerformed
         new ViewPrincipal().setVisible(true);
@@ -852,11 +771,9 @@ public class ViewDividas extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTableHistorico;
-    private javax.swing.JButton jbAlterar;
     private javax.swing.JButton jbCancelar;
     private javax.swing.JButton jbCompletarValorRestante;
     private javax.swing.JButton jbEfetuarRecebimento;
-    private javax.swing.JButton jbExcluir;
     private javax.swing.JButton jbRealizarRecebimento;
     private javax.swing.JButton jbVoltar1;
     private javax.swing.JButton jbVoltar2;

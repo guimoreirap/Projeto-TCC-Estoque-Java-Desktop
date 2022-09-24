@@ -597,13 +597,14 @@ public class ViewVenda extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Insira uma quantia válida.\n", "ERRO", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-
+                 
             modelo.addRow(new Object[]{
                 modelProdutos.getIdProduto(),
                 modelProdutos.getProNome(),
                 jtfQuantidade.getText(),
                 modelProdutos.getProValor(),
-                quantidade * modelProdutos.getProValor()
+                //Utiliza um método para formatar o valor e não quebrar em muitos numeros após a virgula, apenas 2 numeros
+                Double.parseDouble(this.formatarValor(quantidade * modelProdutos.getProValor()))
             });
             this.somarValorTotalProdutos();
 
@@ -1028,6 +1029,10 @@ public class ViewVenda extends javax.swing.JFrame {
             jcbCliente.setSelectedItem(modelCliente.getCliNome());
         } catch (Exception e) {
         }
+    }
+    
+    private String formatarValor(Double valor) {
+        return String.format("%.2f", valor).replaceAll(",", ".");
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
