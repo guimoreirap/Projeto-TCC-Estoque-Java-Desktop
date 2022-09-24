@@ -4,10 +4,12 @@
  */
 package view;
 
+import controller.ControllerCaixa;
 import controller.ControllerPagamentos;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import model.ModelCaixa;
 import model.ModelPagamentos;
 import util.BLDatas;
 
@@ -23,6 +25,10 @@ public class ViewPagamentos extends javax.swing.JFrame {
     ArrayList<ModelPagamentos> listaModelPagamentos = new ArrayList<>();
     ControllerPagamentos controllerPagamentos = new ControllerPagamentos();
     ModelPagamentos modelPagamentos = new ModelPagamentos();
+    
+    ControllerCaixa controllerCaixa = new ControllerCaixa();
+    ModelCaixa modelCaixa = new ModelCaixa();
+    
     BLDatas blDatas = new BLDatas();
     String salvarAlterar = "salvar";
 
@@ -364,12 +370,23 @@ public class ViewPagamentos extends javax.swing.JFrame {
     private void salvarPagamento() {
         //pega os valores dos campos da interface e coloca dentro de cada atributo do objeto
         try {
+            //Passando os dados para dentro do modelPagamentos
             modelPagamentos.setPagEmpresa(this.jtfEmpresa.getText());
             modelPagamentos.setPagMetodo(this.jcbMetodo.getSelectedItem().toString());
             modelPagamentos.setPagValor(Double.parseDouble(this.jtfValor.getText().replaceAll(",", ".")));
             modelPagamentos.setPagData(blDatas.converterDataParaDateUS(new java.util.Date(
                     System.currentTimeMillis())));
+            
+            //Passando os dados para dentro do modelCaixa
+            modelCaixa.setCaixaMovimentacao("Pagamento");
+            modelCaixa.setCaixaData(blDatas.converterDataParaDateUS(new java.util.Date(
+                    System.currentTimeMillis())));
+            modelCaixa.setCaixaValor(Double.parseDouble(this.jtfValor.getText().replaceAll(",", ".")));
+            modelCaixa.setCaixaAtor(this.jtfEmpresa.getText());
+            
+            //Controller chama um método de DAO para salvar os dados no banco de dados
             controllerPagamentos.salvarPagamentoController(modelPagamentos);
+            controllerCaixa.salvarCaixaController(modelCaixa);
             JOptionPane.showMessageDialog(
                     this, "Pagamento registrado com sucesso.", "ATENÇÃO", JOptionPane.WARNING_MESSAGE);
         } catch (Exception e) {

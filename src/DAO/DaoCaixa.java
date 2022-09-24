@@ -18,14 +18,14 @@ public class DaoCaixa extends ConexaoMySql{
             this.conectar();
             return this.insertSQL("INSERT INTO tbl_caixa("
                     + "cai_movimentacao,"
+                    + "cai_ator,"
                     + "cai_data,"
-                    + "cai_valor,"
-                    + "cai_id_movimentacao"
+                    + "cai_valor"
                     + ") VALUES ("
                     + "'" + pModelCaixa.getCaixaMovimentacao()+ "',"
+                    + "'" + pModelCaixa.getCaixaAtor()+ "',"
                     + "'" + pModelCaixa.getCaixaData()+ "',"
-                    + "'" + pModelCaixa.getCaixaValor()+ "',"
-                    + "'" + pModelCaixa.getCaixaIdMovimentacao()+ "');");
+                    + "'" + pModelCaixa.getCaixaValor()+ "');");
         } catch (Exception e) {
             e.printStackTrace();
             return 0;
@@ -42,17 +42,17 @@ public class DaoCaixa extends ConexaoMySql{
             this.executarSQL("SELECT "
                     + "pk_id_caixa ,"
                     + "cai_movimentacao,"
+                    + "cai_ator,"
                     + "cai_data,"
-                    + "cai_valor,"
-                    + "cai_id_movimentacao "
+                    + "cai_valor "
                     + "FROM tbl_caixa ORDER BY cai_data ASC;");
             while (this.getResultSet().next()) {
                 modelCaixa = new ModelCaixa();
                 modelCaixa.setCaixaId(this.getResultSet().getInt(1));
                 modelCaixa.setCaixaMovimentacao(this.getResultSet().getString(2));
-                modelCaixa.setCaixaData(this.getResultSet().getDate(3));
-                modelCaixa.setCaixaValor(this.getResultSet().getDouble(4));
-                modelCaixa.setCaixaIdMovimentacao(this.getResultSet().getInt(5));
+                modelCaixa.setCaixaAtor(this.getResultSet().getString(3));
+                modelCaixa.setCaixaData(this.getResultSet().getDate(4));
+                modelCaixa.setCaixaValor(this.getResultSet().getDouble(5));
                 listaModelCaixa.add(modelCaixa);
             }
 

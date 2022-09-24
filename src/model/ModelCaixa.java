@@ -12,9 +12,9 @@ import java.util.Date;
  */
 public class ModelCaixa {
     private int caixaId;
-    private int caixaIdMovimentacao;
     private Date caixaData;
     private String caixaMovimentacao;
+    private String caixaAtor;
     private double caixaValor;
 
     public Date getCaixaData() {
@@ -33,14 +33,6 @@ public class ModelCaixa {
         this.caixaMovimentacao = caixaMovimentacao;
     }
 
-    public int getCaixaIdMovimentacao() {
-        return caixaIdMovimentacao;
-    }
-
-    public void setCaixaIdMovimentacao(int caixaId) {
-        this.caixaIdMovimentacao = caixaId;
-    }
-
     public double getCaixaValor() {
         return caixaValor;
     }
@@ -55,6 +47,14 @@ public class ModelCaixa {
 
     public void setCaixaId(int caixaId) {
         this.caixaId = caixaId;
+    }
+
+    public String getCaixaAtor() {
+        return caixaAtor;
+    }
+
+    public void setCaixaAtor(String caixaAtor) {
+        this.caixaAtor = caixaAtor;
     }
     
     
