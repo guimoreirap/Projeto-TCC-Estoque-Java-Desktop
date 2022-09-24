@@ -4,6 +4,7 @@
  */
 package view;
 
+import controller.ControllerCaixa;
 import controller.ControllerClientes;
 import controller.ControllerRecebimentos;
 import controller.ControllerVendas;
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import model.ModelCaixa;
 import model.ModelClientes;
 import model.ModelRecebimentos;
 import model.ModelVendas;
@@ -26,6 +28,9 @@ public class ViewDividas extends javax.swing.JFrame {
 
     ModelVendas modelVendas = new ModelVendas();
     ControllerVendas controllerVenda = new ControllerVendas();
+    
+    ModelCaixa modelCaixa = new ModelCaixa();
+    ControllerCaixa controllerCaixa = new ControllerCaixa();
 
     ModelClientes modelCliente = new ModelClientes();
     ControllerClientes controllerCliente = new ControllerClientes();
@@ -519,8 +524,19 @@ public class ViewDividas extends javax.swing.JFrame {
             modelRecebimentos.setRecData(bLDatas.converterDataParaDateUS(new java.util.Date(System.currentTimeMillis())));
             modelRecebimentos.setRecMetodo(jcMetodoPagamento.getSelectedItem().toString());
             modelRecebimentos.setRecValor(Double.parseDouble(jtfValorReceber.getText()));
+            
+            
+            
+            //Passando os dados para dentro do modelCaixa
+            modelCaixa.setCaixaMovimentacao("Recebimento");
+            modelCaixa.setCaixaData(bLDatas.converterDataParaDateUS(new java.util.Date(System.currentTimeMillis())));
+            modelCaixa.setCaixaValor(Double.parseDouble(jtfValorReceber.getText().replaceAll(",", ".")));
+            //Aqui o controllerCliente está retornando o cliente do banco de dados e pegando seu nome para atribuir ao ator
+            modelCaixa.setCaixaAtor(controllerCliente.retornarClienteController(
+                    Integer.parseInt(jtfCodigoCliente.getText())).getCliNome());
 
-            //controllerRecebimentos insere um novo recebimento no banco de dados
+            //controller efetua os inserts dentro do banco de dados
+            controllerCaixa.salvarCaixaController(modelCaixa);
             controllerRecebimentos.salvarRecebimento(modelRecebimentos);
             JOptionPane.showMessageDialog(this, "Recebimento efetuado com sucesso.", "AVISO", JOptionPane.WARNING_MESSAGE);
 
