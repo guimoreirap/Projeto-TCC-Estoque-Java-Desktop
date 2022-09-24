@@ -692,13 +692,16 @@ public class ViewDividas extends javax.swing.JFrame {
                     listaModelVendasCliente.get(i).getModelVendas().getVenDataVenda(),
                     listaModelVendasCliente.get(i).getModelVendas().getVenValorLiquido(),
                     listaModelVendasCliente.get(i).getModelVendas().getVenValorRecebido(),
-                    listaModelVendasCliente.get(i).getModelVendas().getVenValorLiquido()
-                    - listaModelVendasCliente.get(i).getModelVendas().getVenValorRecebido()
+                    //Utiliza um método para formatar o valor e não quebrar em muitos numeros após a virgula, apenas 2 numeros
+                    Double.parseDouble(this.formatarValor(
+                        listaModelVendasCliente.get(i).getModelVendas().getVenValorLiquido()
+                        - listaModelVendasCliente.get(i).getModelVendas().getVenValorRecebido()))
                 });
 
             }
-            this.valorTotal += listaModelVendasCliente.get(i).getModelVendas().getVenValorLiquido()
-                    - listaModelVendasCliente.get(i).getModelVendas().getVenValorRecebido();
+            this.valorTotal += Double.parseDouble(this.formatarValor(
+                                    listaModelVendasCliente.get(i).getModelVendas().getVenValorLiquido()
+                                    - listaModelVendasCliente.get(i).getModelVendas().getVenValorRecebido()));
         }
         this.somarValorTotal();
     }
@@ -731,7 +734,7 @@ public class ViewDividas extends javax.swing.JFrame {
         for (int i = 0; i < count; i++) {
             modelCliente = controllerCliente.retornarClienteController(listaModelRecebimentos.get(i).getRecCliente());
             String cliente = modelCliente.getCliNome();
-            
+
             modelo.addRow(new Object[]{ //adiciona uma linha 
                 //passa o que cada coluna da linha apresentará em ordem
                 listaModelRecebimentos.get(i).getRecData(),
@@ -745,8 +748,8 @@ public class ViewDividas extends javax.swing.JFrame {
 
     }
 
-    public String format(double x) {
-        return String.format("%.2f", x);
+    private String formatarValor(Double valor) {
+        return String.format("%.2f", valor).replaceAll(",", ".");
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
