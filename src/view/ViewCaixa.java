@@ -24,7 +24,7 @@ public class ViewCaixa extends javax.swing.JFrame {
     
     public ViewCaixa() {
         initComponents();
-        this.carregarPagamentos();
+        this.carregarFluxoCaixa();
     }
 
     /**
@@ -45,11 +45,18 @@ public class ViewCaixa extends javax.swing.JFrame {
         jComboBox1 = new javax.swing.JComboBox<>();
         jTextField1 = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jtfValorLiquido = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Caixa");
 
         jButton1.setText("Voltar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jtCaixa.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -105,6 +112,10 @@ public class ViewCaixa extends javax.swing.JFrame {
                 .addContainerGap(46, Short.MAX_VALUE))
         );
 
+        jLabel4.setText("Valor líquido:");
+
+        jtfValorLiquido.setEditable(false);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -115,11 +126,15 @@ public class ViewCaixa extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(jButton1))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(61, 61, 61)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 525, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(68, Short.MAX_VALUE))
+                        .addGap(22, 22, 22)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 520, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel4)
+                                .addComponent(jtfValorLiquido, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -128,14 +143,23 @@ public class ViewCaixa extends javax.swing.JFrame {
                 .addComponent(jButton1)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37))
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jtfValorLiquido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        new ViewPrincipal().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -172,10 +196,11 @@ public class ViewCaixa extends javax.swing.JFrame {
         });
     }
     
-    private void carregarPagamentos() {
+    private void carregarFluxoCaixa() {
         listaModelCaixa = controllerCaixa.retornarListaCaixaController(); //atribui os valores retornados a uma lista
         DefaultTableModel modelo = (DefaultTableModel) jtCaixa.getModel();
-
+        double valorLiquidoCaixa = 0;
+        
         //Cada vez que o metodo é chamado, a tabela é zerada as linhas - evita dados repetidos na tela
         modelo.setNumRows(0);
 
@@ -189,7 +214,18 @@ public class ViewCaixa extends javax.swing.JFrame {
                 listaModelCaixa.get(i).getCaixaAtor(),
                 listaModelCaixa.get(i).getCaixaValor()
             });
+            if(listaModelCaixa.get(i).getCaixaMovimentacao().equalsIgnoreCase("Pagamento")){
+                valorLiquidoCaixa -= listaModelCaixa.get(i).getCaixaValor();
+            } else if(listaModelCaixa.get(i).getCaixaMovimentacao().equalsIgnoreCase("Recebimento")){
+                valorLiquidoCaixa += listaModelCaixa.get(i).getCaixaValor();
+            }
         }
+        
+        this.jtfValorLiquido.setText(formatarValor(valorLiquidoCaixa));
+    }
+    
+    private String formatarValor(Double valor) {
+        return String.format("%.2f", valor).replaceAll(",", ".");
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -198,9 +234,11 @@ public class ViewCaixa extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTable jtCaixa;
+    private javax.swing.JTextField jtfValorLiquido;
     // End of variables declaration//GEN-END:variables
 }

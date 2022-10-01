@@ -45,7 +45,7 @@ public class DaoCaixa extends ConexaoMySql{
                     + "cai_ator,"
                     + "cai_data,"
                     + "cai_valor "
-                    + "FROM tbl_caixa ORDER BY cai_data ASC;");
+                    + "FROM tbl_caixa ORDER BY cai_data DESC;");
             while (this.getResultSet().next()) {
                 modelCaixa = new ModelCaixa();
                 modelCaixa.setCaixaId(this.getResultSet().getInt(1));
