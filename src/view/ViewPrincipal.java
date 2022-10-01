@@ -36,6 +36,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
         jmiVendas = new javax.swing.JMenuItem();
         jmiPagamentos = new javax.swing.JMenuItem();
         jmiRecebimentos = new javax.swing.JMenuItem();
+        jmiRecebimentos1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -90,7 +91,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
         });
         jMenuMovimentações.add(jmiVendas);
 
-        jmiPagamentos.setText("Compras / Pagamentos");
+        jmiPagamentos.setText("Contas a pagar");
         jmiPagamentos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmiPagamentosActionPerformed(evt);
@@ -98,13 +99,21 @@ public class ViewPrincipal extends javax.swing.JFrame {
         });
         jMenuMovimentações.add(jmiPagamentos);
 
-        jmiRecebimentos.setText("Dívidas / Recebimentos");
+        jmiRecebimentos.setText("Contas a receber");
         jmiRecebimentos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmiRecebimentosActionPerformed(evt);
             }
         });
         jMenuMovimentações.add(jmiRecebimentos);
+
+        jmiRecebimentos1.setText("Caixa");
+        jmiRecebimentos1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiRecebimentos1ActionPerformed(evt);
+            }
+        });
+        jMenuMovimentações.add(jmiRecebimentos1);
 
         jMenuBar1.add(jMenuMovimentações);
 
@@ -157,6 +166,11 @@ public class ViewPrincipal extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_jmiRecebimentosActionPerformed
 
+    private void jmiRecebimentos1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiRecebimentos1ActionPerformed
+        new ViewCaixa().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jmiRecebimentos1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -201,6 +215,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmiPagamentos;
     private javax.swing.JMenuItem jmiProduto;
     private javax.swing.JMenuItem jmiRecebimentos;
+    private javax.swing.JMenuItem jmiRecebimentos1;
     private javax.swing.JMenuItem jmiUsuario;
     private javax.swing.JMenuItem jmiVendas;
     private componentes.UJPanelImagem uJPanelImagem1;

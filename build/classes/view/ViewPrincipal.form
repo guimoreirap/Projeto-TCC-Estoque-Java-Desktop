@@ -50,7 +50,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jmiPagamentos">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Compras / Pagamentos"/>
+                <Property name="text" type="java.lang.String" value="Contas a pagar"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiPagamentosActionPerformed"/>
@@ -58,10 +58,18 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jmiRecebimentos">
               <Properties>
-                <Property name="text" type="java.lang.String" value="D&#xed;vidas / Recebimentos"/>
+                <Property name="text" type="java.lang.String" value="Contas a receber"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiRecebimentosActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jmiRecebimentos1">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Caixa"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiRecebimentos1ActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>
