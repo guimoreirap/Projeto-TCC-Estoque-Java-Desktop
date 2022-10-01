@@ -41,7 +41,7 @@ public class DaoVendasClientes extends ConexaoMySql {
                     + "tbl_cliente.cli_cep,"
                     + "tbl_cliente.cli_telefone"
                     + "     FROM tbl_vendas INNER JOIN tbl_cliente "
-                    + "         ON tbl_cliente.pk_id_cliente = tbl_vendas.fk_cliente;");
+                    + "         ON tbl_cliente.pk_id_cliente = tbl_vendas.fk_cliente ORDER BY tbl_vendas.ven_data_venda DESC;");
             while(this.getResultSet().next()){
                 modelVendas = new ModelVendas();
                 modelClientes = new ModelClientes();
