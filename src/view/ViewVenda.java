@@ -648,6 +648,7 @@ public class ViewVenda extends javax.swing.JFrame {
         try {
             if (this.jcbClienteGenerico.isSelected()) {
                 modelVendas.setCliente(1);
+                jtfValorPago.setText(jtfValorTotal.getText());
                 System.out.println("Salvou usuario generico");
             } else {
                 modelVendas.setCliente(Integer.parseInt(jtfCodigoCliente.getText()));
