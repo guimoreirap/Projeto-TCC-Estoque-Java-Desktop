@@ -43,8 +43,9 @@ public class ViewCaixa extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jcbMovimetacao = new javax.swing.JComboBox<>();
-        jtfData = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
+        jtfData = new javax.swing.JFormattedTextField();
+        jbLimparData = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jtfValorLiquido = new javax.swing.JTextField();
 
@@ -96,14 +97,26 @@ public class ViewCaixa extends javax.swing.JFrame {
             }
         });
 
+        jLabel3.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel3.setText("aaaa-mm-dd");
+
+        try {
+            jtfData.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("####-##-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
         jtfData.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jtfDataKeyReleased(evt);
             }
         });
 
-        jLabel3.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel3.setText("aaaa-mm-dd");
+        jbLimparData.setText("Limpar");
+        jbLimparData.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbLimparDataActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -112,16 +125,19 @@ public class ViewCaixa extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
+                    .addComponent(jLabel3)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jtfData, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jcbMovimetacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addGap(88, 88, 88))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jtfData, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jbLimparData)))
+                        .addGap(59, 59, 59)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jcbMovimetacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1))))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -134,8 +150,10 @@ public class ViewCaixa extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jcbMovimetacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jtfData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addContainerGap(46, Short.MAX_VALUE))
+                    .addComponent(jbLimparData))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel3)
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         jLabel4.setText("Valor líquido:");
@@ -154,12 +172,11 @@ public class ViewCaixa extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(22, 22, 22)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 520, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 520, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabel4)
-                                .addComponent(jtfValorLiquido, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(jtfValorLiquido, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(29, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -187,10 +204,6 @@ public class ViewCaixa extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jtfDataKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfDataKeyReleased
-        this.carregarFluxoCaixa();
-    }//GEN-LAST:event_jtfDataKeyReleased
-
     private void jcbMovimetacaoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jcbMovimetacaoMouseReleased
 
     }//GEN-LAST:event_jcbMovimetacaoMouseReleased
@@ -206,6 +219,15 @@ public class ViewCaixa extends javax.swing.JFrame {
     private void jcbMovimetacaoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcbMovimetacaoItemStateChanged
         this.carregarFluxoCaixa();
     }//GEN-LAST:event_jcbMovimetacaoItemStateChanged
+
+    private void jtfDataKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfDataKeyReleased
+        this.carregarFluxoCaixa();
+    }//GEN-LAST:event_jtfDataKeyReleased
+
+    private void jbLimparDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbLimparDataActionPerformed
+        this.jtfData.setText("");
+        this.carregarFluxoCaixa();
+    }//GEN-LAST:event_jbLimparDataActionPerformed
 
     /**
      * @param args the command line arguments
@@ -243,18 +265,19 @@ public class ViewCaixa extends javax.swing.JFrame {
     }
 
     private void carregarFluxoCaixa() {
+        String formatacaoData = "    -  -  ";
         String movimentacao = jcbMovimetacao.getSelectedItem().toString();
         String data = jtfData.getText();
         System.out.println(data);
         System.out.println(movimentacao);
 
-        if (!data.equals("") && jcbMovimetacao.getSelectedItem().equals("Geral")) {
+        if (!data.equals(formatacaoData) && jcbMovimetacao.getSelectedItem().equals("Geral")) {
             listaModelCaixa = controllerCaixa.retornarListaCaixaDataController(data);
             System.out.println("entrou retorno por data");
-        } else if (data.equals("") && !jcbMovimetacao.getSelectedItem().equals("Geral")) {
+        } else if (data.equals(formatacaoData) && !jcbMovimetacao.getSelectedItem().equals("Geral")) {
             listaModelCaixa = controllerCaixa.retornarListaCaixaMovimentacaoController(movimentacao);
             System.out.println("entrou retorno por movimentação");
-        } else if (!data.equals("") && !jcbMovimetacao.getSelectedItem().equals("Geral")) {
+        } else if (!data.equals(formatacaoData) && !jcbMovimetacao.getSelectedItem().equals("Geral")) {
             listaModelCaixa = controllerCaixa.retornarListaCaixaController(movimentacao, data);
             System.out.println("entrou retorno por ambos");
         } else {
@@ -301,9 +324,10 @@ public class ViewCaixa extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton jbLimparData;
     private javax.swing.JComboBox<String> jcbMovimetacao;
     private javax.swing.JTable jtCaixa;
-    private javax.swing.JTextField jtfData;
+    private javax.swing.JFormattedTextField jtfData;
     private javax.swing.JTextField jtfValorLiquido;
     // End of variables declaration//GEN-END:variables
 }
