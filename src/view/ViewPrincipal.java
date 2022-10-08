@@ -162,7 +162,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jmiVendasActionPerformed
 
     private void jmiRecebimentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiRecebimentosActionPerformed
-        new ViewDividas().setVisible(true);
+        new ViewRecebimentos().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jmiRecebimentosActionPerformed
 

@@ -4,9 +4,11 @@
  */
 package view;
 
+import controller.ControllerCaixa;
 import controller.ControllerClientes;
 import controller.ControllerProdutos;
 import controller.ControllerProdutosVendasProdutos;
+import controller.ControllerRecebimentos;
 import controller.ControllerVendas;
 import controller.ControllerVendasCliente;
 import controller.ControllerVendasProdutos;
@@ -16,9 +18,11 @@ import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+import model.ModelCaixa;
 import model.ModelClientes;
 import model.ModelProdutos;
 import model.ModelProdutosVendasProdutos;
+import model.ModelRecebimentos;
 import model.ModelVendas;
 import model.ModelVendasCliente;
 import model.ModelVendasProdutos;
@@ -29,28 +33,32 @@ import util.BLDatas;
  * @author Usuario
  */
 public class ViewVenda extends javax.swing.JFrame {
-    
+
     ModelClientes modelCliente = new ModelClientes();
     ModelProdutos modelProdutos = new ModelProdutos();
     ModelVendas modelVendas = new ModelVendas();
     ModelVendasProdutos modelVendasProdutos = new ModelVendasProdutos();
     ModelProdutosVendasProdutos modelProdutosVendasProdutos = new ModelProdutosVendasProdutos();
-    
+    ModelRecebimentos modelRecebimentos = new ModelRecebimentos();
+    ModelCaixa modelCaixa = new ModelCaixa();
+
     ControllerClientes controllerCliente = new ControllerClientes();
     ControllerProdutos controllerProdutos = new ControllerProdutos();
     ControllerVendas controllerVendas = new ControllerVendas();
     ControllerVendasCliente controllerVendasCliente = new ControllerVendasCliente();
     ControllerVendasProdutos controllerVendasProdutos = new ControllerVendasProdutos();
     ControllerProdutosVendasProdutos controllerProdutosVendasProdutos = new ControllerProdutosVendasProdutos();
-    
+    ControllerCaixa controllerCaixa = new ControllerCaixa();
+    ControllerRecebimentos controllerRecebimento = new ControllerRecebimentos();
+
     ArrayList<ModelClientes> listaModelClientes = new ArrayList<>();
     ArrayList<ModelProdutos> listaModelProdutos = new ArrayList<>();
     ArrayList<ModelVendasCliente> listaModelVendasCliente = new ArrayList<>();
     ArrayList<ModelVendasProdutos> listaModelVendasProdutos = new ArrayList<>();
     ArrayList<ModelProdutosVendasProdutos> listaModelProdutosVendasProdutos = new ArrayList<>();
-    
+
     String alterarSalvar = "salvar";
-    
+
     BLDatas bLDatas = new BLDatas();
 
     /**
@@ -63,6 +71,8 @@ public class ViewVenda extends javax.swing.JFrame {
         this.carregarVendas();
         this.carregarComboBoxClientes();
         this.carregarComboBoxProdutos();
+        this.jtfCodigoCliente.setText("1");
+        this.jtfCodigoCliente.requestFocus();
     }
 
     /**
@@ -101,9 +111,10 @@ public class ViewVenda extends javax.swing.JFrame {
         jbAdicionarCliente = new javax.swing.JButton();
         jbAtualizarClientes = new javax.swing.JButton();
         jbAdicionarCliente2 = new javax.swing.JButton();
-        jcbClienteGenerico = new javax.swing.JCheckBox();
         jLabel10 = new javax.swing.JLabel();
         jtfValorPago = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         jtfPesquisar = new javax.swing.JTextField();
@@ -276,9 +287,16 @@ public class ViewVenda extends javax.swing.JFrame {
             }
         });
 
-        jcbClienteGenerico.setText("Utilizar cliente genérico");
-
         jLabel10.setText("Valor pago:");
+
+        jLabel11.setText("Usar usuário genérico");
+
+        jButton2.setText("*");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -325,16 +343,6 @@ public class ViewVenda extends javax.swing.JFrame {
                             .addComponent(jtfNumeroVenda, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE))
                         .addGap(67, 67, 67))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jcbClienteGenerico)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 660, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jbCancelar)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jbSalvar))))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jbRemoverProduto)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -351,7 +359,20 @@ public class ViewVenda extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel10)
                             .addComponent(jtfValorPago, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(62, 62, 62))))
+                        .addGap(62, 62, 62))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel11)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton2))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 660, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(jbCancelar)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jbSalvar))))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -371,9 +392,11 @@ public class ViewVenda extends javax.swing.JFrame {
                     .addComponent(jcbCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jtfNumeroVenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbAdicionarCliente))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jcbClienteGenerico)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel11)
+                    .addComponent(jButton2))
+                .addGap(23, 23, 23)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jLabel5)
@@ -429,11 +452,11 @@ public class ViewVenda extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Cod Venda", "Cod Cliente", "Nome Cliente", "Data", "Valor Bruto", "Desconto", "Valor Liquido"
+                "Cod Venda", "Cod Cliente", "Nome Cliente", "Data", "Valor Bruto", "Desconto", "Valor Liquido", "Valor Recebido"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, true, false, false, true, true, true
+                false, true, false, false, true, true, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -488,7 +511,6 @@ public class ViewVenda extends javax.swing.JFrame {
                 .addGap(24, 24, 24)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jbVoltar2)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 652, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jbExcluir)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -498,22 +520,26 @@ public class ViewVenda extends javax.swing.JFrame {
                         .addComponent(jtfPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jbPesquisar)))
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addContainerGap(250, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2)
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jbVoltar2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
                 .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jtfPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbPesquisar))
-                .addGap(30, 30, 30)
+                .addGap(28, 28, 28)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(38, 38, 38)
+                .addGap(40, 40, 40)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbExcluir)
                     .addComponent(jbAlterar))
@@ -522,7 +548,7 @@ public class ViewVenda extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Consultar/Excluir/Alterar", jPanel2);
 
-        getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 710, -1));
+        getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 720, -1));
 
         pack();
         setLocationRelativeTo(null);
@@ -554,10 +580,10 @@ public class ViewVenda extends javax.swing.JFrame {
     private void jbExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbExcluirActionPerformed
         int linha = jtVendas.getSelectedRow();
         int codigoVenda = (int) jtVendas.getValueAt(linha, 0);
-        
+
         listaModelProdutos = new ArrayList<>();
         listaModelProdutosVendasProdutos = controllerProdutosVendasProdutos.getListaProdutosVendasProdutosController(codigoVenda);
-        
+
         for (int i = 0; i < listaModelProdutosVendasProdutos.size(); i++) {
             modelProdutos = new ModelProdutos();
             modelProdutos.setIdProduto(listaModelProdutosVendasProdutos.get(i).getModelProdutos().getIdProduto());
@@ -566,10 +592,10 @@ public class ViewVenda extends javax.swing.JFrame {
                     + listaModelProdutosVendasProdutos.get(i).getModelVendasProdutos().getVenProQuantidade());
             listaModelProdutos.add(modelProdutos);
         }
-        
+
         if (controllerProdutos.alterarEstoqueProdutoController(listaModelProdutos)) {
             controllerVendasProdutos.excluirVendaProdutoController(codigoVenda);
-            
+
             try {
                 controllerVendas.excluirVendaController(codigoVenda);
                 JOptionPane.showMessageDialog(this, "Venda excluída com sucesso", "ATENÇÃO", JOptionPane.WARNING_MESSAGE);
@@ -579,11 +605,11 @@ public class ViewVenda extends javax.swing.JFrame {
             } finally {
                 this.carregarVendas();
             }
-            
+
         } else {
             JOptionPane.showMessageDialog(this, "Erro ao excluir a venda", "ERRO", JOptionPane.ERROR_MESSAGE);
         }
-        
+
 
     }//GEN-LAST:event_jbExcluirActionPerformed
 
@@ -600,7 +626,7 @@ public class ViewVenda extends javax.swing.JFrame {
             for (int i = 0; i < cont; i++) {
                 modelo.setNumRows(0);
             }
-            
+
             if (modelProdutos.getProEstoque() < Integer.parseInt(jtfQuantidade.getText())) {
                 JOptionPane.showMessageDialog(this, "Quantidade em estoque insuficiente.\n"
                         + "Quantidade disponível: " + modelProdutos.getProEstoque(), "ERRO", JOptionPane.ERROR_MESSAGE);
@@ -609,7 +635,7 @@ public class ViewVenda extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Insira uma quantia válida.\n", "ERRO", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            
+
             modelo.addRow(new Object[]{
                 modelProdutos.getIdProduto(),
                 modelProdutos.getProNome(),
@@ -619,7 +645,7 @@ public class ViewVenda extends javax.swing.JFrame {
                 Double.parseDouble(this.formatarValor(quantidade * modelProdutos.getProValor()))
             });
             this.somarValorTotalProdutos();
-            
+
         }
 
     }//GEN-LAST:event_jbAdicionarActionPerformed
@@ -646,7 +672,7 @@ public class ViewVenda extends javax.swing.JFrame {
 
         //SETA OS VALORES DOS CAMPOS PRA VENDA
         try {
-            if (this.jcbClienteGenerico.isSelected()) {
+            if (this.jtfCodigoCliente.equals(1)) {
                 modelVendas.setCliente(1);
                 jtfValorPago.setText(jtfValorTotal.getText());
                 System.out.println("Salvou usuario generico");
@@ -654,7 +680,7 @@ public class ViewVenda extends javax.swing.JFrame {
                 modelVendas.setCliente(Integer.parseInt(jtfCodigoCliente.getText()));
                 System.out.println("Salvou usuario especifico");
             }
-            
+
             modelVendas.setVenDataVenda(bLDatas.converterDataParaDateUS(new java.util.Date(System.currentTimeMillis())));
             modelVendas.setVenValorLiquido(Double.parseDouble(jtfValorTotal.getText()));
             modelVendas.setVenValorBruto(Double.parseDouble(jtfValorTotal.getText()) + desconto);
@@ -664,39 +690,41 @@ public class ViewVenda extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Não foi possível capturar os dados de venda", "ERRO", JOptionPane.ERROR_MESSAGE);
         }
-        
+
         if (alterarSalvar.equalsIgnoreCase("salvar")) {
             this.salvarVenda();
-            
+
         } else if (alterarSalvar.equalsIgnoreCase("alterar")) {
             this.alterarVenda();
         }
-        
+
 
     }//GEN-LAST:event_jbSalvarActionPerformed
 
     private void jbAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAlterarActionPerformed
         try {
             alterarSalvar = "alterar";
-            
+
             int linha = jtVendas.getSelectedRow();
             //Pega os valores nas colunas de venda e atribui às variaveis
             int codigoVenda = (int) jtVendas.getValueAt(linha, 0);
             int codigoCliente = (int) jtVendas.getValueAt(linha, 1);
             double desconto = (double) jtVendas.getValueAt(linha, 5);
+            double valorPago = (double) jtVendas.getValueAt(linha, 7);
 
             //atribui os valores das variaveis nos campos no formulario de Vendas
             jtfNumeroVenda.setText(String.valueOf(codigoVenda));
             jtfCodigoCliente.setText(String.valueOf(codigoCliente));
             jtfDesconto.setText(String.valueOf(desconto).replace(".", ","));
-            
+            jtfValorPago.setText(String.valueOf(valorPago).replace(".", ","));
+
             modelCliente = controllerCliente.retornarClienteController(codigoVenda);
             listaModelProdutosVendasProdutos = controllerProdutosVendasProdutos.
                     getListaProdutosVendasProdutosController(codigoVenda);
-            
+
             DefaultTableModel modelo = (DefaultTableModel) jtProdutosVendas.getModel();
             modelo.setNumRows(0);
-            
+
             for (int i = 0; i < listaModelProdutosVendasProdutos.size(); i++) {
                 //jtfNumeroVenda.setText(String.valueOf(listaModelProdutosVendasProdutos.get(i).getModelVendasProdutos().getVenda()));
 
@@ -707,7 +735,7 @@ public class ViewVenda extends javax.swing.JFrame {
                     listaModelProdutosVendasProdutos.get(i).getModelVendasProdutos().getVenProValor(),
                     listaModelProdutosVendasProdutos.get(i).getModelVendasProdutos().getVenProQuantidade()
                     * listaModelProdutosVendasProdutos.get(i).getModelVendasProdutos().getVenProValor()
-                
+
                 });
             }
             this.setComboBoxCliente();
@@ -716,7 +744,7 @@ public class ViewVenda extends javax.swing.JFrame {
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Selecione uma linha.", "ERRO", JOptionPane.ERROR_MESSAGE);
-            
+
         }
     }//GEN-LAST:event_jbAlterarActionPerformed
 
@@ -772,6 +800,11 @@ public class ViewVenda extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jcbClienteActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        this.jtfCodigoCliente.setText("1");
+        this.jtfCodigoCliente.requestFocus();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -806,7 +839,7 @@ public class ViewVenda extends javax.swing.JFrame {
             }
         });
     }
-    
+
     private void listarClientes() {
         //retorna todos os clientes pra dentro da lista
         listaModelClientes = controllerCliente.retornarListaClienteController();
@@ -818,7 +851,7 @@ public class ViewVenda extends javax.swing.JFrame {
             jcbCliente.addItem(listaModelClientes.get(i).getCliNome());
         }
     }
-    
+
     private void listarProdutos() {
         //retorna todos os produtos pra dentro da lista
         listaModelProdutos = controllerProdutos.retornarListaProdutoController();
@@ -830,13 +863,13 @@ public class ViewVenda extends javax.swing.JFrame {
             jcbProduto.addItem(listaModelProdutos.get(i).getProNome());
         }
     }
-    
+
     private void carregarVendas() {
         DefaultTableModel modelo = (DefaultTableModel) jtVendas.getModel();
         modelo.setNumRows(0);
         listaModelVendasCliente = controllerVendasCliente.getListaVendasClienteController();
         int cont = listaModelVendasCliente.size();
-        
+
         for (int i = 0; i < cont; i++) {
             modelo.addRow(new Object[]{
                 listaModelVendasCliente.get(i).getModelVendas().getVenId(),
@@ -845,12 +878,13 @@ public class ViewVenda extends javax.swing.JFrame {
                 listaModelVendasCliente.get(i).getModelVendas().getVenDataVenda(),
                 listaModelVendasCliente.get(i).getModelVendas().getVenValorBruto(),
                 listaModelVendasCliente.get(i).getModelVendas().getVenValorDesconto(),
-                listaModelVendasCliente.get(i).getModelVendas().getVenValorLiquido()
+                listaModelVendasCliente.get(i).getModelVendas().getVenValorLiquido(),
+                listaModelVendasCliente.get(i).getModelVendas().getVenValorRecebido()
             });
-            
+
         }
     }
-    
+
     private void somarValorTotalProdutos() {
         double soma = 0, valor = 0;
         int cont = jtProdutosVendas.getRowCount();
@@ -859,31 +893,31 @@ public class ViewVenda extends javax.swing.JFrame {
             soma += valor;
         }
         jtfValorTotal.setText(String.valueOf(soma));
-        
+
         try {
             this.aplicarDesconto();
         } catch (Exception e) {
         }
-        
+
     }
-    
+
     private void aplicarDesconto() {
         double valorTotalVenda = Double.parseDouble(jtfValorTotal.getText());
         double desconto = Double.parseDouble(jtfDesconto.getText().replaceAll(",", "."));
-        
+
         if (desconto <= valorTotalVenda) {
             jtfValorTotal.setText(String.valueOf(valorTotalVenda - desconto));
         } else {
             JOptionPane.showMessageDialog(this, "Valor de desconto é maior que total.", "ERRO", JOptionPane.ERROR_MESSAGE);
         }
     }
-    
+
     private void carregarComboBoxProdutos() {
         modelProdutos = controllerProdutos.retornarProdutoController(jcbProduto.getSelectedItem().toString());
         //gambiarra pra retornar como String um valor inteiro
         jtfCodigoProduto.setText(String.valueOf(modelProdutos.getIdProduto()));
     }
-    
+
     private void carregarComboBoxClientes() {
         modelCliente = controllerCliente.retornarClienteController(jcbCliente.getSelectedItem().toString());
         //gambiarra pra retornar como String um valor inteiro
@@ -897,22 +931,21 @@ public class ViewVenda extends javax.swing.JFrame {
         jtfQuantidade.setText("");
         jtfDesconto.setText("");
         jtfValorTotal.setText("");
-        jcbClienteGenerico.setSelected(false);
         DefaultTableModel modelo = (DefaultTableModel) jtProdutosVendas.getModel();
         modelo.setNumRows(0);
     }
-    
+
     private void salvarVenda() {
         int codigoVenda = 0, codigoProduto = 0;
-        
+
         codigoVenda = controllerVendas.salvarVendaController(modelVendas);
         if (codigoVenda > 0) {
             JOptionPane.showMessageDialog(this, "Venda salva com sucesso", "AVISO", JOptionPane.WARNING_MESSAGE);
-            
+
         } else {
             JOptionPane.showMessageDialog(this, "Não foi possível salvar venda", "ERRO", JOptionPane.ERROR_MESSAGE);
         }
-        
+
         int cont = jtProdutosVendas.getRowCount();
         for (int i = 0; i < cont; i++) {
             codigoProduto = (int) jtProdutosVendas.getValueAt(i, 0);
@@ -929,14 +962,15 @@ public class ViewVenda extends javax.swing.JFrame {
             modelProdutos.setIdProduto(codigoProduto);
             modelProdutos.setProEstoque(controllerProdutos.retornarProdutoController(codigoProduto).getProEstoque()
                     - Integer.parseInt(jtProdutosVendas.getValueAt(i, 2).toString()));
-            
+
             listaModelVendasProdutos.add(modelVendasProdutos);
             listaModelProdutos.add(modelProdutos);
         }
-        
+
         if (controllerVendasProdutos.salvarVendaProdutoController(listaModelVendasProdutos)) {
             controllerProdutos.alterarEstoqueProdutoController(listaModelProdutos);
-            
+            this.salvarRecebimento(codigoVenda);
+
             JOptionPane.showMessageDialog(this, "Produtos da venda salvo com sucesso", "AVISO", JOptionPane.WARNING_MESSAGE);
             this.carregarVendas();
             this.limparFormulario();
@@ -945,7 +979,7 @@ public class ViewVenda extends javax.swing.JFrame {
                     this, "Ocorreu um erro ao salvar os produtos da venda", "ERRO", JOptionPane.ERROR_MESSAGE);
         }
     }
-    
+
     private void alterarVenda() {
         int codigoVenda = 0, codigoProduto = 0;
         //retorna os produtos para o estoque e altera a venda
@@ -954,7 +988,7 @@ public class ViewVenda extends javax.swing.JFrame {
         codigoVenda = (int) jtVendas.getValueAt(linha, 0);
         listaModelProdutos = new ArrayList<>();
         listaModelProdutosVendasProdutos = controllerProdutosVendasProdutos.getListaProdutosVendasProdutosController(codigoVenda);
-        
+
         for (int i = 0; i < listaModelProdutosVendasProdutos.size(); i++) {
             modelProdutos = new ModelProdutos();
             modelProdutos.setIdProduto(listaModelProdutosVendasProdutos.get(i).getModelProdutos().getIdProduto());
@@ -963,9 +997,9 @@ public class ViewVenda extends javax.swing.JFrame {
                     + listaModelProdutosVendasProdutos.get(i).getModelVendasProdutos().getVenProQuantidade());
             listaModelProdutos.add(modelProdutos);
         }
-        
+
         if (controllerProdutos.alterarEstoqueProdutoController(listaModelProdutos)) {
-            
+            this.salvarRecebimento(codigoVenda);
             try {
                 controllerVendasProdutos.excluirVendaProdutoController(codigoVenda);
                 JOptionPane.showMessageDialog(
@@ -977,7 +1011,7 @@ public class ViewVenda extends javax.swing.JFrame {
             } finally {
                 this.carregarVendas();
             }
-            
+
         } else {
             JOptionPane.showMessageDialog(this, "Erro ao excluir os produtos de venda", "ERRO", JOptionPane.ERROR_MESSAGE);
         }
@@ -1003,7 +1037,7 @@ public class ViewVenda extends javax.swing.JFrame {
         int cont = jtProdutosVendas.getRowCount();
         for (int i = 0; i < cont; i++) {
             codigoProduto = (int) jtProdutosVendas.getValueAt(i, 0);
-            
+
             modelVendasProdutos = new ModelVendasProdutos();
             modelProdutos = new ModelProdutos();
 
@@ -1017,7 +1051,7 @@ public class ViewVenda extends javax.swing.JFrame {
             modelProdutos.setIdProduto(codigoProduto);
             modelProdutos.setProEstoque(controllerProdutos.retornarProdutoController(codigoProduto).getProEstoque()
                     - Integer.parseInt(jtProdutosVendas.getValueAt(i, 2).toString()));
-            
+
             listaModelVendasProdutos.add(modelVendasProdutos);
             listaModelProdutos.add(modelProdutos);
         }
@@ -1031,9 +1065,9 @@ public class ViewVenda extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(this, "Erro ao salvar produtos de venda", "ERRO", JOptionPane.ERROR_MESSAGE);
         }
-        
+
     }
-    
+
     private void filtrarVendaCliente() {
         DefaultTableModel modelo = (DefaultTableModel) this.jtVendas.getModel();
         final TableRowSorter<TableModel> classificador = new TableRowSorter<>(modelo);
@@ -1042,7 +1076,7 @@ public class ViewVenda extends javax.swing.JFrame {
         //texto é o nome do cliente-venda a ser filtrado, e 2 é a coluna onde a informação esta localizada na tabela
         classificador.setRowFilter(RowFilter.regexFilter(texto, 2));
     }
-    
+
     private void setComboBoxCliente() {
         try {
             //pega o cliente e passa para o modelCliente
@@ -1052,14 +1086,42 @@ public class ViewVenda extends javax.swing.JFrame {
         } catch (Exception e) {
         }
     }
-    
+
     private String formatarValor(Double valor) {
         return String.format("%.2f", valor).replaceAll(",", ".");
     }
 
+    private void salvarRecebimento(int codigoVenda) {
+        try {
+            //Passa os dados para registrar um novo Recebimento no banco de dados
+            modelRecebimentos.setRecCliente(Integer.parseInt(jtfCodigoCliente.getText()));
+            modelRecebimentos.setRecVenda(codigoVenda);
+            modelRecebimentos.setRecData(bLDatas.converterDataParaDateUS(new java.util.Date(System.currentTimeMillis())));
+            modelRecebimentos.setRecMetodo("A vista");
+            modelRecebimentos.setRecValor(Double.parseDouble(jtfValorPago.getText()));
+
+            //Passando os dados para dentro do modelCaixa
+            modelCaixa.setCaixaMovimentacao("Recebimento");
+            modelCaixa.setCaixaData(bLDatas.converterDataParaDateUS(new java.util.Date(System.currentTimeMillis())));
+            modelCaixa.setCaixaValor(Double.parseDouble(jtfValorPago.getText().replaceAll(",", ".")));
+            //Aqui o controllerCliente está retornando o cliente do banco de dados e pegando seu nome para atribuir ao ator
+            modelCaixa.setCaixaAtor(controllerCliente.retornarClienteController(
+                    Integer.parseInt(jtfCodigoCliente.getText())).getCliNome());
+
+            //controller efetua os inserts dentro do banco de dados
+            controllerCaixa.salvarCaixaController(modelCaixa);
+            controllerRecebimento.salvarRecebimento(modelRecebimentos);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -1085,7 +1147,6 @@ public class ViewVenda extends javax.swing.JFrame {
     private javax.swing.JButton jbSalvar;
     private javax.swing.JButton jbVoltar2;
     private componentes.UJComboBox jcbCliente;
-    private javax.swing.JCheckBox jcbClienteGenerico;
     private componentes.UJComboBox jcbProduto;
     private javax.swing.JTable jtProdutosVendas;
     private javax.swing.JTable jtVendas;

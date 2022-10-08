@@ -24,7 +24,7 @@ import util.BLDatas;
  *
  * @author Usuario
  */
-public class ViewDividas extends javax.swing.JFrame {
+public class ViewRecebimentos extends javax.swing.JFrame {
 
     ModelVendas modelVendas = new ModelVendas();
     ControllerVendas controllerVenda = new ControllerVendas();
@@ -52,7 +52,7 @@ public class ViewDividas extends javax.swing.JFrame {
     /**
      * Creates new form ViewDividas
      */
-    public ViewDividas() {
+    public ViewRecebimentos() {
         initComponents();
         this.listarClientes();
         this.carregarRecebimentos();
@@ -638,20 +638,21 @@ public class ViewDividas extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ViewDividas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ViewRecebimentos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ViewDividas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ViewRecebimentos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ViewDividas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ViewRecebimentos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ViewDividas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ViewRecebimentos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ViewDividas().setVisible(true);
+                new ViewRecebimentos().setVisible(true);
             }
         });
     }

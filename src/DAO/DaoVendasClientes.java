@@ -39,9 +39,10 @@ public class DaoVendasClientes extends ConexaoMySql {
                     + "tbl_cliente.cli_cidade,"
                     + "tbl_cliente.cli_uf,"
                     + "tbl_cliente.cli_cep,"
-                    + "tbl_cliente.cli_telefone"
+                    + "tbl_cliente.cli_telefone, "
+                    + "tbl_vendas.ven_valor_recebido"
                     + "     FROM tbl_vendas INNER JOIN tbl_cliente "
-                    + "         ON tbl_cliente.pk_id_cliente = tbl_vendas.fk_cliente ORDER BY tbl_vendas.ven_data_venda DESC;");
+                    + "         ON tbl_cliente.pk_id_cliente = tbl_vendas.fk_cliente ORDER BY tbl_vendas.pk_id_venda ASC;");
             while(this.getResultSet().next()){
                 modelVendas = new ModelVendas();
                 modelClientes = new ModelClientes();
@@ -53,6 +54,7 @@ public class DaoVendasClientes extends ConexaoMySql {
                 modelVendas.setVenValorLiquido(this.getResultSet().getDouble(4));
                 modelVendas.setVenValorBruto(this.getResultSet().getDouble(5));
                 modelVendas.setVenValorDesconto(this.getResultSet().getDouble(6));
+                modelVendas.setVenValorRecebido(this.getResultSet().getDouble(15));
                 //CLIENTES
                 modelClientes.setIdCliente(this.getResultSet().getInt(7));
                 modelClientes.setCliNome(this.getResultSet().getString(8));
