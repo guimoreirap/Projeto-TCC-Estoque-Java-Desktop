@@ -17,8 +17,12 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Usuario/Desktop/Backup%20Valdineis%20Moreira/Usuario/Documents/NetBeansProjects/SistemaVendas-teste/src/view/ViewPrincipal.java</file>
-            <file>file:/C:/Users/Usuario/Desktop/Backup%20Valdineis%20Moreira/Usuario/Documents/NetBeansProjects/SistemaVendas-teste/src/view/ViewVenda.java</file>
+            <file>file:/C:/Users/Usuario/Desktop/Backup%20Valdineis%20Moreira/Usuario/Documents/NetBeansProjects/SistemaVendas/src/view/ViewCaixa.java</file>
+            <file>file:/C:/Users/Usuario/Desktop/Backup%20Valdineis%20Moreira/Usuario/Documents/NetBeansProjects/SistemaVendas/src/view/ViewVenda.java</file>
+            <file>file:/C:/Users/Usuario/Desktop/Backup%20Valdineis%20Moreira/Usuario/Documents/NetBeansProjects/SistemaVendas/src/controller/ControllerVendasCliente.java</file>
+            <file>file:/C:/Users/Usuario/Desktop/Backup%20Valdineis%20Moreira/Usuario/Documents/NetBeansProjects/SistemaVendas/src/DAO/DaoCaixa.java</file>
+            <file>file:/C:/Users/Usuario/Desktop/Backup%20Valdineis%20Moreira/Usuario/Documents/NetBeansProjects/SistemaVendas/src/controller/ControllerCaixa.java</file>
+            <file>file:/C:/Users/Usuario/Desktop/Backup%20Valdineis%20Moreira/Usuario/Documents/NetBeansProjects/SistemaVendas/src/DAO/DaoVendasClientes.java</file>
         </group>
     </open-files>
 </project-private>

@@ -23,4 +23,16 @@ public class ControllerCaixa {
     public ArrayList<ModelCaixa> retornarListaCaixaController(){
         return this.daoCaixa.retornarListaCaixaDAO();
     }
+    
+    public ArrayList<ModelCaixa> retornarListaCaixaDataController(String data){
+        return this.daoCaixa.retornarListaCaixaDataDAO(data);
+    }
+    
+    public ArrayList<ModelCaixa> retornarListaCaixaMovimentacaoController(String movimentacao){
+        return this.daoCaixa.retornarListaCaixaMovimentacaoDAO(movimentacao);
+    }
+    
+    public ArrayList<ModelCaixa> retornarListaCaixaController(String movimentacao, String data){
+        return this.daoCaixa.retornarListaCaixaDAO(movimentacao, data);
+    }
 }

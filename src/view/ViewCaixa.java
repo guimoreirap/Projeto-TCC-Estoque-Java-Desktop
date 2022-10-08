@@ -21,7 +21,7 @@ public class ViewCaixa extends javax.swing.JFrame {
     ArrayList<ModelCaixa> listaModelCaixa = new ArrayList<>();
     ControllerCaixa controllerCaixa = new ControllerCaixa();
     ModelCaixa modelCaixa = new ModelCaixa();
-    
+
     public ViewCaixa() {
         initComponents();
         this.carregarFluxoCaixa();
@@ -42,8 +42,8 @@ public class ViewCaixa extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jTextField1 = new javax.swing.JTextField();
+        jcbMovimetacao = new javax.swing.JComboBox<>();
+        jtfData = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jtfValorLiquido = new javax.swing.JTextField();
@@ -74,7 +74,33 @@ public class ViewCaixa extends javax.swing.JFrame {
 
         jLabel2.setText("Data:");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Recebimento", "Pagamento" }));
+        jcbMovimetacao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Geral", "Recebimento", "Pagamento" }));
+        jcbMovimetacao.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jcbMovimetacaoItemStateChanged(evt);
+            }
+        });
+        jcbMovimetacao.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jcbMovimetacaoMouseClicked(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jcbMovimetacaoMouseReleased(evt);
+            }
+        });
+        jcbMovimetacao.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+            }
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
+                jcbMovimetacaoInputMethodTextChanged(evt);
+            }
+        });
+
+        jtfData.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtfDataKeyReleased(evt);
+            }
+        });
 
         jLabel3.setForeground(new java.awt.Color(102, 102, 102));
         jLabel3.setText("aaaa-mm-dd");
@@ -90,10 +116,10 @@ public class ViewCaixa extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jtfData, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jcbMovimetacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
                 .addGap(88, 88, 88))
         );
@@ -106,8 +132,8 @@ public class ViewCaixa extends javax.swing.JFrame {
                     .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jcbMovimetacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtfData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addContainerGap(46, Short.MAX_VALUE))
         );
@@ -161,6 +187,26 @@ public class ViewCaixa extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jtfDataKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfDataKeyReleased
+        this.carregarFluxoCaixa();
+    }//GEN-LAST:event_jtfDataKeyReleased
+
+    private void jcbMovimetacaoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jcbMovimetacaoMouseReleased
+
+    }//GEN-LAST:event_jcbMovimetacaoMouseReleased
+
+    private void jcbMovimetacaoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jcbMovimetacaoMouseClicked
+
+    }//GEN-LAST:event_jcbMovimetacaoMouseClicked
+
+    private void jcbMovimetacaoInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_jcbMovimetacaoInputMethodTextChanged
+
+    }//GEN-LAST:event_jcbMovimetacaoInputMethodTextChanged
+
+    private void jcbMovimetacaoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcbMovimetacaoItemStateChanged
+        this.carregarFluxoCaixa();
+    }//GEN-LAST:event_jcbMovimetacaoItemStateChanged
+
     /**
      * @param args the command line arguments
      */
@@ -195,12 +241,31 @@ public class ViewCaixa extends javax.swing.JFrame {
             }
         });
     }
-    
+
     private void carregarFluxoCaixa() {
-        listaModelCaixa = controllerCaixa.retornarListaCaixaController(); //atribui os valores retornados a uma lista
+        String movimentacao = jcbMovimetacao.getSelectedItem().toString();
+        String data = jtfData.getText();
+        System.out.println(data);
+        System.out.println(movimentacao);
+
+        if (!data.equals("") && jcbMovimetacao.getSelectedItem().equals("Geral")) {
+            listaModelCaixa = controllerCaixa.retornarListaCaixaDataController(data);
+            System.out.println("entrou retorno por data");
+        } else if (data.equals("") && !jcbMovimetacao.getSelectedItem().equals("Geral")) {
+            listaModelCaixa = controllerCaixa.retornarListaCaixaMovimentacaoController(movimentacao);
+            System.out.println("entrou retorno por movimentação");
+        } else if (!data.equals("") && !jcbMovimetacao.getSelectedItem().equals("Geral")) {
+            listaModelCaixa = controllerCaixa.retornarListaCaixaController(movimentacao, data);
+            System.out.println("entrou retorno por ambos");
+        } else {
+            listaModelCaixa = controllerCaixa.retornarListaCaixaController();
+            System.out.println("entrou retorno padrao");
+        }
+
+        //atribui os valores retornados a uma lista
         DefaultTableModel modelo = (DefaultTableModel) jtCaixa.getModel();
         double valorLiquidoCaixa = 0;
-        
+
         //Cada vez que o metodo é chamado, a tabela é zerada as linhas - evita dados repetidos na tela
         modelo.setNumRows(0);
 
@@ -214,31 +279,31 @@ public class ViewCaixa extends javax.swing.JFrame {
                 listaModelCaixa.get(i).getCaixaAtor(),
                 listaModelCaixa.get(i).getCaixaValor()
             });
-            if(listaModelCaixa.get(i).getCaixaMovimentacao().equalsIgnoreCase("Pagamento")){
+            if (listaModelCaixa.get(i).getCaixaMovimentacao().equalsIgnoreCase("Pagamento")) {
                 valorLiquidoCaixa -= listaModelCaixa.get(i).getCaixaValor();
-            } else if(listaModelCaixa.get(i).getCaixaMovimentacao().equalsIgnoreCase("Recebimento")){
+            } else if (listaModelCaixa.get(i).getCaixaMovimentacao().equalsIgnoreCase("Recebimento")) {
                 valorLiquidoCaixa += listaModelCaixa.get(i).getCaixaValor();
             }
         }
-        
+
         this.jtfValorLiquido.setText(formatarValor(valorLiquidoCaixa));
     }
-    
+
     private String formatarValor(Double valor) {
         return String.format("%.2f", valor).replaceAll(",", ".");
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JComboBox<String> jcbMovimetacao;
     private javax.swing.JTable jtCaixa;
+    private javax.swing.JTextField jtfData;
     private javax.swing.JTextField jtfValorLiquido;
     // End of variables declaration//GEN-END:variables
 }
