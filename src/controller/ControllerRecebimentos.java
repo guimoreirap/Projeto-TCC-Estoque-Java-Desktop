@@ -36,4 +36,8 @@ public class ControllerRecebimentos {
         return this.daoRecebimentos.retornarRecebimentoDAO(codigoPagamento);
     }
     
+    public boolean excluirRecebimentoController(int pIdMovimentacao, int pIdCliente) {
+        return this.daoRecebimentos.excluirRecebimentoDAO(pIdMovimentacao, pIdCliente);
+    }
+    
 }

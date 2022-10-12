@@ -18,11 +18,15 @@ public class DaoCaixa extends ConexaoMySql {
         try {
             this.conectar();
             return this.insertSQL("INSERT INTO tbl_caixa("
+                    + "cai_id_ator,"
+                    + "cai_id_movimentacao,"
                     + "cai_movimentacao,"
                     + "cai_ator,"
                     + "cai_data,"
                     + "cai_valor"
                     + ") VALUES ("
+                    + "'" + pModelCaixa.getIdCaixaAtor()+ "',"
+                    + "'" + pModelCaixa.getIdCaixaMovimentacao()+ "',"
                     + "'" + pModelCaixa.getCaixaMovimentacao() + "',"
                     + "'" + pModelCaixa.getCaixaAtor() + "',"
                     + "'" + pModelCaixa.getCaixaData() + "',"
@@ -45,7 +49,9 @@ public class DaoCaixa extends ConexaoMySql {
                     + "cai_movimentacao,"
                     + "cai_ator,"
                     + "cai_data,"
-                    + "cai_valor "
+                    + "cai_valor, "
+                    + "cai_id_ator, "
+                    + "cai_id_movimentacao "
                     + "FROM tbl_caixa ORDER BY pk_id_caixa ASC;");
             while (this.getResultSet().next()) {
                 modelCaixa = new ModelCaixa();
@@ -54,6 +60,8 @@ public class DaoCaixa extends ConexaoMySql {
                 modelCaixa.setCaixaAtor(this.getResultSet().getString(3));
                 modelCaixa.setCaixaData(this.getResultSet().getDate(4));
                 modelCaixa.setCaixaValor(this.getResultSet().getDouble(5));
+                modelCaixa.setIdCaixaAtor(this.getResultSet().getInt(6));
+                modelCaixa.setIdCaixaMovimentacao(this.getResultSet().getInt(7));
                 listaModelCaixa.add(modelCaixa);
             }
 
@@ -76,7 +84,9 @@ public class DaoCaixa extends ConexaoMySql {
                     + "cai_movimentacao,"
                     + "cai_ator,"
                     + "cai_data,"
-                    + "cai_valor "
+                    + "cai_valor, "
+                    + "cai_id_ator, "
+                    + "cai_id_movimentacao "
                     + "FROM tbl_caixa WHERE cai_data like '" + data + "' ORDER BY pk_id_caixa DESC;");
             while (this.getResultSet().next()) {
                 modelCaixa = new ModelCaixa();
@@ -85,6 +95,8 @@ public class DaoCaixa extends ConexaoMySql {
                 modelCaixa.setCaixaAtor(this.getResultSet().getString(3));
                 modelCaixa.setCaixaData(this.getResultSet().getDate(4));
                 modelCaixa.setCaixaValor(this.getResultSet().getDouble(5));
+                modelCaixa.setIdCaixaAtor(this.getResultSet().getInt(6));
+                modelCaixa.setIdCaixaMovimentacao(this.getResultSet().getInt(7));
                 listaModelCaixa.add(modelCaixa);
             }
 
@@ -107,7 +119,9 @@ public class DaoCaixa extends ConexaoMySql {
                     + "cai_movimentacao,"
                     + "cai_ator,"
                     + "cai_data,"
-                    + "cai_valor "
+                    + "cai_valor, "
+                    + "cai_id_ator, "
+                    + "cai_id_movimentacao "
                     + "FROM tbl_caixa WHERE cai_movimentacao like '%" + movimentacao + "%' ORDER BY cai_data DESC;");
             while (this.getResultSet().next()) {
                 modelCaixa = new ModelCaixa();
@@ -116,6 +130,8 @@ public class DaoCaixa extends ConexaoMySql {
                 modelCaixa.setCaixaAtor(this.getResultSet().getString(3));
                 modelCaixa.setCaixaData(this.getResultSet().getDate(4));
                 modelCaixa.setCaixaValor(this.getResultSet().getDouble(5));
+                modelCaixa.setIdCaixaAtor(this.getResultSet().getInt(6));
+                modelCaixa.setIdCaixaMovimentacao(this.getResultSet().getInt(7));
                 listaModelCaixa.add(modelCaixa);
             }
 
@@ -138,7 +154,9 @@ public class DaoCaixa extends ConexaoMySql {
                     + "cai_movimentacao,"
                     + "cai_ator,"
                     + "cai_data,"
-                    + "cai_valor "
+                    + "cai_valor, "
+                    + "cai_id_ator, "
+                    + "cai_id_movimentacao "
                     + "FROM tbl_caixa WHERE cai_movimentacao like '%" + movimentacao + "%' AND cai_data like '" + data + "'"
                             + " ORDER BY cai_data DESC;");
             while (this.getResultSet().next()) {
@@ -148,6 +166,8 @@ public class DaoCaixa extends ConexaoMySql {
                 modelCaixa.setCaixaAtor(this.getResultSet().getString(3));
                 modelCaixa.setCaixaData(this.getResultSet().getDate(4));
                 modelCaixa.setCaixaValor(this.getResultSet().getDouble(5));
+                modelCaixa.setIdCaixaAtor(this.getResultSet().getInt(6));
+                modelCaixa.setIdCaixaMovimentacao(this.getResultSet().getInt(7));
                 listaModelCaixa.add(modelCaixa);
             }
 
@@ -158,5 +178,20 @@ public class DaoCaixa extends ConexaoMySql {
         }
 
         return listaModelCaixa;
+    }
+    
+    public boolean excluirCaixaDAO(int pIdVenda, int pIdCliente) {
+        try {
+            this.conectar();
+            return this.executarUpdateDeleteSQL(
+                    "DELETE FROM tbl_caixa WHERE cai_id_movimentacao = '" + pIdVenda + 
+                            "' AND cai_id_ator = '" + pIdCliente+ "';");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            this.fecharConexao();
+        }
+
     }
 }

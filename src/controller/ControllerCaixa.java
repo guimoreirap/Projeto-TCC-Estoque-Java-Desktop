@@ -35,4 +35,8 @@ public class ControllerCaixa {
     public ArrayList<ModelCaixa> retornarListaCaixaController(String movimentacao, String data){
         return this.daoCaixa.retornarListaCaixaDAO(movimentacao, data);
     }
+    
+    public boolean excluirCaixaController(int pIdVenda, int pIdCliente) {
+        return this.daoCaixa.excluirCaixaDAO(pIdVenda, pIdCliente);
+    }
 }

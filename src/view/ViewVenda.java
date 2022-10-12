@@ -580,6 +580,7 @@ public class ViewVenda extends javax.swing.JFrame {
     private void jbExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbExcluirActionPerformed
         int linha = jtVendas.getSelectedRow();
         int codigoVenda = (int) jtVendas.getValueAt(linha, 0);
+        int codigoCliente = (int) jtVendas.getValueAt(linha, 1);
 
         listaModelProdutos = new ArrayList<>();
         listaModelProdutosVendasProdutos = controllerProdutosVendasProdutos.getListaProdutosVendasProdutosController(codigoVenda);
@@ -595,6 +596,8 @@ public class ViewVenda extends javax.swing.JFrame {
 
         if (controllerProdutos.alterarEstoqueProdutoController(listaModelProdutos)) {
             controllerVendasProdutos.excluirVendaProdutoController(codigoVenda);
+            controllerCaixa.excluirCaixaController(codigoVenda, codigoCliente);
+            controllerRecebimento.excluirRecebimentoController(codigoVenda, codigoCliente);
 
             try {
                 controllerVendas.excluirVendaController(codigoVenda);
@@ -684,7 +687,7 @@ public class ViewVenda extends javax.swing.JFrame {
             modelVendas.setVenDataVenda(bLDatas.converterDataParaDateUS(new java.util.Date(System.currentTimeMillis())));
             modelVendas.setVenValorLiquido(Double.parseDouble(jtfValorTotal.getText()));
             modelVendas.setVenValorBruto(Double.parseDouble(jtfValorTotal.getText()) + desconto);
-            modelVendas.setVenValorRecebido(Double.parseDouble(jtfValorPago.getText().replace(",", ".")));
+            modelVendas.setVenValorRecebido(Double.parseDouble(jtfValorPago.getText().replaceAll(",", ".")));
             modelVendas.setVenValorDesconto(desconto);
             JOptionPane.showMessageDialog(this, "Valores de venda foram capturados", "AVISO", JOptionPane.WARNING_MESSAGE);
         } catch (Exception e) {
@@ -982,8 +985,10 @@ public class ViewVenda extends javax.swing.JFrame {
 
     private void alterarVenda() {
         int codigoVenda = 0, codigoProduto = 0;
-        //retorna os produtos para o estoque e altera a venda
+        int codigoCliente = Integer.parseInt(jtfCodigoCliente.getText());
+//retorna os produtos para o estoque e altera a venda
 
+        
         int linha = jtVendas.getSelectedRow();
         codigoVenda = (int) jtVendas.getValueAt(linha, 0);
         listaModelProdutos = new ArrayList<>();
@@ -998,7 +1003,10 @@ public class ViewVenda extends javax.swing.JFrame {
             listaModelProdutos.add(modelProdutos);
         }
 
+         
         if (controllerProdutos.alterarEstoqueProdutoController(listaModelProdutos)) {
+            controllerRecebimento.excluirRecebimentoController(codigoVenda, codigoCliente);
+            controllerCaixa.excluirCaixaController(codigoVenda, codigoCliente);
             this.salvarRecebimento(codigoVenda);
             try {
                 controllerVendasProdutos.excluirVendaProdutoController(codigoVenda);
@@ -1098,15 +1106,18 @@ public class ViewVenda extends javax.swing.JFrame {
             modelRecebimentos.setRecVenda(codigoVenda);
             modelRecebimentos.setRecData(bLDatas.converterDataParaDateUS(new java.util.Date(System.currentTimeMillis())));
             modelRecebimentos.setRecMetodo("A vista");
-            modelRecebimentos.setRecValor(Double.parseDouble(jtfValorPago.getText()));
+            modelRecebimentos.setRecValor(Double.parseDouble(jtfValorPago.getText().replaceAll(",", ".")));
 
             //Passando os dados para dentro do modelCaixa
+            modelCaixa.setIdCaixaMovimentacao(codigoVenda);
             modelCaixa.setCaixaMovimentacao("Recebimento");
             modelCaixa.setCaixaData(bLDatas.converterDataParaDateUS(new java.util.Date(System.currentTimeMillis())));
             modelCaixa.setCaixaValor(Double.parseDouble(jtfValorPago.getText().replaceAll(",", ".")));
             //Aqui o controllerCliente está retornando o cliente do banco de dados e pegando seu nome para atribuir ao ator
             modelCaixa.setCaixaAtor(controllerCliente.retornarClienteController(
                     Integer.parseInt(jtfCodigoCliente.getText())).getCliNome());
+            modelCaixa.setIdCaixaAtor(Integer.parseInt(jtfCodigoCliente.getText()));
+            System.out.println("Valor de idCaixaAtor " + modelCaixa.getIdCaixaAtor() + "\nO que era esperado: " + jtfCodigoCliente.getText());
 
             //controller efetua os inserts dentro do banco de dados
             controllerCaixa.salvarCaixaController(modelCaixa);
