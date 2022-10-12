@@ -25,8 +25,8 @@ public class DaoCaixa extends ConexaoMySql {
                     + "cai_data,"
                     + "cai_valor"
                     + ") VALUES ("
-                    + "'" + pModelCaixa.getIdCaixaAtor()+ "',"
-                    + "'" + pModelCaixa.getIdCaixaMovimentacao()+ "',"
+                    + "'" + pModelCaixa.getIdCaixaAtor() + "',"
+                    + "'" + pModelCaixa.getIdCaixaMovimentacao() + "',"
                     + "'" + pModelCaixa.getCaixaMovimentacao() + "',"
                     + "'" + pModelCaixa.getCaixaAtor() + "',"
                     + "'" + pModelCaixa.getCaixaData() + "',"
@@ -108,7 +108,7 @@ public class DaoCaixa extends ConexaoMySql {
 
         return listaModelCaixa;
     }
-    
+
     public ArrayList<ModelCaixa> retornarListaCaixaMovimentacaoDAO(String movimentacao) {
         ArrayList<ModelCaixa> listaModelCaixa = new ArrayList<>();
         ModelCaixa modelCaixa = new ModelCaixa();
@@ -143,7 +143,7 @@ public class DaoCaixa extends ConexaoMySql {
 
         return listaModelCaixa;
     }
-    
+
     public ArrayList<ModelCaixa> retornarListaCaixaDAO(String movimentacao, String data) {
         ArrayList<ModelCaixa> listaModelCaixa = new ArrayList<>();
         ModelCaixa modelCaixa = new ModelCaixa();
@@ -158,7 +158,7 @@ public class DaoCaixa extends ConexaoMySql {
                     + "cai_id_ator, "
                     + "cai_id_movimentacao "
                     + "FROM tbl_caixa WHERE cai_movimentacao like '%" + movimentacao + "%' AND cai_data like '" + data + "'"
-                            + " ORDER BY cai_data DESC;");
+                    + " ORDER BY cai_data DESC;");
             while (this.getResultSet().next()) {
                 modelCaixa = new ModelCaixa();
                 modelCaixa.setCaixaId(this.getResultSet().getInt(1));
@@ -179,13 +179,28 @@ public class DaoCaixa extends ConexaoMySql {
 
         return listaModelCaixa;
     }
-    
+
     public boolean excluirCaixaDAO(int pIdVenda, int pIdCliente) {
         try {
             this.conectar();
             return this.executarUpdateDeleteSQL(
-                    "DELETE FROM tbl_caixa WHERE cai_id_movimentacao = '" + pIdVenda + 
-                            "' AND cai_id_ator = '" + pIdCliente+ "';");
+                    "DELETE FROM tbl_caixa WHERE cai_id_movimentacao = '" + pIdVenda
+                    + "' AND cai_id_ator = '" + pIdCliente + "';");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            this.fecharConexao();
+        }
+
+    }
+
+    public boolean excluirCaixaDAO(String pMovimentacao, String pAtor, double pValor) {
+        try {
+            this.conectar();
+            System.out.println("ENTRANDO NO EXCLUIR PAGAMENTO");
+            return this.executarUpdateDeleteSQL(
+                    "DELETE FROM tbl_caixa WHERE cai_ator LIKE '"+pAtor+"' AND cai_valor = '"+pValor+"' AND cai_movimentacao LIKE '"+pMovimentacao+"'; ");
         } catch (Exception e) {
             e.printStackTrace();
             return false;

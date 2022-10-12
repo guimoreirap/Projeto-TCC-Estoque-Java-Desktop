@@ -31,7 +31,8 @@ public class ViewPagamentos extends javax.swing.JFrame {
     
     BLDatas blDatas = new BLDatas();
     String salvarAlterar = "salvar";
-
+    int linhaExcluir = -50;
+    
     public ViewPagamentos() {
         initComponents();
         this.carregarPagamentos();
@@ -248,6 +249,7 @@ public class ViewPagamentos extends javax.swing.JFrame {
         this.salvarAlterar = "alterar";
 
         int linha = this.jTablePagamentos.getSelectedRow();
+        linhaExcluir = linha;
         try {
             int codigoPagamento = (int) this.jTablePagamentos.getValueAt(linha, 0);
 
@@ -277,8 +279,14 @@ public class ViewPagamentos extends javax.swing.JFrame {
         //Exclui um produto no banco
         int linha = jTablePagamentos.getSelectedRow();
         int codigoPagamento = (int) jTablePagamentos.getValueAt(linha, 0);
+        String ator = (String) jTablePagamentos.getValueAt(linha, 1);
+        String movimentacao = "Pagamento";
+        double valor = (double) jTablePagamentos.getValueAt(linha, 4);
 
+        
         try {
+            System.out.println("Ator: " + ator + "\nMovimentacao: " + movimentacao + "\nValor: " + valor);
+            controllerCaixa.excluirCaixaController(movimentacao, ator, valor);
             controllerPagamentos.excluirPagamentoController(codigoPagamento);
             JOptionPane.showMessageDialog(
                     this, "Pagamento excluído com sucesso.", "ATENÇÃO", JOptionPane.WARNING_MESSAGE);
@@ -377,16 +385,9 @@ public class ViewPagamentos extends javax.swing.JFrame {
             modelPagamentos.setPagData(blDatas.converterDataParaDateUS(new java.util.Date(
                     System.currentTimeMillis())));
             
-            //Passando os dados para dentro do modelCaixa
-            modelCaixa.setCaixaMovimentacao("Pagamento");
-            modelCaixa.setCaixaData(blDatas.converterDataParaDateUS(new java.util.Date(
-                    System.currentTimeMillis())));
-            modelCaixa.setCaixaValor(Double.parseDouble(this.jtfValor.getText().replaceAll(",", ".")));
-            modelCaixa.setCaixaAtor(this.jtfEmpresa.getText());
-            
             //Controller chama um método de DAO para salvar os dados no banco de dados
             controllerPagamentos.salvarPagamentoController(modelPagamentos);
-            controllerCaixa.salvarCaixaController(modelCaixa);
+            this.salvarPagamentoCaixa();
             JOptionPane.showMessageDialog(
                     this, "Pagamento registrado com sucesso.", "ATENÇÃO", JOptionPane.WARNING_MESSAGE);
         } catch (Exception e) {
@@ -401,6 +402,9 @@ public class ViewPagamentos extends javax.swing.JFrame {
     }
 
     private void alterarPagamento() {
+        String ator = (String) jTablePagamentos.getValueAt(linhaExcluir, 1);
+        String movimentacao = "Pagamento";
+        double valor = (Double) jTablePagamentos.getValueAt(linhaExcluir, 4);
         try {
             //pega os valores dos campos da interface e coloca dentro de cada atributo do objeto
             modelPagamentos.setPagEmpresa(this.jtfEmpresa.getText());
@@ -408,8 +412,11 @@ public class ViewPagamentos extends javax.swing.JFrame {
             modelPagamentos.setPagValor(Double.parseDouble(this.jtfValor.getText().replaceAll(",", ".")));
             modelPagamentos.setPagData(blDatas.converterDataParaDateUS(new java.util.Date(
                     System.currentTimeMillis())));
-
+            
+            
             controllerPagamentos.alterarPagamentoController(modelPagamentos);
+            controllerCaixa.excluirCaixaController(movimentacao, ator, valor);
+            this.salvarPagamentoCaixa();
             JOptionPane.showMessageDialog(
                     this, "Pagamento alterado com sucesso.", "ATENÇÃO", JOptionPane.WARNING_MESSAGE);
 
@@ -428,6 +435,24 @@ public class ViewPagamentos extends javax.swing.JFrame {
         jtfEmpresa.setText("");
         jtfValor.setText("");
         jcbMetodo.setSelectedItem("Dinheiro");
+        this.linhaExcluir = -50;
+        this.salvarAlterar = "salvar";
+    }
+    
+    private void salvarPagamentoCaixa(){
+        //Passando os dados para dentro do modelCaixa
+            try {
+            
+            modelCaixa.setCaixaMovimentacao("Pagamento");
+            modelCaixa.setCaixaData(blDatas.converterDataParaDateUS(new java.util.Date(
+                    System.currentTimeMillis())));
+            modelCaixa.setCaixaValor(Double.parseDouble(this.jtfValor.getText().replaceAll(",", ".")));
+            modelCaixa.setCaixaAtor(this.jtfEmpresa.getText());
+            
+            controllerCaixa.salvarCaixaController(modelCaixa);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

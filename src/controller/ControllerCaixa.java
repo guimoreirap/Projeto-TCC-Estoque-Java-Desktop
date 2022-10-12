@@ -13,30 +13,35 @@ import model.ModelCaixa;
  * @author Usuario
  */
 public class ControllerCaixa {
+
     private DaoCaixa daoCaixa = new DaoCaixa();
-    
+
     public int salvarCaixaController(ModelCaixa pModelCaixa) {
         return this.daoCaixa.salvarCaixaDAO(pModelCaixa);
     }
-    
+
     //recebe requisição de retornar produtos de DAO
-    public ArrayList<ModelCaixa> retornarListaCaixaController(){
+    public ArrayList<ModelCaixa> retornarListaCaixaController() {
         return this.daoCaixa.retornarListaCaixaDAO();
     }
-    
-    public ArrayList<ModelCaixa> retornarListaCaixaDataController(String data){
+
+    public ArrayList<ModelCaixa> retornarListaCaixaDataController(String data) {
         return this.daoCaixa.retornarListaCaixaDataDAO(data);
     }
-    
-    public ArrayList<ModelCaixa> retornarListaCaixaMovimentacaoController(String movimentacao){
+
+    public ArrayList<ModelCaixa> retornarListaCaixaMovimentacaoController(String movimentacao) {
         return this.daoCaixa.retornarListaCaixaMovimentacaoDAO(movimentacao);
     }
-    
-    public ArrayList<ModelCaixa> retornarListaCaixaController(String movimentacao, String data){
+
+    public ArrayList<ModelCaixa> retornarListaCaixaController(String movimentacao, String data) {
         return this.daoCaixa.retornarListaCaixaDAO(movimentacao, data);
     }
-    
+
     public boolean excluirCaixaController(int pIdVenda, int pIdCliente) {
         return this.daoCaixa.excluirCaixaDAO(pIdVenda, pIdCliente);
+    }
+
+    public boolean excluirCaixaController(String pMovimentacao, String pAtor, double pValor) {
+        return this.daoCaixa.excluirCaixaDAO(pMovimentacao, pAtor, pValor);
     }
 }
