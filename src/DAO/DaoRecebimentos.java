@@ -70,11 +70,25 @@ public class DaoRecebimentos extends ConexaoMySql {
         return listaModelRecebimentos;
     }
 
-    public boolean excluirRecebimentoDAO(int pIdRecebimento) {
+    public boolean excluirRecebimentoDAO(int pIdVenda) {
         try {
             this.conectar();
             return this.executarUpdateDeleteSQL(
-                    "DELETE FROM tbl_recebimento WHERE fk_venda  = '" + pIdRecebimento + "';");
+                    "DELETE FROM tbl_recebimento WHERE fk_venda  = '" + pIdVenda + "';");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            this.fecharConexao();
+        }
+
+    }
+    
+    public boolean excluirRecebimento2DAO(int pIdRecebimento) {
+        try {
+            this.conectar();
+            return this.executarUpdateDeleteSQL(
+                    "DELETE FROM tbl_recebimento WHERE pk_id_recebimento = '" + pIdRecebimento + "';");
         } catch (Exception e) {
             e.printStackTrace();
             return false;

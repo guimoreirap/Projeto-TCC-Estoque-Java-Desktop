@@ -46,7 +46,7 @@ public class ControllerVendas {
     }
     
     //Método para ser executad ao alterar um recebimento
-    public boolean alterarValorRecebimentoEmVendaDAO(double valorLiquido, double valorRecebido, int idVenda) {
-        return this.daoVendas.alterarValorRecebimentoEmVendaDAO(valorLiquido, valorRecebido, idVenda);
+    public boolean alterarValorRecebimentoEmVendaDAO(double valorRecebido, int idVenda) {
+        return this.daoVendas.alterarValorRecebimentoEmVendaDAO(valorRecebido, idVenda);
     }
 }

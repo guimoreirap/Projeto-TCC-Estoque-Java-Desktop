@@ -184,8 +184,7 @@ public class DaoCaixa extends ConexaoMySql {
         try {
             this.conectar();
             return this.executarUpdateDeleteSQL(
-                    "DELETE FROM tbl_caixa WHERE cai_id_movimentacao = '" + pIdVenda
-                    + "' AND cai_id_ator = '" + pIdCliente + "';");
+                    "DELETE FROM tbl_caixa WHERE cai_id_movimentacao = '"+pIdVenda+"' AND cai_id_ator = '"+pIdCliente+"';");
         } catch (Exception e) {
             e.printStackTrace();
             return false;

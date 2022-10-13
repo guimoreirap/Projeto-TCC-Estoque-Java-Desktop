@@ -156,13 +156,12 @@ public class DaoVendas extends ConexaoMySql {
         }
     }
     
-    public boolean alterarValorRecebimentoEmVendaDAO(double valorLiquido, double valorRecebido, int idVenda) {
+    public boolean alterarValorRecebimentoEmVendaDAO(double valorRecebido, int idVenda) {
         try {
             this.conectar();
             return this.executarUpdateDeleteSQL(""
                     + "UPDATE tbl_vendas SET "
-                    + "ven_valor_liquido = '" + valorLiquido + "',"
-                    + "ven_valor_recebido = '" + valorRecebido + "',"
+                    + "ven_valor_recebido = '" + valorRecebido + "'"
                     + " WHERE pk_id_venda = '" + idVenda + "';");
         } catch (Exception e) {
             e.printStackTrace();

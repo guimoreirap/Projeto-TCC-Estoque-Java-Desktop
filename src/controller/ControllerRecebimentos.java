@@ -23,6 +23,10 @@ public class ControllerRecebimentos {
         return this.daoRecebimentos.excluirRecebimentoDAO(pCodigo);
     }
     
+    public boolean excluirRecebimentoController2(int pCodigo) {
+        return this.daoRecebimentos.excluirRecebimento2DAO(pCodigo);
+    }
+    
     public boolean alterarRecebimentoController(ModelRecebimentos pModelPagamentos) {
         return this.daoRecebimentos.alterarRecebimentoDAO(pModelPagamentos);
     }

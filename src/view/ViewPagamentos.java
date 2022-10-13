@@ -285,7 +285,6 @@ public class ViewPagamentos extends javax.swing.JFrame {
 
         
         try {
-            System.out.println("Ator: " + ator + "\nMovimentacao: " + movimentacao + "\nValor: " + valor);
             controllerCaixa.excluirCaixaController(movimentacao, ator, valor);
             controllerPagamentos.excluirPagamentoController(codigoPagamento);
             JOptionPane.showMessageDialog(

@@ -1107,9 +1107,10 @@ public class ViewVenda extends javax.swing.JFrame {
             modelRecebimentos.setRecData(bLDatas.converterDataParaDateUS(new java.util.Date(System.currentTimeMillis())));
             modelRecebimentos.setRecMetodo("A vista");
             modelRecebimentos.setRecValor(Double.parseDouble(jtfValorPago.getText().replaceAll(",", ".")));
+            int codigoRecebimento = controllerRecebimento.salvarRecebimento(modelRecebimentos);
 
             //Passando os dados para dentro do modelCaixa
-            modelCaixa.setIdCaixaMovimentacao(codigoVenda);
+            modelCaixa.setIdCaixaMovimentacao(codigoRecebimento);
             modelCaixa.setCaixaMovimentacao("Recebimento");
             modelCaixa.setCaixaData(bLDatas.converterDataParaDateUS(new java.util.Date(System.currentTimeMillis())));
             modelCaixa.setCaixaValor(Double.parseDouble(jtfValorPago.getText().replaceAll(",", ".")));
@@ -1121,7 +1122,6 @@ public class ViewVenda extends javax.swing.JFrame {
 
             //controller efetua os inserts dentro do banco de dados
             controllerCaixa.salvarCaixaController(modelCaixa);
-            controllerRecebimento.salvarRecebimento(modelRecebimentos);
 
         } catch (Exception e) {
             e.printStackTrace();
