@@ -681,11 +681,20 @@ public class ViewRecebimentos extends javax.swing.JFrame {
         int codigoRecebimento = (int) jTableHistorico.getValueAt(linha, 1);
         int codigoVenda = (int) jTableHistorico.getValueAt(linha, 2);
         int codigoCliente = controllerVenda.retornarVendaController(codigoVenda).getCliente();
+        double valorRecebidoCampo = (double) jTableHistorico.getValueAt(linha, 5);
         
         try {
             System.out.println("Codigo de recebimento: " + codigoRecebimento +  "\nCodigoCliente: " + codigoCliente);
             controllerCaixa.excluirCaixaController(codigoRecebimento, codigoCliente);
             controllerRecebimentos.excluirRecebimentoController2(codigoRecebimento);
+            
+            double valorRecebidoBanco = controllerVenda.retornarVendaController(codigoVenda).getVenValorRecebido();
+            double valorRecebido = valorRecebidoBanco - valorRecebidoCampo;
+            System.out.println("Valor do banco " + valorRecebidoBanco);
+            System.out.println("Valor do campo " + valorRecebidoCampo);
+            System.out.println("Valor final " + valorRecebido);
+            
+            controllerVenda.alterarValorRecebimentoEmVendaDAO(valorRecebido, codigoVenda);
             JOptionPane.showMessageDialog(
                     this, "Pagamento excluído com sucesso.", "ATENÇÃO", JOptionPane.WARNING_MESSAGE);
         } catch (Exception e) {
