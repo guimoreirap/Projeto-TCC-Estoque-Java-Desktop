@@ -63,6 +63,8 @@ public class ViewUsuario extends javax.swing.JFrame {
         jtfSenha = new javax.swing.JPasswordField();
         jtfConfirmarSenha = new javax.swing.JPasswordField();
         jtfSenhaAtual = new javax.swing.JPasswordField();
+        jLabel7 = new javax.swing.JLabel();
+        jcbPermissao = new javax.swing.JComboBox<>();
         jbVoltar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -133,6 +135,10 @@ public class ViewUsuario extends javax.swing.JFrame {
 
         jLabel6.setText("Senha atual");
 
+        jLabel7.setText("Permissão");
+
+        jcbPermissao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Comum", "Admin" }));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -148,18 +154,23 @@ public class ViewUsuario extends javax.swing.JFrame {
                         .addComponent(jbAlterar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jbSalvar))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 504, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
                             .addComponent(jtfCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(20, 20, 20)
-                                .addComponent(jLabel2))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
-                                .addComponent(jtfNome))))
+                                .addComponent(jtfNome, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(20, 20, 20)
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jcbPermissao, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -187,11 +198,13 @@ public class ViewUsuario extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jLabel2))
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel7))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jtfCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jtfNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jtfNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jcbPermissao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -234,7 +247,7 @@ public class ViewUsuario extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbVoltar))
-                .addGap(0, 4, Short.MAX_VALUE))
+                .addGap(0, 56, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -299,6 +312,7 @@ public class ViewUsuario extends javax.swing.JFrame {
             this.jtfCodigo.setText(String.valueOf(modelUsuarios.getUsuId()));
             this.jtfNome.setText(modelUsuarios.getUsuNome());
             this.jtfLogin.setText(String.valueOf(modelUsuarios.getUsuLogin()));
+            this.jcbPermissao.setSelectedIndex(modelUsuarios.getUsuPermissao());
             jtfSenhaAtual.setEnabled(true);
 
             //captura a senha
@@ -397,9 +411,9 @@ public class ViewUsuario extends javax.swing.JFrame {
         //pega os valores dos campos da interface e coloca dentro de cada atributo do objeto
         modelUsuarios.setUsuNome(this.jtfNome.getText());
         modelUsuarios.setUsuLogin(this.jtfLogin.getText());
+        modelUsuarios.setUsuPermissao(this.jcbPermissao.getSelectedIndex());
         String senha = String.valueOf(this.jtfSenha.getPassword());
         String confirmarSenha = String.valueOf(this.jtfConfirmarSenha.getPassword());
-        System.out.println("Senha: " + senha + "\nConfirmarSenha: " + confirmarSenha);
 
         if (senha.equals(confirmarSenha) && !senha.equals("") && !confirmarSenha.equals("")) {
             modelUsuarios.setUsuSenha(senha);
@@ -415,11 +429,11 @@ public class ViewUsuario extends javax.swing.JFrame {
         try {
             controllerUsuario.salvarUsuarioController(modelUsuarios);
             JOptionPane.showMessageDialog(
-                    this, "Produto inserido com sucesso.", "ATENÇÃO", JOptionPane.WARNING_MESSAGE);
+                    this, "Usuário salvo com sucesso.", "ATENÇÃO", JOptionPane.WARNING_MESSAGE);
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(
-                    this, "Ocorreu um erro ao inserir o produto no banco de dados.", "ERRO", JOptionPane.ERROR_MESSAGE);
+                    this, "Ocorreu um erro ao inserir o usuário no banco de dados.", "ERRO", JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
         } finally {
             this.carregarUsuarios();
@@ -432,6 +446,7 @@ public class ViewUsuario extends javax.swing.JFrame {
         modelUsuarios.setUsuId(Integer.parseInt(this.jtfCodigo.getText()));
         modelUsuarios.setUsuNome(this.jtfNome.getText());
         modelUsuarios.setUsuLogin(this.jtfLogin.getText());
+        modelUsuarios.setUsuPermissao(this.jcbPermissao.getSelectedIndex());
         modelUsuarios.setUsuSenha(String.valueOf(this.jtfSenhaAtual.getPassword()));
         String senhaInserida = String.valueOf(this.jtfSenha.getPassword());
         String senhaInseridaValidação = String.valueOf(this.jtfConfirmarSenha.getPassword());;
@@ -456,7 +471,7 @@ public class ViewUsuario extends javax.swing.JFrame {
                 }
             } else {
                 JOptionPane.showMessageDialog(
-                            this, "Senha não foi alterada.", "ERRO", JOptionPane.ERROR_MESSAGE);
+                        this, "Senha não foi alterada.", "ERRO", JOptionPane.ERROR_MESSAGE);
             }
 
             //SE TODAS CONDIÇÕES FOREM VERDADEIRAS ELE ALTERA NO BANCO DE DADOS O USUARIO
@@ -490,6 +505,7 @@ public class ViewUsuario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableUsuario;
@@ -498,6 +514,7 @@ public class ViewUsuario extends javax.swing.JFrame {
     private javax.swing.JButton jbNovo;
     private javax.swing.JButton jbSalvar;
     private javax.swing.JButton jbVoltar;
+    private javax.swing.JComboBox<String> jcbPermissao;
     private javax.swing.JTextField jtfCodigo;
     private javax.swing.JPasswordField jtfConfirmarSenha;
     private javax.swing.JTextField jtfLogin;

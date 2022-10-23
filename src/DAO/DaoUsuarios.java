@@ -20,11 +20,13 @@ public class DaoUsuarios extends ConexaoMySql {
             return this.insertSQL("INSERT INTO tbl_usuario ("
                     + "usu_nome,"
                     + "usu_login,"
-                    + "usu_senha"
+                    + "usu_senha,"
+                    + "usu_permissao"
                     + ") VALUES ("
                     + "'" + pModelUsuarios.getUsuNome() + "',"
                     + "'" + pModelUsuarios.getUsuLogin() + "',"
-                    + "'" + pModelUsuarios.getUsuSenha() + "');"
+                    + "'" + pModelUsuarios.getUsuSenha() + "',"
+                    + "'" + pModelUsuarios.getUsuPermissao() + "');"
             );
         } catch (Exception e) {
             e.printStackTrace();
@@ -55,7 +57,8 @@ public class DaoUsuarios extends ConexaoMySql {
             return this.executarUpdateDeleteSQL(""
                     + "UPDATE tbl_usuario SET "
                     + "usu_nome = '" + pModelUsuarios.getUsuNome() + "',"
-                    + "usu_senha = '" + pModelUsuarios.getUsuSenha()+ "',"
+                    + "usu_senha = '" + pModelUsuarios.getUsuSenha() + "',"
+                    + "usu_permissao = '" + pModelUsuarios.getUsuPermissao() + "',"
                     + "usu_login = '" + pModelUsuarios.getUsuLogin() + "'"
                     + " WHERE pk_id_usuario  = '" + pModelUsuarios.getUsuId() + "';");
         } catch (Exception e) {
@@ -75,14 +78,15 @@ public class DaoUsuarios extends ConexaoMySql {
                     + "pk_id_usuario, "
                     + "usu_nome, "
                     + "usu_login, "
-                    + "usu_senha "
+                    + "usu_senha, "
+                    + "usu_permissao "
                     + "FROM tbl_usuario WHERE pk_id_usuario  = '" + pIdUsuario + "';");
             while (this.getResultSet().next()) {
                 modelUsuarios.setUsuId(this.getResultSet().getInt(1));
                 modelUsuarios.setUsuNome(this.getResultSet().getString(2));
                 modelUsuarios.setUsuLogin(this.getResultSet().getString(3));
                 modelUsuarios.setUsuSenha(this.getResultSet().getString(4));
-
+                modelUsuarios.setUsuPermissao(this.getResultSet().getInt(5));
             }
 
         } catch (Exception e) {
@@ -102,13 +106,15 @@ public class DaoUsuarios extends ConexaoMySql {
             this.executarSQL("SELECT "
                     + "pk_id_usuario, "
                     + "usu_nome, "
-                    + "usu_login "
+                    + "usu_login, "
+                    + "usu_permissao "
                     + "FROM tbl_usuario;");
             while (this.getResultSet().next()) {
                 modelUsuarios = new ModelUsuarios();
                 modelUsuarios.setUsuId(this.getResultSet().getInt(1));
                 modelUsuarios.setUsuNome(this.getResultSet().getString(2));
                 modelUsuarios.setUsuLogin(this.getResultSet().getString(3));
+                modelUsuarios.setUsuPermissao(this.getResultSet().getInt(4));
                 listaModelUsuarios.add(modelUsuarios);
             }
 
@@ -128,6 +134,7 @@ public class DaoUsuarios extends ConexaoMySql {
                     + "pk_id_usuario, "
                     + "usu_nome, "
                     + "usu_login,"
+                    + "usu_permissao,"
                     + "usu_senha "
                     + "FROM tbl_usuario WHERE usu_login = '" + pModelUsuarios.getUsuLogin() + "' "
                     + "AND usu_senha = '" + pModelUsuarios.getUsuSenha() + "' ;");
@@ -144,7 +151,7 @@ public class DaoUsuarios extends ConexaoMySql {
             this.fecharConexao();
         }
     }
-    
+
     public boolean getValidarUsuarioSenhaDAO(ModelUsuarios pModelUsuarios) {
         try {
             this.conectar();
@@ -152,6 +159,7 @@ public class DaoUsuarios extends ConexaoMySql {
                     + "pk_id_usuario, "
                     + "usu_nome, "
                     + "usu_login,"
+                    + "usu_permissao,"
                     + "usu_senha "
                     + "FROM tbl_usuario WHERE usu_senha = '" + pModelUsuarios.getUsuSenha() + "' ;");
             if (getResultSet().next()) {

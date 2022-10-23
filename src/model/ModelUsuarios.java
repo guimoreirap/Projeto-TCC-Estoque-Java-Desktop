@@ -13,6 +13,7 @@ public class ModelUsuarios {
     private String usuNome;
     private String usuLogin;
     private String usuSenha;
+    private int usuPermissao;
 
     public int getUsuId() {
         return usuId;
@@ -45,6 +46,16 @@ public class ModelUsuarios {
     public void setUsuSenha(String usuSenha) {
         this.usuSenha = usuSenha;
     }
+
+    public int getUsuPermissao() {
+        return usuPermissao;
+    }
+
+    public void setUsuPermissao(int usuPermissao) {
+        this.usuPermissao = usuPermissao;
+    }
+    
+    
     
     
 }

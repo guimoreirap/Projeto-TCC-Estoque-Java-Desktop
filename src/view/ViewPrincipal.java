@@ -39,6 +39,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
         jmiRecebimentos1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         uJPanelImagem1.setImagem(new java.io.File("C:\\Users\\Usuario\\Desktop\\Backup Valdineis Moreira\\Usuario\\Documents\\NetBeansProjects\\SistemaVendas\\src\\imagens\\neymaremessi.jpeg"));
 
@@ -91,7 +92,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
         });
         jMenuMovimentações.add(jmiVendas);
 
-        jmiPagamentos.setText("Contas a pagar");
+        jmiPagamentos.setText("Pagamentos");
         jmiPagamentos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmiPagamentosActionPerformed(evt);

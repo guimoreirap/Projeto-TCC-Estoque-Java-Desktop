@@ -67,6 +67,7 @@ public class ViewPagamentos extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Pagamentos");
+        setResizable(false);
 
         jLabel1.setText("Empresa:");
 

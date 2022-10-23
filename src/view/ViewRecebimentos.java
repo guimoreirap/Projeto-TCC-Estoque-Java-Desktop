@@ -118,6 +118,7 @@ public class ViewRecebimentos extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Contas a receber");
+        setResizable(false);
 
         jbRealizarRecebimento.setText("Realizar recebimento");
         jbRealizarRecebimento.addActionListener(new java.awt.event.ActionListener() {
