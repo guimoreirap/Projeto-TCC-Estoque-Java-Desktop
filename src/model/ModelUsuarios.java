@@ -14,6 +14,8 @@ public class ModelUsuarios {
     private String usuLogin;
     private String usuSenha;
     private int usuPermissao;
+    private int usuIndexPergunta;
+    private String usuPergunta;
 
     public int getUsuId() {
         return usuId;
@@ -53,6 +55,22 @@ public class ModelUsuarios {
 
     public void setUsuPermissao(int usuPermissao) {
         this.usuPermissao = usuPermissao;
+    }
+
+    public int getUsuIndexPergunta() {
+        return usuIndexPergunta;
+    }
+
+    public void setUsuIndexPergunta(int usuIndexPergunta) {
+        this.usuIndexPergunta = usuIndexPergunta;
+    }
+
+    public String getUsuPergunta() {
+        return usuPergunta;
+    }
+
+    public void setUsuPergunta(String usuPergutna) {
+        this.usuPergunta = usuPergutna;
     }
     
     

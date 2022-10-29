@@ -8,6 +8,7 @@ import controller.ControllerUsuarios;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import model.ModelPergunta;
 import model.ModelUsuarios;
 import util.Formatador;
 
@@ -32,6 +33,7 @@ public class ViewUsuario extends javax.swing.JFrame {
         this.carregarUsuarios();
         //this.habilitarDesabilitarCampos(false);
         this.jtfSenhaAtual.setEnabled(false);
+        this.carregarPerguntaSegurança();
 
     }
 
@@ -54,10 +56,6 @@ public class ViewUsuario extends javax.swing.JFrame {
         jtfLogin = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableUsuario = new javax.swing.JTable();
-        jbExcluir = new javax.swing.JButton();
-        jbSalvar = new javax.swing.JButton();
-        jbNovo = new javax.swing.JButton();
-        jbAlterar = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jtfSenha = new javax.swing.JPasswordField();
@@ -65,7 +63,16 @@ public class ViewUsuario extends javax.swing.JFrame {
         jtfSenhaAtual = new javax.swing.JPasswordField();
         jLabel7 = new javax.swing.JLabel();
         jcbPermissao = new javax.swing.JComboBox<>();
+        jPanel2 = new javax.swing.JPanel();
+        jcbItemPergunta = new javax.swing.JComboBox<>();
+        jLabelPergunta = new javax.swing.JLabel();
+        jtfResposta = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
         jbVoltar = new javax.swing.JButton();
+        jbExcluir = new javax.swing.JButton();
+        jbSalvar = new javax.swing.JButton();
+        jbNovo = new javax.swing.JButton();
+        jbAlterar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Usuários");
@@ -103,34 +110,6 @@ public class ViewUsuario extends javax.swing.JFrame {
             jTableUsuario.getColumnModel().getColumn(0).setMaxWidth(90);
         }
 
-        jbExcluir.setText("Excluir");
-        jbExcluir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbExcluirActionPerformed(evt);
-            }
-        });
-
-        jbSalvar.setText("Salvar");
-        jbSalvar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbSalvarActionPerformed(evt);
-            }
-        });
-
-        jbNovo.setText("Novo");
-        jbNovo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbNovoActionPerformed(evt);
-            }
-        });
-
-        jbAlterar.setText("Alterar");
-        jbAlterar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbAlterarActionPerformed(evt);
-            }
-        });
-
         jLabel5.setText("Confirmar senha:");
 
         jLabel6.setText("Senha atual");
@@ -139,6 +118,57 @@ public class ViewUsuario extends javax.swing.JFrame {
 
         jcbPermissao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Comum", "Admin" }));
 
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Pergunta de segurança"));
+
+        jcbItemPergunta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5" }));
+        jcbItemPergunta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbItemPerguntaActionPerformed(evt);
+            }
+        });
+
+        jLabelPergunta.setText("jLabel8");
+
+        jtfResposta.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jtfRespostaFocusGained(evt);
+            }
+        });
+
+        jLabel8.setText("R:");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jcbItemPergunta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabelPergunta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jtfResposta, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jcbItemPergunta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelPergunta))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jtfResposta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8))
+                .addContainerGap(38, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -146,14 +176,6 @@ public class ViewUsuario extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(28, 28, 28)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jbExcluir)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jbNovo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jbAlterar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jbSalvar))
                     .addComponent(jScrollPane1)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -172,24 +194,26 @@ public class ViewUsuario extends javax.swing.JFrame {
                             .addComponent(jcbPermissao, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel7)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addGap(259, 259, 259)
-                                .addComponent(jLabel6))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jtfSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(35, 35, 35)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jtfConfirmarSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel5))))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jtfLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jtfSenhaAtual)))
+                        .addComponent(jtfSenhaAtual))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(jLabel3)
+                                    .addGap(259, 259, 259)
+                                    .addComponent(jLabel6))
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel4)
+                                        .addComponent(jtfSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGap(35, 35, 35)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jtfConfirmarSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel5)))))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -221,14 +245,10 @@ public class ViewUsuario extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jtfSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jtfConfirmarSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(23, 23, 23)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jbExcluir)
-                    .addComponent(jbSalvar)
-                    .addComponent(jbAlterar)
-                    .addComponent(jbNovo))
                 .addContainerGap())
         );
 
@@ -236,6 +256,34 @@ public class ViewUsuario extends javax.swing.JFrame {
         jbVoltar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbVoltarActionPerformed(evt);
+            }
+        });
+
+        jbExcluir.setText("Excluir");
+        jbExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbExcluirActionPerformed(evt);
+            }
+        });
+
+        jbSalvar.setText("Salvar");
+        jbSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbSalvarActionPerformed(evt);
+            }
+        });
+
+        jbNovo.setText("Novo");
+        jbNovo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbNovoActionPerformed(evt);
+            }
+        });
+
+        jbAlterar.setText("Alterar");
+        jbAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbAlterarActionPerformed(evt);
             }
         });
 
@@ -247,7 +295,17 @@ public class ViewUsuario extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbVoltar))
-                .addGap(0, 56, Short.MAX_VALUE))
+                .addGap(0, 10, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addComponent(jbExcluir)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jbNovo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jbAlterar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jbSalvar)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -255,7 +313,13 @@ public class ViewUsuario extends javax.swing.JFrame {
                 .addComponent(jbVoltar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jbExcluir)
+                    .addComponent(jbSalvar)
+                    .addComponent(jbAlterar)
+                    .addComponent(jbNovo))
+                .addContainerGap())
         );
 
         pack();
@@ -313,6 +377,7 @@ public class ViewUsuario extends javax.swing.JFrame {
             this.jtfNome.setText(modelUsuarios.getUsuNome());
             this.jtfLogin.setText(String.valueOf(modelUsuarios.getUsuLogin()));
             this.jcbPermissao.setSelectedIndex(modelUsuarios.getUsuPermissao());
+            this.jcbItemPergunta.setSelectedIndex(modelUsuarios.getUsuIndexPergunta());
             jtfSenhaAtual.setEnabled(true);
 
             //captura a senha
@@ -329,6 +394,14 @@ public class ViewUsuario extends javax.swing.JFrame {
         new ViewPrincipal().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jbVoltarActionPerformed
+
+    private void jtfRespostaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfRespostaFocusGained
+        carregarPerguntaSegurança();
+    }//GEN-LAST:event_jtfRespostaFocusGained
+
+    private void jcbItemPerguntaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbItemPerguntaActionPerformed
+        this.carregarPerguntaSegurança();
+    }//GEN-LAST:event_jcbItemPerguntaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -392,6 +465,7 @@ public class ViewUsuario extends javax.swing.JFrame {
         this.jtfSenha.setText("");
         this.jtfConfirmarSenha.setText("");
         this.jtfSenhaAtual.setText("");
+        this.jtfResposta.setText("");
         this.jtfNome.requestFocus();
         this.jtfSenhaAtual.setEnabled(false);
 
@@ -412,6 +486,8 @@ public class ViewUsuario extends javax.swing.JFrame {
         modelUsuarios.setUsuNome(this.jtfNome.getText());
         modelUsuarios.setUsuLogin(this.jtfLogin.getText());
         modelUsuarios.setUsuPermissao(this.jcbPermissao.getSelectedIndex());
+        modelUsuarios.setUsuIndexPergunta(this.jcbItemPergunta.getSelectedIndex());
+        modelUsuarios.setUsuPergunta(this.jtfResposta.getText());
         String senha = String.valueOf(this.jtfSenha.getPassword());
         String confirmarSenha = String.valueOf(this.jtfConfirmarSenha.getPassword());
 
@@ -447,6 +523,8 @@ public class ViewUsuario extends javax.swing.JFrame {
         modelUsuarios.setUsuNome(this.jtfNome.getText());
         modelUsuarios.setUsuLogin(this.jtfLogin.getText());
         modelUsuarios.setUsuPermissao(this.jcbPermissao.getSelectedIndex());
+        modelUsuarios.setUsuIndexPergunta(this.jcbItemPergunta.getSelectedIndex());
+        modelUsuarios.setUsuPergunta(this.jtfResposta.getText());
         modelUsuarios.setUsuSenha(String.valueOf(this.jtfSenhaAtual.getPassword()));
         String senhaInserida = String.valueOf(this.jtfSenha.getPassword());
         String senhaInseridaValidação = String.valueOf(this.jtfConfirmarSenha.getPassword());;
@@ -498,6 +576,11 @@ public class ViewUsuario extends javax.swing.JFrame {
         }
     }
 
+    private void carregarPerguntaSegurança() {
+        int index = this.jcbItemPergunta.getSelectedIndex();
+        this.jLabelPergunta.setText(ModelPergunta.pergunta[index]);
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -506,7 +589,10 @@ public class ViewUsuario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabelPergunta;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableUsuario;
     private javax.swing.JButton jbAlterar;
@@ -514,11 +600,13 @@ public class ViewUsuario extends javax.swing.JFrame {
     private javax.swing.JButton jbNovo;
     private javax.swing.JButton jbSalvar;
     private javax.swing.JButton jbVoltar;
+    private javax.swing.JComboBox<String> jcbItemPergunta;
     private javax.swing.JComboBox<String> jcbPermissao;
     private javax.swing.JTextField jtfCodigo;
     private javax.swing.JPasswordField jtfConfirmarSenha;
     private javax.swing.JTextField jtfLogin;
     private javax.swing.JTextField jtfNome;
+    private javax.swing.JTextField jtfResposta;
     private javax.swing.JPasswordField jtfSenha;
     private javax.swing.JPasswordField jtfSenhaAtual;
     // End of variables declaration//GEN-END:variables

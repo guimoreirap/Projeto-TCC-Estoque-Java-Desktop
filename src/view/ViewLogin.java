@@ -7,6 +7,8 @@ package view;
 import controller.ControllerUsuarios;
 import javax.swing.JOptionPane;
 import model.ModelUsuarios;
+import org.apache.commons.mail.DefaultAuthenticator;
+import org.apache.commons.mail.SimpleEmail;
 
 /**
  *
@@ -21,6 +23,7 @@ public class ViewLogin extends javax.swing.JFrame {
      */
     public ViewLogin() {
         initComponents();
+        
     }
 
     /**
@@ -128,6 +131,7 @@ public class ViewLogin extends javax.swing.JFrame {
         
         if(controllerUsuario.getValidarUsuarioController(modelUsuarios)){
             new ViewPrincipal().setVisible(true);
+            this.enviarEmail();
             this.setVisible(false);
         } else {
             JOptionPane.showMessageDialog(
@@ -169,6 +173,31 @@ public class ViewLogin extends javax.swing.JFrame {
                 new ViewLogin().setVisible(true);
             }
         });
+    }
+    
+    public void enviarEmail(){
+        
+        try {
+            String meuEmail = "guimoreira.ads@gmail.com";
+            String minhaSenha = "gui36522032";
+
+            SimpleEmail email = new SimpleEmail();
+            email.setHostName("smtp.gmail.com");
+            email.setSmtpPort(465);
+            email.setAuthenticator(new DefaultAuthenticator(meuEmail, minhaSenha));
+            email.setSSLOnConnect(true);
+            email.setFrom(meuEmail);
+            email.setSubject("Pedido de troca de senha");
+            email.setMsg("Aqui está a sua nova senha: 071256");
+            email.addTo(meuEmail);
+            email.send();
+            JOptionPane.showMessageDialog(this, "E-mail enviado com sucesso");
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Erro ao enviar e-mail.");
+        }
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

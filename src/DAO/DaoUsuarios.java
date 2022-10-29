@@ -21,12 +21,16 @@ public class DaoUsuarios extends ConexaoMySql {
                     + "usu_nome,"
                     + "usu_login,"
                     + "usu_senha,"
-                    + "usu_permissao"
+                    + "usu_permissao,"
+                    + "usu_index_pergunta,"
+                    + "usu_pergunta"
                     + ") VALUES ("
                     + "'" + pModelUsuarios.getUsuNome() + "',"
                     + "'" + pModelUsuarios.getUsuLogin() + "',"
                     + "'" + pModelUsuarios.getUsuSenha() + "',"
-                    + "'" + pModelUsuarios.getUsuPermissao() + "');"
+                    + "'" + pModelUsuarios.getUsuPermissao() + "',"
+                    + "'" + pModelUsuarios.getUsuIndexPergunta() + "',"
+                    + "'" + pModelUsuarios.getUsuPergunta() + "');"
             );
         } catch (Exception e) {
             e.printStackTrace();
@@ -59,6 +63,8 @@ public class DaoUsuarios extends ConexaoMySql {
                     + "usu_nome = '" + pModelUsuarios.getUsuNome() + "',"
                     + "usu_senha = '" + pModelUsuarios.getUsuSenha() + "',"
                     + "usu_permissao = '" + pModelUsuarios.getUsuPermissao() + "',"
+                    + "usu_index_pergunta = '" + pModelUsuarios.getUsuIndexPergunta()+ "',"
+                    + "usu_pergunta = '" + pModelUsuarios.getUsuPergunta()+ "',"
                     + "usu_login = '" + pModelUsuarios.getUsuLogin() + "'"
                     + " WHERE pk_id_usuario  = '" + pModelUsuarios.getUsuId() + "';");
         } catch (Exception e) {
@@ -79,6 +85,8 @@ public class DaoUsuarios extends ConexaoMySql {
                     + "usu_nome, "
                     + "usu_login, "
                     + "usu_senha, "
+                    + "usu_index_pergunta, "
+                    + "usu_pergunta, "
                     + "usu_permissao "
                     + "FROM tbl_usuario WHERE pk_id_usuario  = '" + pIdUsuario + "';");
             while (this.getResultSet().next()) {
@@ -86,7 +94,9 @@ public class DaoUsuarios extends ConexaoMySql {
                 modelUsuarios.setUsuNome(this.getResultSet().getString(2));
                 modelUsuarios.setUsuLogin(this.getResultSet().getString(3));
                 modelUsuarios.setUsuSenha(this.getResultSet().getString(4));
-                modelUsuarios.setUsuPermissao(this.getResultSet().getInt(5));
+                modelUsuarios.setUsuIndexPergunta(this.getResultSet().getInt(5));
+                modelUsuarios.setUsuPergunta(this.getResultSet().getString(6));
+                modelUsuarios.setUsuPermissao(this.getResultSet().getInt(7));
             }
 
         } catch (Exception e) {
@@ -107,6 +117,8 @@ public class DaoUsuarios extends ConexaoMySql {
                     + "pk_id_usuario, "
                     + "usu_nome, "
                     + "usu_login, "
+                    + "usu_index_pergunta, "
+                    + "usu_pergunta, "
                     + "usu_permissao "
                     + "FROM tbl_usuario;");
             while (this.getResultSet().next()) {
@@ -114,7 +126,9 @@ public class DaoUsuarios extends ConexaoMySql {
                 modelUsuarios.setUsuId(this.getResultSet().getInt(1));
                 modelUsuarios.setUsuNome(this.getResultSet().getString(2));
                 modelUsuarios.setUsuLogin(this.getResultSet().getString(3));
-                modelUsuarios.setUsuPermissao(this.getResultSet().getInt(4));
+                modelUsuarios.setUsuIndexPergunta(this.getResultSet().getInt(4));
+                modelUsuarios.setUsuPergunta(this.getResultSet().getString(5));
+                modelUsuarios.setUsuPermissao(this.getResultSet().getInt(6));
                 listaModelUsuarios.add(modelUsuarios);
             }
 
