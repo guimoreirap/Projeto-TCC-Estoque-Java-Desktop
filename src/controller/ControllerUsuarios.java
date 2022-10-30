@@ -47,4 +47,16 @@ public class ControllerUsuarios {
     public boolean getValidarUsuarioSenhaController(ModelUsuarios pModelUsuarios) {
         return this.daoUsuarios.getValidarUsuarioSenhaDAO(pModelUsuarios);
     }
+    
+    public boolean validarRespostaSeguranca(ModelUsuarios pModelUsuarios){
+        return this.daoUsuarios.validarRespostaSeguranca(pModelUsuarios);
+    }
+    
+    public ModelUsuarios retornarUsuarioRecuperarSenhaDAO(String pLoginUsuario){
+        return this.daoUsuarios.retornarUsuarioRecuperarSenhaDAO(pLoginUsuario);
+    }
+    
+    public boolean alterarSenhaRecuperarSenhaDAO(ModelUsuarios pModelUsuarios){
+        return this.daoUsuarios.alterarUsuarioRecuperarSenhaDAO(pModelUsuarios);
+    }
 }

@@ -42,13 +42,14 @@ public class ViewLogin extends javax.swing.JFrame {
         jtfSenha = new javax.swing.JPasswordField();
         jbEntrar = new javax.swing.JButton();
         jbSair = new javax.swing.JButton();
+        jLabelEsqueciSenha = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Login");
         setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel1.setText("Bem Vindo!");
+        jLabel1.setText("Bem vindo!");
 
         jLabel3.setText("Usuário:");
 
@@ -68,19 +69,22 @@ public class ViewLogin extends javax.swing.JFrame {
             }
         });
 
+        jLabelEsqueciSenha.setForeground(new java.awt.Color(0, 153, 204));
+        jLabelEsqueciSenha.setText("Esqueci minha senha");
+        jLabelEsqueciSenha.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelEsqueciSenhaMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(76, 76, 76)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(135, 135, 135)
-                        .addComponent(jbEntrar, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jbSair))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(81, 81, 81)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(jLabel3)
@@ -88,20 +92,28 @@ public class ViewLogin extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel4)
                                 .addGap(16, 16, 16)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jtfUsuario)
-                            .addComponent(jtfSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jtfUsuario)
+                                .addComponent(jtfSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(36, 36, 36)
-                        .addComponent(jLabel1)))
-                .addContainerGap(81, Short.MAX_VALUE))
+                        .addGap(85, 85, 85)
+                        .addComponent(jbEntrar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jbSair)))
+                .addContainerGap(86, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabelEsqueciSenha)
+                .addGap(140, 140, 140))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(42, 42, 42)
+                .addGap(57, 57, 57)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
+                .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(jtfUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -113,7 +125,9 @@ public class ViewLogin extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbEntrar)
                     .addComponent(jbSair))
-                .addGap(37, 37, 37))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addComponent(jLabelEsqueciSenha)
+                .addGap(19, 19, 19))
         );
 
         pack();
@@ -131,7 +145,6 @@ public class ViewLogin extends javax.swing.JFrame {
         
         if(controllerUsuario.getValidarUsuarioController(modelUsuarios)){
             new ViewPrincipal().setVisible(true);
-            this.enviarEmail();
             this.setVisible(false);
         } else {
             JOptionPane.showMessageDialog(
@@ -139,6 +152,11 @@ public class ViewLogin extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_jbEntrarActionPerformed
+
+    private void jLabelEsqueciSenhaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelEsqueciSenhaMouseClicked
+        new ViewRecuperarSenha().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jLabelEsqueciSenhaMouseClicked
 
     /**
      * @param args the command line arguments
@@ -175,35 +193,11 @@ public class ViewLogin extends javax.swing.JFrame {
         });
     }
     
-    public void enviarEmail(){
-        
-        try {
-            String meuEmail = "guimoreira.ads@gmail.com";
-            String minhaSenha = "gui36522032";
-
-            SimpleEmail email = new SimpleEmail();
-            email.setHostName("smtp.gmail.com");
-            email.setSmtpPort(465);
-            email.setAuthenticator(new DefaultAuthenticator(meuEmail, minhaSenha));
-            email.setSSLOnConnect(true);
-            email.setFrom(meuEmail);
-            email.setSubject("Pedido de troca de senha");
-            email.setMsg("Aqui está a sua nova senha: 071256");
-            email.addTo(meuEmail);
-            email.send();
-            JOptionPane.showMessageDialog(this, "E-mail enviado com sucesso");
-            
-        } catch (Exception e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Erro ao enviar e-mail.");
-        }
-        
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabelEsqueciSenha;
     private javax.swing.JButton jbEntrar;
     private javax.swing.JButton jbSair;
     private javax.swing.JPasswordField jtfSenha;

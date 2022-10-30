@@ -46,5 +46,4 @@ public class ModelProdutos {
         this.proEstoque = proEstoque;
     }
     
-    
 }
