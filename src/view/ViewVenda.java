@@ -60,6 +60,7 @@ public class ViewVenda extends javax.swing.JFrame {
     String alterarSalvar = "salvar";
 
     BLDatas bLDatas = new BLDatas();
+    int valorPermissao = -1;
 
     /**
      * Creates new form ViewVenda
@@ -73,6 +74,18 @@ public class ViewVenda extends javax.swing.JFrame {
         this.carregarComboBoxProdutos();
         this.jtfCodigoCliente.setText("1");
         this.jtfCodigoCliente.requestFocus();
+    }
+
+    public ViewVenda(int valorPermissao) {
+        initComponents();
+        this.listarClientes();
+        this.listarProdutos();
+        this.carregarVendas();
+        this.carregarComboBoxClientes();
+        this.carregarComboBoxProdutos();
+        this.jtfCodigoCliente.setText("1");
+        this.jtfCodigoCliente.requestFocus();
+        this.valorPermissao = valorPermissao;
     }
 
     /**
@@ -790,12 +803,12 @@ public class ViewVenda extends javax.swing.JFrame {
     }//GEN-LAST:event_jtfCodigoClienteInputMethodTextChanged
 
     private void jbAdicionarCliente2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAdicionarCliente2ActionPerformed
-        new ViewPrincipal().setVisible(true);
+        new ViewPrincipal(this.valorPermissao).setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jbAdicionarCliente2ActionPerformed
 
     private void jbVoltar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbVoltar2ActionPerformed
-        new ViewPrincipal().setVisible(true);
+        new ViewPrincipal(this.valorPermissao).setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jbVoltar2ActionPerformed
 
@@ -988,7 +1001,6 @@ public class ViewVenda extends javax.swing.JFrame {
         int codigoCliente = Integer.parseInt(jtfCodigoCliente.getText());
 //retorna os produtos para o estoque e altera a venda
 
-        
         int linha = jtVendas.getSelectedRow();
         codigoVenda = (int) jtVendas.getValueAt(linha, 0);
         listaModelProdutos = new ArrayList<>();
@@ -1003,7 +1015,6 @@ public class ViewVenda extends javax.swing.JFrame {
             listaModelProdutos.add(modelProdutos);
         }
 
-         
         if (controllerProdutos.alterarEstoqueProdutoController(listaModelProdutos)) {
             controllerRecebimento.excluirRecebimentoController(codigoVenda, codigoCliente);
             controllerCaixa.excluirCaixaController(codigoVenda, codigoCliente);

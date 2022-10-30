@@ -24,6 +24,7 @@ public class ViewUsuario extends javax.swing.JFrame {
     String salvarAlterar = "salvar";
     Formatador formatador = new Formatador();
     String senhaAtual;
+    int valorPermissao = -1;
 
     /**
      * Creates new form ViewUsuario
@@ -35,6 +36,15 @@ public class ViewUsuario extends javax.swing.JFrame {
         this.jtfSenhaAtual.setEnabled(false);
         this.carregarPerguntaSegurança();
 
+    }
+
+    public ViewUsuario(int valorPermissao) {
+        initComponents();
+        this.carregarUsuarios();
+        //this.habilitarDesabilitarCampos(false);
+        this.jtfSenhaAtual.setEnabled(false);
+        this.carregarPerguntaSegurança();
+        this.valorPermissao = valorPermissao;
     }
 
     /**
@@ -391,7 +401,7 @@ public class ViewUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_jbAlterarActionPerformed
 
     private void jbVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbVoltarActionPerformed
-        new ViewPrincipal().setVisible(true);
+        new ViewPrincipal(this.valorPermissao).setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jbVoltarActionPerformed
 

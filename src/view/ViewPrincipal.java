@@ -4,17 +4,23 @@
  */
 package view;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Usuario
  */
 public class ViewPrincipal extends javax.swing.JFrame {
 
-    /**
-     * Creates new form ViewPrincipalTeste
-     */
+    int valorPermissao = -1;
+
     public ViewPrincipal() {
         initComponents();
+    }
+
+    public ViewPrincipal(int valorPermissao) {
+        initComponents();
+        this.valorPermissao = valorPermissao;
     }
 
     /**
@@ -138,37 +144,42 @@ public class ViewPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jmiPagamentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiPagamentosActionPerformed
-        new ViewPagamentos().setVisible(true);
+        new ViewPagamentos(this.valorPermissao).setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jmiPagamentosActionPerformed
 
     private void jmiClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiClienteActionPerformed
-        new ViewCliente().setVisible(true);
+        new ViewCliente(this.valorPermissao).setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jmiClienteActionPerformed
 
     private void jmiProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiProdutoActionPerformed
-        new ViewProduto().setVisible(true);
+        new ViewProduto(this.valorPermissao).setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jmiProdutoActionPerformed
 
     private void jmiUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiUsuarioActionPerformed
-        new ViewUsuario().setVisible(true);
-        this.setVisible(false);
+        if (this.valorPermissao == 1) {
+            new ViewUsuario(this.valorPermissao).setVisible(true);
+            this.setVisible(false);
+        } else {
+            JOptionPane.showMessageDialog(
+                    this, "Acesso restrito à admin.", "Atenção", JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_jmiUsuarioActionPerformed
 
     private void jmiVendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiVendasActionPerformed
-        new ViewVenda().setVisible(true);
+        new ViewVenda(this.valorPermissao).setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jmiVendasActionPerformed
 
     private void jmiRecebimentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiRecebimentosActionPerformed
-        new ViewRecebimentos().setVisible(true);
+        new ViewRecebimentos(this.valorPermissao).setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jmiRecebimentosActionPerformed
 
     private void jmiRecebimentos1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiRecebimentos1ActionPerformed
-        new ViewCaixa().setVisible(true);
+        new ViewCaixa(this.valorPermissao).setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jmiRecebimentos1ActionPerformed
 
@@ -206,6 +217,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
                 new ViewPrincipal().setVisible(true);
             }
         });
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

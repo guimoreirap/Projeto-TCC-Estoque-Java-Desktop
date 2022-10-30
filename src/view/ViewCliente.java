@@ -25,12 +25,19 @@ public class ViewCliente extends javax.swing.JFrame {
     ModelClientes modelClientes = new ModelClientes();
     String salvarAlterar = "salvar";
     Formatador formatador = new Formatador();
+    int valorPermissao = -1;
 
     public ViewCliente() {
         initComponents();
         this.carregarClientes();
         //this.habilitarDesabilitarCampos(false);
 
+    }
+
+    public ViewCliente(int valorPermissao) {
+        initComponents();
+        this.carregarClientes();
+        this.valorPermissao = valorPermissao;
     }
 
     /**
@@ -359,7 +366,7 @@ public class ViewCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_jbExcluirActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        new ViewPrincipal().setVisible(true);
+        new ViewPrincipal(this.valorPermissao).setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -447,7 +454,6 @@ public class ViewCliente extends javax.swing.JFrame {
         jtfTelefone.setEnabled(condicao);
         jbSalvar.setEnabled(condicao);
     }*/
-
     //metodo para o botão salvar produto
     private void salvarCliente() {
         //pega os valores dos campos da interface e coloca dentro de cada atributo do objeto

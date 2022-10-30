@@ -200,7 +200,7 @@ public class DaoUsuarios extends ConexaoMySql {
                     + "usu_permissao,"
                     + "usu_pergunta,"
                     + "usu_index_pergunta "
-                    + "FROM tbl_usuario WHERE usu_pergunta = '" + pModelUsuarios.getUsuPergunta() 
+                    + "FROM tbl_usuario WHERE usu_pergunta = '" + pModelUsuarios.getUsuPergunta()
                     + "' AND usu_login = '" + pModelUsuarios.getUsuLogin() + "' ;");
             if (getResultSet().next()) {
                 return true;
@@ -215,7 +215,7 @@ public class DaoUsuarios extends ConexaoMySql {
             this.fecharConexao();
         }
     }
-    
+
     public ModelUsuarios retornarUsuarioRecuperarSenhaDAO(String pLoginUsuario) {
         ModelUsuarios modelUsuarios = new ModelUsuarios();
 
@@ -248,19 +248,40 @@ public class DaoUsuarios extends ConexaoMySql {
 
         return modelUsuarios;
     }
-    
+
     public boolean alterarUsuarioRecuperarSenhaDAO(ModelUsuarios pModelUsuarios) {
         try {
             this.conectar();
             return this.executarUpdateDeleteSQL(""
                     + "UPDATE tbl_usuario SET "
                     + "usu_senha = '" + pModelUsuarios.getUsuSenha() + "'"
-                    + " WHERE usu_login  = '" + pModelUsuarios.getUsuLogin()+ "';");
+                    + " WHERE usu_login  = '" + pModelUsuarios.getUsuLogin() + "';");
         } catch (Exception e) {
             e.printStackTrace();
             return false;
         } finally {
             this.fecharConexao();
         }
+    }
+
+    public int getPermissaoUsuarioDAO(String pUsuLogin) {
+        int valorPermissao = -1;
+
+        try {
+            this.conectar();
+            this.executarSQL("SELECT "
+                    + "usu_permissao "
+                    + "FROM tbl_usuario WHERE usu_login = '" + pUsuLogin + "' ;");
+            while (this.getResultSet().next()) {
+                valorPermissao = this.getResultSet().getInt(1);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            this.fecharConexao();
+        }
+
+        return valorPermissao;
     }
 }

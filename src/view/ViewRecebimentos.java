@@ -47,6 +47,7 @@ public class ViewRecebimentos extends javax.swing.JFrame {
     int linha = 0;
     int linhaExcluir = 0;
     int linhaAlterar = 0;
+    int valorPermissao = -1;
     String salvarAlterar = "salvar";
 
     //Formata a data para o formato US
@@ -59,6 +60,13 @@ public class ViewRecebimentos extends javax.swing.JFrame {
         initComponents();
         this.listarClientes();
         this.carregarRecebimentos();
+    }
+
+    public ViewRecebimentos(int valorPermissao) {
+        initComponents();
+        this.listarClientes();
+        this.carregarRecebimentos();
+        this.valorPermissao = valorPermissao;
     }
 
     /**
@@ -599,17 +607,17 @@ public class ViewRecebimentos extends javax.swing.JFrame {
     }//GEN-LAST:event_jbRealizarRecebimentoActionPerformed
 
     private void jbVoltarDividasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbVoltarDividasActionPerformed
-        new ViewPrincipal().setVisible(true);
+        new ViewPrincipal(this.valorPermissao).setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jbVoltarDividasActionPerformed
 
     private void jbVoltar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbVoltar1ActionPerformed
-        new ViewPrincipal().setVisible(true);
+        new ViewPrincipal(this.valorPermissao).setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jbVoltar1ActionPerformed
 
     private void jbVoltar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbVoltar2ActionPerformed
-        new ViewPrincipal().setVisible(true);
+        new ViewPrincipal(this.valorPermissao).setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jbVoltar2ActionPerformed
 
@@ -683,18 +691,18 @@ public class ViewRecebimentos extends javax.swing.JFrame {
         int codigoVenda = (int) jTableHistorico.getValueAt(linha, 2);
         int codigoCliente = controllerVenda.retornarVendaController(codigoVenda).getCliente();
         double valorRecebidoCampo = (double) jTableHistorico.getValueAt(linha, 5);
-        
+
         try {
-            System.out.println("Codigo de recebimento: " + codigoRecebimento +  "\nCodigoCliente: " + codigoCliente);
+            System.out.println("Codigo de recebimento: " + codigoRecebimento + "\nCodigoCliente: " + codigoCliente);
             controllerCaixa.excluirCaixaController(codigoRecebimento, codigoCliente);
             controllerRecebimentos.excluirRecebimentoController2(codigoRecebimento);
-            
+
             double valorRecebidoBanco = controllerVenda.retornarVendaController(codigoVenda).getVenValorRecebido();
             double valorRecebido = valorRecebidoBanco - valorRecebidoCampo;
             System.out.println("Valor do banco " + valorRecebidoBanco);
             System.out.println("Valor do campo " + valorRecebidoCampo);
             System.out.println("Valor final " + valorRecebido);
-            
+
             controllerVenda.alterarValorRecebimentoEmVendaDAO(valorRecebido, codigoVenda);
             JOptionPane.showMessageDialog(
                     this, "Pagamento excluído com sucesso.", "ATENÇÃO", JOptionPane.WARNING_MESSAGE);
@@ -702,7 +710,7 @@ public class ViewRecebimentos extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(
                     this, "Ocorreu um erro ao excluir o pagamento no banco de dados.", "ERRO", JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
-        } finally{
+        } finally {
             this.carregarRecebimentos();
         }
     }//GEN-LAST:event_jbExcluirActionPerformed
@@ -875,7 +883,7 @@ public class ViewRecebimentos extends javax.swing.JFrame {
             modelRecebimentos.setRecData(bLDatas.converterDataParaDateUS(new java.util.Date(System.currentTimeMillis())));
             modelRecebimentos.setRecMetodo(jcMetodoPagamento.getSelectedItem().toString());
             modelRecebimentos.setRecValor(Double.parseDouble(jtfValorReceber.getText()));
-          
+
             //Passando os dados para dentro do modelCaixa e salvando o Recebimento
             int codigoRecebimento = controllerRecebimentos.salvarRecebimento(modelRecebimentos);
             int codigoCliente = Integer.parseInt(jtfCodigoCliente.getText());
@@ -884,7 +892,7 @@ public class ViewRecebimentos extends javax.swing.JFrame {
             modelCaixa.setCaixaMovimentacao("Recebimento");
             modelCaixa.setCaixaData(bLDatas.converterDataParaDateUS(new java.util.Date(System.currentTimeMillis())));
             modelCaixa.setCaixaValor(Double.parseDouble(jtfValorReceber.getText().replaceAll(",", ".")));
-            
+
             //Aqui o controllerCliente está retornando o cliente do banco de dados e pegando seu nome para atribuir ao ator
             modelCaixa.setCaixaAtor(controllerCliente.retornarClienteController(
                     Integer.parseInt(jtfCodigoCliente.getText())).getCliNome());
@@ -909,7 +917,7 @@ public class ViewRecebimentos extends javax.swing.JFrame {
             //controllerVenda efetua o update no banco de dados com o novo valor de Valor Recebido
             int codigoVenda = Integer.parseInt(jtfCodigoVenda.getText());
             double valorRecebido = Double.parseDouble(jtfValorPago.getText()) + Double.parseDouble(jtfValorReceber.getText());
-            
+
             controllerVenda.alterarValorRecebimentoEmVendaDAO(valorRecebido, codigoVenda);
 
             //-------------------------------------------------------------------------------

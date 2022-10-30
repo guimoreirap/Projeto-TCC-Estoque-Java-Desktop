@@ -144,7 +144,8 @@ public class ViewLogin extends javax.swing.JFrame {
         
         
         if(controllerUsuario.getValidarUsuarioController(modelUsuarios)){
-            new ViewPrincipal().setVisible(true);
+            int valorPermissao = controllerUsuario.getPermissaoUsuarioDAO(modelUsuarios.getUsuLogin());
+            new ViewPrincipal(valorPermissao).setVisible(true);
             this.setVisible(false);
         } else {
             JOptionPane.showMessageDialog(

@@ -25,17 +25,24 @@ public class ViewPagamentos extends javax.swing.JFrame {
     ArrayList<ModelPagamentos> listaModelPagamentos = new ArrayList<>();
     ControllerPagamentos controllerPagamentos = new ControllerPagamentos();
     ModelPagamentos modelPagamentos = new ModelPagamentos();
-    
+
     ControllerCaixa controllerCaixa = new ControllerCaixa();
     ModelCaixa modelCaixa = new ModelCaixa();
-    
+
     BLDatas blDatas = new BLDatas();
     String salvarAlterar = "salvar";
     int linhaExcluir = -50;
-    
+    int valorPermissao = -1;
+
     public ViewPagamentos() {
         initComponents();
         this.carregarPagamentos();
+    }
+
+    public ViewPagamentos(int valorPermissao) {
+        initComponents();
+        this.carregarPagamentos();
+        this.valorPermissao = valorPermissao;
     }
 
     /**
@@ -284,7 +291,6 @@ public class ViewPagamentos extends javax.swing.JFrame {
         String movimentacao = "Pagamento";
         double valor = (double) jTablePagamentos.getValueAt(linha, 4);
 
-        
         try {
             controllerCaixa.excluirCaixaController(movimentacao, ator, valor);
             controllerPagamentos.excluirPagamentoController(codigoPagamento);
@@ -307,12 +313,12 @@ public class ViewPagamentos extends javax.swing.JFrame {
     }//GEN-LAST:event_jbCancelarActionPerformed
 
     private void jbVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbVoltarActionPerformed
-        new ViewPrincipal().setVisible(true);
+        new ViewPrincipal(this.valorPermissao).setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jbVoltarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        new ViewProduto().setVisible(true);
+        new ViewProduto(this.valorPermissao).setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -384,7 +390,7 @@ public class ViewPagamentos extends javax.swing.JFrame {
             modelPagamentos.setPagValor(Double.parseDouble(this.jtfValor.getText().replaceAll(",", ".")));
             modelPagamentos.setPagData(blDatas.converterDataParaDateUS(new java.util.Date(
                     System.currentTimeMillis())));
-            
+
             //Controller chama um método de DAO para salvar os dados no banco de dados
             controllerPagamentos.salvarPagamentoController(modelPagamentos);
             this.salvarPagamentoCaixa();
@@ -412,8 +418,7 @@ public class ViewPagamentos extends javax.swing.JFrame {
             modelPagamentos.setPagValor(Double.parseDouble(this.jtfValor.getText().replaceAll(",", ".")));
             modelPagamentos.setPagData(blDatas.converterDataParaDateUS(new java.util.Date(
                     System.currentTimeMillis())));
-            
-            
+
             controllerPagamentos.alterarPagamentoController(modelPagamentos);
             controllerCaixa.excluirCaixaController(movimentacao, ator, valor);
             this.salvarPagamentoCaixa();
@@ -438,17 +443,17 @@ public class ViewPagamentos extends javax.swing.JFrame {
         this.linhaExcluir = -50;
         this.salvarAlterar = "salvar";
     }
-    
-    private void salvarPagamentoCaixa(){
+
+    private void salvarPagamentoCaixa() {
         //Passando os dados para dentro do modelCaixa
-            try {
-            
+        try {
+
             modelCaixa.setCaixaMovimentacao("Pagamento");
             modelCaixa.setCaixaData(blDatas.converterDataParaDateUS(new java.util.Date(
                     System.currentTimeMillis())));
             modelCaixa.setCaixaValor(Double.parseDouble(this.jtfValor.getText().replaceAll(",", ".")));
             modelCaixa.setCaixaAtor(this.jtfEmpresa.getText());
-            
+
             controllerCaixa.salvarCaixaController(modelCaixa);
         } catch (Exception e) {
             e.printStackTrace();

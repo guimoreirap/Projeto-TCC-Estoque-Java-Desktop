@@ -21,10 +21,17 @@ public class ViewCaixa extends javax.swing.JFrame {
     ArrayList<ModelCaixa> listaModelCaixa = new ArrayList<>();
     ControllerCaixa controllerCaixa = new ControllerCaixa();
     ModelCaixa modelCaixa = new ModelCaixa();
+    int valorPermissao = -1;
 
     public ViewCaixa() {
         initComponents();
         this.carregarFluxoCaixa();
+    }
+
+    public ViewCaixa(int valorPermissao) {
+        initComponents();
+        this.carregarFluxoCaixa();
+        this.valorPermissao = valorPermissao;
     }
 
     /**
@@ -201,7 +208,7 @@ public class ViewCaixa extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        new ViewPrincipal().setVisible(true);
+        new ViewPrincipal(this.valorPermissao).setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 

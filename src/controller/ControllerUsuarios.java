@@ -59,4 +59,8 @@ public class ControllerUsuarios {
     public boolean alterarSenhaRecuperarSenhaDAO(ModelUsuarios pModelUsuarios){
         return this.daoUsuarios.alterarUsuarioRecuperarSenhaDAO(pModelUsuarios);
     }
+    
+    public int getPermissaoUsuarioDAO(String pUsuLogin){
+        return this.daoUsuarios.getPermissaoUsuarioDAO(pUsuLogin);
+    }
 }

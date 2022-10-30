@@ -25,6 +25,7 @@ public class ViewProduto extends javax.swing.JFrame {
     ModelProdutos modelProdutos = new ModelProdutos();
     String salvarAlterar = "salvar";
     Formatador formatador = new Formatador();
+    int valorPermissao = -1;
 
     /**
      * Creates new form ViewProduto
@@ -35,6 +36,16 @@ public class ViewProduto extends javax.swing.JFrame {
         this.buttonGroupEstoque.add(jrbAdicionarEstoque);
         this.buttonGroupEstoque.add(jrbRemoverEstoque);
         this.desabilitarGerenciarProduto();
+        //this.habilitarDesabilitarCampos(false);
+    }
+
+    public ViewProduto(int valorPermissao) {
+        initComponents();
+        this.carregarProdutos();
+        this.buttonGroupEstoque.add(jrbAdicionarEstoque);
+        this.buttonGroupEstoque.add(jrbRemoverEstoque);
+        this.desabilitarGerenciarProduto();
+        this.valorPermissao = valorPermissao;
         //this.habilitarDesabilitarCampos(false);
     }
 
@@ -349,7 +360,7 @@ public class ViewProduto extends javax.swing.JFrame {
             this.jtfEstoque.setText(String.valueOf(modelProdutos.getProEstoque()));
             //this.jtfValor.setText(String.valueOf(modelProdutos.getProValor()));
             //Altera os pontos por virgula, para nao bugar ao salvar o valor
-            this.jtfValor.setText(String.valueOf(modelProdutos.getProValor()).replace(".", ",")); 
+            this.jtfValor.setText(String.valueOf(modelProdutos.getProValor()).replace(".", ","));
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(
@@ -366,7 +377,7 @@ public class ViewProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_jtfPesquisarKeyReleased
 
     private void jbVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbVoltarActionPerformed
-        new ViewPrincipal().setVisible(true);
+        new ViewPrincipal(this.valorPermissao).setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jbVoltarActionPerformed
 
@@ -482,7 +493,7 @@ public class ViewProduto extends javax.swing.JFrame {
 
         int estoqueOriginal = Integer.parseInt(this.jtfEstoque.getText());
         int quantidadeInserida = Integer.parseInt(this.jtfNovoEstoque.getText());
-        
+
         try {
             if (jrbAdicionarEstoque.isSelected()) {
                 modelProdutos.setProEstoque(estoqueOriginal + quantidadeInserida);
