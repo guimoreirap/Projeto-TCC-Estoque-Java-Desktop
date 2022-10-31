@@ -473,11 +473,11 @@ public class ViewCliente extends javax.swing.JFrame {
         try {
             controllerClientes.salvarClienteController(modelClientes);
             JOptionPane.showMessageDialog(
-                    this, "Produto inserido com sucesso.", "ATENÇÃO", JOptionPane.WARNING_MESSAGE);
+                    this, "Cliente inserido com sucesso.", "ATENÇÃO", JOptionPane.WARNING_MESSAGE);
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(
-                    this, "Ocorreu um erro ao inserir o produto no banco de dados.", "ERRO", JOptionPane.ERROR_MESSAGE);
+                    this, "Ocorreu um erro ao inserir o cliente no banco de dados.", "ERRO", JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
         } finally {
             this.carregarClientes();
@@ -498,11 +498,11 @@ public class ViewCliente extends javax.swing.JFrame {
         try {
             controllerClientes.alterarClienteController(modelClientes);
             JOptionPane.showMessageDialog(
-                    this, "Produto alterado com sucesso.", "ATENÇÃO", JOptionPane.WARNING_MESSAGE);
+                    this, "Cliente alterado com sucesso.", "ATENÇÃO", JOptionPane.WARNING_MESSAGE);
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(
-                    this, "Ocorreu um erro ao inserir o produto no banco de dados.", "ERRO", JOptionPane.ERROR_MESSAGE);
+                    this, "Ocorreu um erro ao inserir o cliente no banco de dados.", "ERRO", JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
         } finally {
             this.carregarClientes();

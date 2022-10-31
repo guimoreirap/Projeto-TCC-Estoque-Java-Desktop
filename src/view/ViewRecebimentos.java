@@ -871,8 +871,8 @@ public class ViewRecebimentos extends javax.swing.JFrame {
             //Passa o ID da Venda e o novo valor de Valor Recebido para o objeto modelVendas
             modelVendas.setVenId(Integer.parseInt(jtfCodigoVenda.getText()));
             modelVendas.setVenValorRecebido(
-                    Double.parseDouble(jtfValorPago.getText())
-                    + Double.parseDouble(jtfValorReceber.getText()));
+                    Double.parseDouble(jtfValorPago.getText().replaceAll(",", "."))
+                    + Double.parseDouble(jtfValorReceber.getText().replaceAll(",", ".")));
             //controllerVenda efetua o update no banco de dados com o novo valor de Valor Recebido
             controllerVenda.efetuarRecebimento(modelVendas);
 
@@ -882,7 +882,7 @@ public class ViewRecebimentos extends javax.swing.JFrame {
             modelRecebimentos.setRecVenda(Integer.parseInt(jtfCodigoVenda.getText()));
             modelRecebimentos.setRecData(bLDatas.converterDataParaDateUS(new java.util.Date(System.currentTimeMillis())));
             modelRecebimentos.setRecMetodo(jcMetodoPagamento.getSelectedItem().toString());
-            modelRecebimentos.setRecValor(Double.parseDouble(jtfValorReceber.getText()));
+            modelRecebimentos.setRecValor(Double.parseDouble(jtfValorReceber.getText().replaceAll(",", ".")));
 
             //Passando os dados para dentro do modelCaixa e salvando o Recebimento
             int codigoRecebimento = controllerRecebimentos.salvarRecebimento(modelRecebimentos);
