@@ -40,6 +40,10 @@ public class ControllerRecebimentos {
         return this.daoRecebimentos.retornarRecebimentoDAO(codigoRecebimento);
     }
     
+    public ModelRecebimentos retornarRecebimentoController(int codigoVenda, int codigoCliente) {
+        return this.daoRecebimentos.retornarRecebimentoDAO(codigoVenda, codigoCliente);
+    }
+    
     public boolean excluirRecebimentoController(int pIdMovimentacao, int pIdCliente) {
         return this.daoRecebimentos.excluirRecebimentoDAO(pIdMovimentacao, pIdCliente);
     }

@@ -83,7 +83,7 @@ public class DaoRecebimentos extends ConexaoMySql {
         }
 
     }
-    
+
     public boolean excluirRecebimento2DAO(int pIdRecebimento) {
         try {
             this.conectar();
@@ -97,13 +97,13 @@ public class DaoRecebimentos extends ConexaoMySql {
         }
 
     }
-    
+
     public boolean excluirRecebimentoDAO(int pIdVenda, int pIdCliente) {
         try {
             this.conectar();
             return this.executarUpdateDeleteSQL(
-                    "DELETE FROM tbl_recebimento WHERE fk_venda = '" + pIdVenda + 
-                            "' AND fk_cliente = '" + pIdCliente+ "';");
+                    "DELETE FROM tbl_recebimento WHERE fk_venda = '" + pIdVenda
+                    + "' AND fk_cliente = '" + pIdCliente + "';");
         } catch (Exception e) {
             e.printStackTrace();
             return false;
@@ -143,6 +143,38 @@ public class DaoRecebimentos extends ConexaoMySql {
                     + "rec_valor,"
                     + "rec_metodo "
                     + "FROM tbl_recebimento WHERE pk_id_recebimento  = '" + codigoRecebimento + "';");
+            while (this.getResultSet().next()) {
+                modelRecebimentos.setRecId(this.getResultSet().getInt(1));
+                modelRecebimentos.setRecVenda(this.getResultSet().getInt(2));
+                modelRecebimentos.setRecCliente(this.getResultSet().getInt(3));
+                modelRecebimentos.setRecData(this.getResultSet().getDate(4));
+                modelRecebimentos.setRecValor(this.getResultSet().getDouble(5));
+                modelRecebimentos.setRecMetodo(this.getResultSet().getString(6));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            this.fecharConexao();
+        }
+
+        return modelRecebimentos;
+    }
+
+    public ModelRecebimentos retornarRecebimentoDAO(int codigoVenda, int codigoCliente) {
+        ModelRecebimentos modelRecebimentos = new ModelRecebimentos();
+
+        try {
+            this.conectar();
+            this.executarSQL("SELECT "
+                    + "pk_id_recebimento,"
+                    + "fk_venda,"
+                    + "fk_cliente,"
+                    + "rec_data,"
+                    + "rec_valor,"
+                    + "rec_metodo "
+                    + "FROM tbl_recebimento WHERE fk_venda  = '" + codigoVenda + "' "
+                    + "AND fk_cliente = '" + codigoCliente + "';");
             while (this.getResultSet().next()) {
                 modelRecebimentos.setRecId(this.getResultSet().getInt(1));
                 modelRecebimentos.setRecVenda(this.getResultSet().getInt(2));

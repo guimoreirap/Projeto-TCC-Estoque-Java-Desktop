@@ -818,7 +818,7 @@ public class ViewRecebimentos extends javax.swing.JFrame {
     }
 
     private void somarValorTotal() {
-        this.jtfValorTotal.setText(this.valorTotal + "");
+        this.jtfValorTotal.setText(formatarValor(this.valorTotal));
     }
 
     private void limparCamposRecebimento() {
@@ -958,6 +958,8 @@ public class ViewRecebimentos extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;

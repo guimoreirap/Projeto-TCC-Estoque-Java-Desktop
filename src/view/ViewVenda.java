@@ -594,6 +594,7 @@ public class ViewVenda extends javax.swing.JFrame {
         int linha = jtVendas.getSelectedRow();
         int codigoVenda = (int) jtVendas.getValueAt(linha, 0);
         int codigoCliente = (int) jtVendas.getValueAt(linha, 1);
+        int codigoRecebimento = controllerRecebimento.retornarRecebimentoController(codigoVenda, codigoCliente).getRecId();
 
         listaModelProdutos = new ArrayList<>();
         listaModelProdutosVendasProdutos = controllerProdutosVendasProdutos.getListaProdutosVendasProdutosController(codigoVenda);
@@ -609,8 +610,11 @@ public class ViewVenda extends javax.swing.JFrame {
 
         if (controllerProdutos.alterarEstoqueProdutoController(listaModelProdutos)) {
             controllerVendasProdutos.excluirVendaProdutoController(codigoVenda);
-            controllerCaixa.excluirCaixaController(codigoVenda, codigoCliente);
+            //controllerCaixa.excluirCaixaController(codigoVenda, codigoCliente);
             controllerRecebimento.excluirRecebimentoController(codigoVenda, codigoCliente);
+            
+            //Metodo que exclui de caixa
+            controllerCaixa.excluirCaixaController(codigoRecebimento, codigoCliente);
 
             try {
                 controllerVendas.excluirVendaController(codigoVenda);
