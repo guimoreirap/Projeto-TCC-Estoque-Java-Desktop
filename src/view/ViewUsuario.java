@@ -534,7 +534,9 @@ public class ViewUsuario extends javax.swing.JFrame {
         modelUsuarios.setUsuLogin(this.jtfLogin.getText());
         modelUsuarios.setUsuPermissao(this.jcbPermissao.getSelectedIndex());
         modelUsuarios.setUsuIndexPergunta(this.jcbItemPergunta.getSelectedIndex());
-        modelUsuarios.setUsuPergunta(this.jtfResposta.getText());
+        if (!this.jtfResposta.getText().equals("")) {
+            modelUsuarios.setUsuPergunta(this.jtfResposta.getText());
+        }
         modelUsuarios.setUsuSenha(String.valueOf(this.jtfSenhaAtual.getPassword()));
         String senhaInserida = String.valueOf(this.jtfSenha.getPassword());
         String senhaInseridaValidação = String.valueOf(this.jtfConfirmarSenha.getPassword());;

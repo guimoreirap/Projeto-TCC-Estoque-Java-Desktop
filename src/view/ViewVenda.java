@@ -688,7 +688,7 @@ public class ViewVenda extends javax.swing.JFrame {
 
         //SETA OS VALORES DOS CAMPOS PRA VENDA
         try {
-            if (this.jtfCodigoCliente.equals(1)) {
+            if (this.jtfCodigoCliente.equals("1")) {
                 modelVendas.setCliente(1);
                 jtfValorPago.setText(jtfValorTotal.getText());
                 System.out.println("Salvou usuario generico");
@@ -700,8 +700,13 @@ public class ViewVenda extends javax.swing.JFrame {
             modelVendas.setVenDataVenda(bLDatas.converterDataParaDateUS(new java.util.Date(System.currentTimeMillis())));
             modelVendas.setVenValorLiquido(Double.parseDouble(jtfValorTotal.getText()));
             modelVendas.setVenValorBruto(Double.parseDouble(jtfValorTotal.getText()) + desconto);
-            modelVendas.setVenValorRecebido(Double.parseDouble(jtfValorPago.getText().replaceAll(",", ".")));
             modelVendas.setVenValorDesconto(desconto);
+            if (modelVendas.getCliente() == 1) {
+                this.jtfValorPago.setText(this.jtfValorTotal.getText());
+                modelVendas.setVenValorRecebido(Double.parseDouble(jtfValorPago.getText().replaceAll(",", ".")));
+            } else {
+                modelVendas.setVenValorRecebido(Double.parseDouble(jtfValorPago.getText().replaceAll(",", ".")));
+            }
             JOptionPane.showMessageDialog(this, "Valores de venda foram capturados", "AVISO", JOptionPane.WARNING_MESSAGE);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Não foi possível capturar os dados de venda", "ERRO", JOptionPane.ERROR_MESSAGE);
@@ -713,7 +718,6 @@ public class ViewVenda extends javax.swing.JFrame {
         } else if (alterarSalvar.equalsIgnoreCase("alterar")) {
             this.alterarVenda();
         }
-
 
     }//GEN-LAST:event_jbSalvarActionPerformed
 
@@ -947,6 +951,7 @@ public class ViewVenda extends javax.swing.JFrame {
         jtfQuantidade.setText("");
         jtfDesconto.setText("");
         jtfValorTotal.setText("");
+        jtfValorPago.setText("0");
         DefaultTableModel modelo = (DefaultTableModel) jtProdutosVendas.getModel();
         modelo.setNumRows(0);
     }
