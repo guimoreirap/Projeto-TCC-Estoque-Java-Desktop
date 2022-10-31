@@ -612,7 +612,7 @@ public class ViewVenda extends javax.swing.JFrame {
             controllerVendasProdutos.excluirVendaProdutoController(codigoVenda);
             //controllerCaixa.excluirCaixaController(codigoVenda, codigoCliente);
             controllerRecebimento.excluirRecebimentoController(codigoVenda, codigoCliente);
-            
+
             //Metodo que exclui de caixa
             controllerCaixa.excluirCaixaController(codigoRecebimento, codigoCliente);
 
@@ -695,10 +695,10 @@ public class ViewVenda extends javax.swing.JFrame {
             if (this.jtfCodigoCliente.equals("1")) {
                 modelVendas.setCliente(1);
                 jtfValorPago.setText(jtfValorTotal.getText());
-                System.out.println("Salvou usuario generico");
+                //System.out.println("Salvou usuario generico");
             } else {
                 modelVendas.setCliente(Integer.parseInt(jtfCodigoCliente.getText()));
-                System.out.println("Salvou usuario especifico");
+                //System.out.println("Salvou usuario especifico");
             }
 
             modelVendas.setVenDataVenda(bLDatas.converterDataParaDateUS(new java.util.Date(System.currentTimeMillis())));
@@ -711,9 +711,10 @@ public class ViewVenda extends javax.swing.JFrame {
             } else {
                 modelVendas.setVenValorRecebido(Double.parseDouble(jtfValorPago.getText().replaceAll(",", ".")));
             }
-            JOptionPane.showMessageDialog(this, "Valores de venda foram capturados", "AVISO", JOptionPane.WARNING_MESSAGE);
+            //JOptionPane.showMessageDialog(this, "Valores de venda foram capturados", "AVISO", JOptionPane.WARNING_MESSAGE);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Não foi possível capturar os dados de venda", "ERRO", JOptionPane.ERROR_MESSAGE);
+            //JOptionPane.showMessageDialog(this, "Não foi possível capturar os dados de venda", "ERRO", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
         }
 
         if (alterarSalvar.equalsIgnoreCase("salvar")) {
@@ -916,7 +917,7 @@ public class ViewVenda extends javax.swing.JFrame {
             valor = (double) jtProdutosVendas.getValueAt(i, 4);
             soma += valor;
         }
-        jtfValorTotal.setText(String.valueOf(soma));
+        jtfValorTotal.setText(formatarValor(soma));
 
         try {
             this.aplicarDesconto();
@@ -930,7 +931,7 @@ public class ViewVenda extends javax.swing.JFrame {
         double desconto = Double.parseDouble(jtfDesconto.getText().replaceAll(",", "."));
 
         if (desconto <= valorTotalVenda) {
-            jtfValorTotal.setText(String.valueOf(valorTotalVenda - desconto));
+            jtfValorTotal.setText(formatarValor(valorTotalVenda - desconto));
         } else {
             JOptionPane.showMessageDialog(this, "Valor de desconto é maior que total.", "ERRO", JOptionPane.ERROR_MESSAGE);
         }
@@ -996,12 +997,11 @@ public class ViewVenda extends javax.swing.JFrame {
             controllerProdutos.alterarEstoqueProdutoController(listaModelProdutos);
             this.salvarRecebimento(codigoVenda);
 
-            JOptionPane.showMessageDialog(this, "Produtos da venda salvo com sucesso", "AVISO", JOptionPane.WARNING_MESSAGE);
+            //JOptionPane.showMessageDialog(this, "Produtos da venda salvo com sucesso", "AVISO", JOptionPane.WARNING_MESSAGE);
             this.carregarVendas();
             this.limparFormulario();
         } else {
-            JOptionPane.showMessageDialog(
-                    this, "Ocorreu um erro ao salvar os produtos da venda", "ERRO", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Ocorreu um erro ao salvar os produtos da venda", "ERRO", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -1012,6 +1012,7 @@ public class ViewVenda extends javax.swing.JFrame {
 
         int linha = jtVendas.getSelectedRow();
         codigoVenda = (int) jtVendas.getValueAt(linha, 0);
+        int codigoRecebimento = controllerRecebimento.retornarRecebimentoController(codigoVenda, codigoCliente).getRecId();
         listaModelProdutos = new ArrayList<>();
         listaModelProdutosVendasProdutos = controllerProdutosVendasProdutos.getListaProdutosVendasProdutosController(codigoVenda);
 
@@ -1026,22 +1027,22 @@ public class ViewVenda extends javax.swing.JFrame {
 
         if (controllerProdutos.alterarEstoqueProdutoController(listaModelProdutos)) {
             controllerRecebimento.excluirRecebimentoController(codigoVenda, codigoCliente);
-            controllerCaixa.excluirCaixaController(codigoVenda, codigoCliente);
+            controllerCaixa.excluirCaixaController(codigoRecebimento, codigoCliente);
             this.salvarRecebimento(codigoVenda);
             try {
                 controllerVendasProdutos.excluirVendaProdutoController(codigoVenda);
-                JOptionPane.showMessageDialog(
-                        this, "Produtos de venda excluída com sucesso", "ATENÇÃO", JOptionPane.WARNING_MESSAGE);
+//                JOptionPane.showMessageDialog(
+//                        this, "Produtos de venda excluída com sucesso", "ATENÇÃO", JOptionPane.WARNING_MESSAGE);
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(
-                        this, "Erro ao excluir os produtos de venda", "ERRO", JOptionPane.ERROR_MESSAGE);
+//                JOptionPane.showMessageDialog(
+//                        this, "Erro ao excluir os produtos de venda", "ERRO", JOptionPane.ERROR_MESSAGE);
                 e.printStackTrace();
             } finally {
                 this.carregarVendas();
             }
 
         } else {
-            JOptionPane.showMessageDialog(this, "Erro ao excluir os produtos de venda", "ERRO", JOptionPane.ERROR_MESSAGE);
+//            JOptionPane.showMessageDialog(this, "Erro ao excluir os produtos de venda", "ERRO", JOptionPane.ERROR_MESSAGE);
         }
         //FIM DO RETORNA E ALTERA PRODUTOS
         modelVendas.setVenId(codigoVenda);
@@ -1055,8 +1056,8 @@ public class ViewVenda extends javax.swing.JFrame {
          */
         if (controllerVendas.alterarVendaController(modelVendas)) {
             this.somarValorTotalProdutos();
-            JOptionPane.showMessageDialog(
-                    this, "Venda alterada com sucesso", "ATENÇÃO", JOptionPane.WARNING_MESSAGE);
+//            JOptionPane.showMessageDialog(
+//                    this, "Venda alterada com sucesso", "ATENÇÃO", JOptionPane.WARNING_MESSAGE);
         } else {
             JOptionPane.showMessageDialog(this, "Erro ao alterar venda", "ERRO", JOptionPane.ERROR_MESSAGE);
         }
@@ -1087,7 +1088,7 @@ public class ViewVenda extends javax.swing.JFrame {
         if (controllerVendasProdutos.salvarVendaProdutoController(listaModelVendasProdutos)) {
             controllerProdutos.alterarEstoqueProdutoController(listaModelProdutos);//MEXENDO AQ
             JOptionPane.showMessageDialog(
-                    this, "Produtos de venda salva com sucesso", "ATENÇÃO", JOptionPane.WARNING_MESSAGE);
+                    this, "Produtos de venda salvos com sucesso", "ATENÇÃO", JOptionPane.WARNING_MESSAGE);
             carregarVendas();
             limparFormulario();
         } else {
@@ -1138,7 +1139,7 @@ public class ViewVenda extends javax.swing.JFrame {
             modelCaixa.setCaixaAtor(controllerCliente.retornarClienteController(
                     Integer.parseInt(jtfCodigoCliente.getText())).getCliNome());
             modelCaixa.setIdCaixaAtor(Integer.parseInt(jtfCodigoCliente.getText()));
-            System.out.println("Valor de idCaixaAtor " + modelCaixa.getIdCaixaAtor() + "\nO que era esperado: " + jtfCodigoCliente.getText());
+//            System.out.println("Valor de idCaixaAtor " + modelCaixa.getIdCaixaAtor() + "\nO que era esperado: " + jtfCodigoCliente.getText());
 
             //controller efetua os inserts dentro do banco de dados
             controllerCaixa.salvarCaixaController(modelCaixa);
