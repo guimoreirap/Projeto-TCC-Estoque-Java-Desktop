@@ -43,6 +43,8 @@ public class ViewPrincipal extends javax.swing.JFrame {
         jmiPagamentos = new javax.swing.JMenuItem();
         jmiRecebimentos = new javax.swing.JMenuItem();
         jmiRecebimentos1 = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuSair = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Principal");
@@ -125,6 +127,18 @@ public class ViewPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenuMovimentações);
 
+        jMenu1.setText("Sair");
+
+        jMenuSair.setText("Logout");
+        jMenuSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuSairActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuSair);
+
+        jMenuBar1.add(jMenu1);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -182,6 +196,11 @@ public class ViewPrincipal extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_jmiRecebimentos1ActionPerformed
 
+    private void jMenuSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuSairActionPerformed
+        new ViewLogin().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jMenuSairActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -220,9 +239,11 @@ public class ViewPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu jMenuCadastros;
     private javax.swing.JMenu jMenuMovimentações;
+    private javax.swing.JMenuItem jMenuSair;
     private javax.swing.JMenuItem jmiCliente;
     private javax.swing.JMenuItem jmiPagamentos;
     private javax.swing.JMenuItem jmiProduto;
