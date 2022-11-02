@@ -73,7 +73,7 @@ public class ViewPagamentos extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Pagamentos");
+        setTitle("Contas a pagar");
         setResizable(false);
 
         jLabel1.setText("Empresa:");
@@ -176,7 +176,8 @@ public class ViewPagamentos extends javax.swing.JFrame {
                                                 .addGap(51, 51, 51)
                                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                     .addComponent(jLabel4)
-                                                    .addComponent(jcbMetodo, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
+                                                    .addComponent(jcbMetodo, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addGap(16, 16, 16))))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addContainerGap()
                                 .addComponent(jbCancelar)
@@ -186,7 +187,7 @@ public class ViewPagamentos extends javax.swing.JFrame {
                                 .addComponent(jbAlterar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jbSalvar)))
-                        .addGap(0, 17, Short.MAX_VALUE))
+                        .addGap(0, 41, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jbVoltar)

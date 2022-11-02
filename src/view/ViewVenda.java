@@ -74,6 +74,7 @@ public class ViewVenda extends javax.swing.JFrame {
         this.carregarComboBoxProdutos();
         this.jtfCodigoCliente.setText("1");
         this.jtfCodigoCliente.requestFocus();
+        this.jtfValorPago.setText("0");
     }
 
     public ViewVenda(int valorPermissao) {
@@ -179,6 +180,8 @@ public class ViewVenda extends javax.swing.JFrame {
         jLabel2.setText("Nome do Cliente:");
 
         jLabel3.setText("Número da venda:");
+
+        jtfNumeroVenda.setEnabled(false);
 
         jLabel4.setText("Código Pro.");
 
@@ -630,19 +633,32 @@ public class ViewVenda extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Erro ao excluir a venda", "ERRO", JOptionPane.ERROR_MESSAGE);
         }
 
-
     }//GEN-LAST:event_jbExcluirActionPerformed
 
     private void jbAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAdicionarActionPerformed
         if (jtfQuantidade.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "Você deve preencher todos os campos!", "ATENÇÃO", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Você deve preencher todos os campos!", "ERRO", JOptionPane.ERROR_MESSAGE);
         } else {
-            modelProdutos = controllerProdutos.retornarProdutoController(Integer.parseInt(jtfCodigoProduto.getText()));
+            try {
+                modelProdutos = controllerProdutos.retornarProdutoController(Integer.parseInt(jtfCodigoProduto.getText()));
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(this, "Código de produto incorreto.", "ERRO", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
             //adicionar uma linha na tabela
             DefaultTableModel modelo = (DefaultTableModel) jtProdutosVendas.getModel();
             int cont = 0;
             double quantidade = 0;
-            quantidade = Double.parseDouble(jtfQuantidade.getText());
+            try {
+                quantidade = Double.parseDouble(jtfQuantidade.getText());
+
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, "Insira apenas número no campo quantidade.", "ERRO", JOptionPane.ERROR_MESSAGE);
+                ex.printStackTrace();
+                return;
+            }
             for (int i = 0; i < cont; i++) {
                 modelo.setNumRows(0);
             }
@@ -687,7 +703,13 @@ public class ViewVenda extends javax.swing.JFrame {
         if (jtfDesconto.getText().equals("")) {
             desconto = 0;
         } else {
-            desconto = Double.parseDouble(jtfDesconto.getText().replaceAll(",", "."));
+            try {
+                desconto = Double.parseDouble(jtfDesconto.getText().replaceAll(",", "."));
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, "Insira apenas números no campo desconto.", "ERRO", JOptionPane.ERROR_MESSAGE);
+                ex.printStackTrace();
+                return;
+            }
         }
 
         //SETA OS VALORES DOS CAMPOS PRA VENDA
@@ -704,17 +726,34 @@ public class ViewVenda extends javax.swing.JFrame {
             modelVendas.setVenDataVenda(bLDatas.converterDataParaDateUS(new java.util.Date(System.currentTimeMillis())));
             modelVendas.setVenValorLiquido(Double.parseDouble(jtfValorTotal.getText()));
             modelVendas.setVenValorBruto(Double.parseDouble(jtfValorTotal.getText()) + desconto);
-            modelVendas.setVenValorDesconto(desconto);
+            if (desconto > Double.parseDouble(this.jtfValorTotal.getText())) {
+                JOptionPane.showMessageDialog(this, "Valor de desconto maior que valor total.", "ERRO", JOptionPane.ERROR_MESSAGE);
+                return;
+            } else {
+                modelVendas.setVenValorDesconto(desconto);
+            }
             if (modelVendas.getCliente() == 1) {
                 this.jtfValorPago.setText(this.jtfValorTotal.getText());
                 modelVendas.setVenValorRecebido(Double.parseDouble(jtfValorPago.getText().replaceAll(",", ".")));
             } else {
-                modelVendas.setVenValorRecebido(Double.parseDouble(jtfValorPago.getText().replaceAll(",", ".")));
+                try {
+                    if (Double.parseDouble(this.jtfValorPago.getText()) > Double.parseDouble(this.jtfValorTotal.getText())) {
+                        JOptionPane.showMessageDialog(this, "Valor pago maior que valor total da venda.", "ERRO", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    } else {
+                        modelVendas.setVenValorRecebido(Double.parseDouble(jtfValorPago.getText().replaceAll(",", ".")));
+                    }
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(this, "Insira apenas números no campo valor pago.", "ERRO", JOptionPane.ERROR_MESSAGE);
+                    ex.printStackTrace();
+                    return;
+                }
             }
             //JOptionPane.showMessageDialog(this, "Valores de venda foram capturados", "AVISO", JOptionPane.WARNING_MESSAGE);
         } catch (Exception e) {
-            //JOptionPane.showMessageDialog(this, "Não foi possível capturar os dados de venda", "ERRO", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Dados inválidos.", "ERRO", JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
+            return;
         }
 
         if (alterarSalvar.equalsIgnoreCase("salvar")) {
@@ -934,6 +973,8 @@ public class ViewVenda extends javax.swing.JFrame {
             jtfValorTotal.setText(formatarValor(valorTotalVenda - desconto));
         } else {
             JOptionPane.showMessageDialog(this, "Valor de desconto é maior que total.", "ERRO", JOptionPane.ERROR_MESSAGE);
+            jtfDesconto.setText("");
+            return;
         }
     }
 

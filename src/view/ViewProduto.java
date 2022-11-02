@@ -73,13 +73,13 @@ public class ViewProduto extends javax.swing.JFrame {
         jButtonNovo = new javax.swing.JButton();
         jButtonSalvar = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
-        jtfEstoque = new javax.swing.JFormattedTextField();
         jLabel3 = new javax.swing.JLabel();
-        jtfValor = new javax.swing.JFormattedTextField();
         jLabel4 = new javax.swing.JLabel();
         jtfNovoEstoque = new javax.swing.JFormattedTextField();
         jrbAdicionarEstoque = new javax.swing.JRadioButton();
         jrbRemoverEstoque = new javax.swing.JRadioButton();
+        jtfValor = new javax.swing.JTextField();
+        jtfEstoque = new javax.swing.JTextField();
         jbVoltar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -166,11 +166,7 @@ public class ViewProduto extends javax.swing.JFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Gerenciar estoque"));
 
-        jtfEstoque.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
-
         jLabel3.setText("Quantidade:");
-
-        jtfValor.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
 
         jLabel4.setText("Valor:");
 
@@ -192,17 +188,23 @@ public class ViewProduto extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addComponent(jtfEstoque, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jtfNovoEstoque, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jrbAdicionarEstoque)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jrbRemoverEstoque))
-                    .addComponent(jLabel4)
-                    .addComponent(jtfValor, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jtfNovoEstoque, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jrbAdicionarEstoque)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jrbRemoverEstoque))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(23, 23, 23)
+                                .addComponent(jLabel4))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jtfEstoque, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jtfValor, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -214,8 +216,8 @@ public class ViewProduto extends javax.swing.JFrame {
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jtfEstoque, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jtfValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jtfValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtfEstoque, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jtfNovoEstoque, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -464,13 +466,18 @@ public class ViewProduto extends javax.swing.JFrame {
     }*/
     //metodo para o botão salvar produto
     private void salvarProduto() {
-        //pega os valores dos campos da interface e coloca dentro de cada atributo do objeto
-        modelProdutos.setProNome(this.jtfNome.getText());
-        modelProdutos.setProEstoque(Integer.parseInt(this.jtfEstoque.getText()));
-//        modelProdutos.setProValor(formatador.converterVirgulaParaPontoReturnFloat(this.jtfValor.getText()));
-        modelProdutos.setProValor(Double.parseDouble(this.jtfValor.getText().replaceAll(",", ".")));
 
         try {
+            //pega os valores dos campos da interface e coloca dentro de cada atributo do objeto
+            if (this.jtfNome.getText().trim().equals("")) {
+                JOptionPane.showMessageDialog(
+                        this, "Insira um nome.", "ERRO", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            modelProdutos.setProNome(this.jtfNome.getText());
+            modelProdutos.setProEstoque(Integer.parseInt(this.jtfEstoque.getText()));
+//        modelProdutos.setProValor(formatador.converterVirgulaParaPontoReturnFloat(this.jtfValor.getText()));
+            modelProdutos.setProValor(Double.parseDouble(this.jtfValor.getText().replaceAll(",", ".")));
             controllerProdutos.salvarProdutoController(modelProdutos);
             JOptionPane.showMessageDialog(
                     this, "Produto inserido com sucesso.", "ATENÇÃO", JOptionPane.WARNING_MESSAGE);
@@ -567,10 +574,10 @@ public class ViewProduto extends javax.swing.JFrame {
     private javax.swing.JRadioButton jrbAdicionarEstoque;
     private javax.swing.JRadioButton jrbRemoverEstoque;
     private javax.swing.JTextField jtfCodigo;
-    private javax.swing.JFormattedTextField jtfEstoque;
+    private javax.swing.JTextField jtfEstoque;
     private javax.swing.JTextField jtfNome;
     private javax.swing.JFormattedTextField jtfNovoEstoque;
     private javax.swing.JTextField jtfPesquisar;
-    private javax.swing.JFormattedTextField jtfValor;
+    private javax.swing.JTextField jtfValor;
     // End of variables declaration//GEN-END:variables
 }
