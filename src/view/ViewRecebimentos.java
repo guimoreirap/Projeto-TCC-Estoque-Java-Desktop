@@ -870,9 +870,14 @@ public class ViewRecebimentos extends javax.swing.JFrame {
         try {
             //Passa o ID da Venda e o novo valor de Valor Recebido para o objeto modelVendas
             modelVendas.setVenId(Integer.parseInt(jtfCodigoVenda.getText()));
-            modelVendas.setVenValorRecebido(
-                    Double.parseDouble(jtfValorPago.getText().replaceAll(",", "."))
-                    + Double.parseDouble(jtfValorReceber.getText().replaceAll(",", ".")));
+            if (Double.parseDouble(jtfValorReceber.getText()) > Double.parseDouble(jtfValorRestante.getText())) {
+                JOptionPane.showMessageDialog(this, "Valor a receber não pode ser maior que restante.", "ERRO", JOptionPane.ERROR_MESSAGE);
+                return;
+            } else {
+                modelVendas.setVenValorRecebido(
+                        Double.parseDouble(jtfValorPago.getText().replaceAll(",", "."))
+                        + Double.parseDouble(jtfValorReceber.getText().replaceAll(",", ".")));
+            }
             //controllerVenda efetua o update no banco de dados com o novo valor de Valor Recebido
             controllerVenda.efetuarRecebimento(modelVendas);
 
@@ -958,8 +963,7 @@ public class ViewRecebimentos extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }
-    
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
