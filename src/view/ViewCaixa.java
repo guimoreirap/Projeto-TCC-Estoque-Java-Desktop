@@ -211,12 +211,14 @@ public class ViewCaixa extends javax.swing.JFrame {
                             .addComponent(jbLimparData))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel3)))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         jLabel4.setText("Valor líquido:");
 
         jtfValorLiquido.setEditable(false);
+        jtfValorLiquido.setBackground(new java.awt.Color(255, 102, 102));
+        jtfValorLiquido.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -343,19 +345,14 @@ public class ViewCaixa extends javax.swing.JFrame {
 
         if (!data.equals(formatacaoData) && jcbMovimetacao.getSelectedItem().equals("Geral") && dataFinal.equals(formatacaoData)) {
             listaModelCaixa = controllerCaixa.retornarListaCaixaDataController(data);
-            System.out.println("entrou 1");
         } else if (data.equals(formatacaoData) && !jcbMovimetacao.getSelectedItem().equals("Geral") && dataFinal.equals(formatacaoData)) {
             listaModelCaixa = controllerCaixa.retornarListaCaixaMovimentacaoController(movimentacao);
-            System.out.println("entrou 2");
         } else if (!data.equals(formatacaoData) && !jcbMovimetacao.getSelectedItem().equals("Geral") && dataFinal.equals(formatacaoData)) {
             listaModelCaixa = controllerCaixa.retornarListaCaixaController(movimentacao, data);
-            System.out.println("entrou 3");
         } else if (!data.equals(formatacaoData) && !dataFinal.equals(formatacaoData) && jcbMovimetacao.getSelectedItem().equals("Geral")) {
             listaModelCaixa = controllerCaixa.retornarListaCaixaDataController(data, dataFinal);
-            System.out.println("entrou 4");
         } else if (!data.equals(formatacaoData) && !dataFinal.equals(formatacaoData) && !jcbMovimetacao.getSelectedItem().equals("Geral")) {
             listaModelCaixa = controllerCaixa.retornarListaCaixaDataController(data, dataFinal, movimentacao);
-            System.out.println("entrou 5");
         } else {
             listaModelCaixa = controllerCaixa.retornarListaCaixaController();
         }
@@ -385,6 +382,13 @@ public class ViewCaixa extends javax.swing.JFrame {
         }
 
         this.jtfValorLiquido.setText(formatarValor(valorLiquidoCaixa));
+        if(Double.parseDouble(this.jtfValorLiquido.getText()) < 0){
+            jtfValorLiquido.setBackground(new java.awt.Color(255, 51, 51));
+        } else if(Double.parseDouble(this.jtfValorLiquido.getText()) > 0){
+            jtfValorLiquido.setBackground(new java.awt.Color(102, 255, 102));
+        } else {
+            jtfValorLiquido.setBackground(new java.awt.Color(255, 255, 255));
+        }
     }
 
     private String formatarValor(Double valor) {

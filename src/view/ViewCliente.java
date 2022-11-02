@@ -151,7 +151,7 @@ public class ViewCliente extends javax.swing.JFrame {
             }
         });
 
-        jbNovo.setText("Novo");
+        jbNovo.setText("Cancelar / Novo");
         jbNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbNovoActionPerformed(evt);
@@ -192,10 +192,10 @@ public class ViewCliente extends javax.swing.JFrame {
                 .addGap(23, 23, 23)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jbNovo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jbExcluir)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jbNovo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jbAlterar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jbSalvar))
@@ -314,9 +314,12 @@ public class ViewCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_jbSalvarActionPerformed
 
     private void jbNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNovoActionPerformed
-        this.limparTabela();
-        //this.habilitarDesabilitarCampos(true);
-        this.salvarAlterar = "salvar";
+        if (JOptionPane.showConfirmDialog(rootPane, "Tem certeza que deseja limpar os campos?") == 0) {
+            this.limparTabela();
+            this.salvarAlterar = "salvar";
+        } else {
+            return;
+        }
     }//GEN-LAST:event_jbNovoActionPerformed
 
     private void jbAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAlterarActionPerformed

@@ -248,6 +248,7 @@ public class ViewVenda extends javax.swing.JFrame {
 
         jLabel8.setText("Valor total:");
 
+        jtfDesconto.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jtfDesconto.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 jtfDescontoFocusLost(evt);
@@ -260,6 +261,7 @@ public class ViewVenda extends javax.swing.JFrame {
         });
 
         jtfValorTotal.setEditable(false);
+        jtfValorTotal.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
 
         jbCancelar.setText("Cancelar / Novo");
         jbCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -304,6 +306,8 @@ public class ViewVenda extends javax.swing.JFrame {
         });
 
         jLabel10.setText("Valor pago:");
+
+        jtfValorPago.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
 
         jLabel11.setText("Usar usuário genérico");
 
@@ -820,7 +824,11 @@ public class ViewVenda extends javax.swing.JFrame {
     }//GEN-LAST:event_jbRemoverProdutoActionPerformed
 
     private void jbCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCancelarActionPerformed
-        this.limparFormulario();
+        if (JOptionPane.showConfirmDialog(rootPane, "Tem certeza que deseja limpar os campos?") == 0) {
+            this.limparFormulario();
+        } else {
+            return;
+        }
     }//GEN-LAST:event_jbCancelarActionPerformed
 
     private void jtfCodigoClienteFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfCodigoClienteFocusGained

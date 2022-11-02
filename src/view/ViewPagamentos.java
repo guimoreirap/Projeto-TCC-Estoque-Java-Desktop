@@ -106,7 +106,7 @@ public class ViewPagamentos extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTablePagamentos);
 
-        jbCancelar.setText("Cancelar");
+        jbCancelar.setText("Cancelar / Novo");
         jbCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbCancelarActionPerformed(evt);
@@ -179,7 +179,7 @@ public class ViewPagamentos extends javax.swing.JFrame {
                                                     .addComponent(jcbMetodo, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                         .addGap(16, 16, 16))))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addContainerGap()
+                                .addGap(26, 26, 26)
                                 .addComponent(jbCancelar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jbExcluir)
@@ -308,9 +308,14 @@ public class ViewPagamentos extends javax.swing.JFrame {
     }//GEN-LAST:event_jbExcluirActionPerformed
 
     private void jbCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCancelarActionPerformed
-        this.carregarPagamentos();
-        this.limparTabela();
-        salvarAlterar = "salvar";
+        if (JOptionPane.showConfirmDialog(rootPane, "Tem certeza que deseja limpar os campos?") == 0) {
+            this.limparTabela();
+            this.carregarPagamentos();
+            salvarAlterar = "salvar";
+        } else {
+            this.carregarPagamentos();
+            return;
+        }
     }//GEN-LAST:event_jbCancelarActionPerformed
 
     private void jbVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbVoltarActionPerformed
@@ -453,6 +458,7 @@ public class ViewPagamentos extends javax.swing.JFrame {
         jcbMetodo.setSelectedItem("Dinheiro");
         this.linhaExcluir = -50;
         this.salvarAlterar = "salvar";
+        this.jtfEmpresa.requestFocus();
     }
 
     private void salvarPagamentoCaixa() {

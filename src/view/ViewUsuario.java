@@ -283,7 +283,7 @@ public class ViewUsuario extends javax.swing.JFrame {
             }
         });
 
-        jbNovo.setText("Novo");
+        jbNovo.setText("Cancelar");
         jbNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbNovoActionPerformed(evt);
@@ -307,11 +307,11 @@ public class ViewUsuario extends javax.swing.JFrame {
                     .addComponent(jbVoltar))
                 .addGap(0, 10, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGap(27, 27, 27)
+                .addGap(22, 22, 22)
+                .addComponent(jbNovo)
+                .addGap(18, 18, 18)
                 .addComponent(jbExcluir)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jbNovo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jbAlterar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jbSalvar)
@@ -337,10 +337,13 @@ public class ViewUsuario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNovoActionPerformed
-        this.limparTabela();
-        //this.habilitarDesabilitarCampos(true);
-        this.jtfNome.requestFocus();
-        this.salvarAlterar = "salvar";
+        if (JOptionPane.showConfirmDialog(rootPane, "Tem certeza que deseja limpar os campos?") == 0) {
+            this.limparTabela();
+            this.jtfNome.requestFocus();
+            this.salvarAlterar = "salvar";
+        } else {
+            return;
+        }
     }//GEN-LAST:event_jbNovoActionPerformed
 
     private void jbSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalvarActionPerformed

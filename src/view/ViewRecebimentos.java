@@ -135,6 +135,8 @@ public class ViewRecebimentos extends javax.swing.JFrame {
             }
         });
 
+        jtfValorTotal.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+
         jLabel3.setText("Valor total:");
 
         jtDividas.setModel(new javax.swing.table.DefaultTableModel(
@@ -230,7 +232,7 @@ public class ViewRecebimentos extends javax.swing.JFrame {
                     .addComponent(jtfValorTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jbRealizarRecebimento)
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Dívidas", jPanel2);
