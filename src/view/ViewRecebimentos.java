@@ -873,6 +873,9 @@ public class ViewRecebimentos extends javax.swing.JFrame {
             if (Double.parseDouble(jtfValorReceber.getText()) > Double.parseDouble(jtfValorRestante.getText())) {
                 JOptionPane.showMessageDialog(this, "Valor a receber não pode ser maior que restante.", "ERRO", JOptionPane.ERROR_MESSAGE);
                 return;
+            } else if (Double.parseDouble(jtfValorReceber.getText()) <= 0) {
+                JOptionPane.showMessageDialog(this, "Valor recebido negativo ou nulo.", "ERRO", JOptionPane.ERROR_MESSAGE);
+                return;
             } else {
                 modelVendas.setVenValorRecebido(
                         Double.parseDouble(jtfValorPago.getText().replaceAll(",", "."))
@@ -933,6 +936,15 @@ public class ViewRecebimentos extends javax.swing.JFrame {
             modelRecebimentos.setRecMetodo(jcMetodoPagamento.getSelectedItem().toString());
             modelRecebimentos.setRecValor(Double.parseDouble(jtfValorReceber.getText()));
 
+            if(modelRecebimentos.getRecValor() > Double.parseDouble(this.jtfValorRestante.getText())){
+                JOptionPane.showMessageDialog(this, "Valor a receber não pode ser maior que restante.", "ERRO", JOptionPane.ERROR_MESSAGE);
+                return;
+            } else if(modelRecebimentos.getRecValor() <= 0){
+                JOptionPane.showMessageDialog(this, "Valor recebido negativo ou nulo.", "ERRO", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            
+            
             //Passando os dados para dentro do modelCaixa
             int codigoRecebimento = (int) jTableHistorico.getValueAt(linhaExcluir, 1);
             int codigoCliente = Integer.parseInt(jtfCodigoCliente.getText());

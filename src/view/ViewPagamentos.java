@@ -386,6 +386,11 @@ public class ViewPagamentos extends javax.swing.JFrame {
         //pega os valores dos campos da interface e coloca dentro de cada atributo do objeto
         try {
             //Passando os dados para dentro do modelPagamentos
+            if (this.jtfEmpresa.getText().trim().equals("")) {
+                JOptionPane.showMessageDialog(
+                        this, "Insira um nome no campo empresa.", "ERRO", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
             modelPagamentos.setPagEmpresa(this.jtfEmpresa.getText());
             modelPagamentos.setPagMetodo(this.jcbMetodo.getSelectedItem().toString());
             modelPagamentos.setPagValor(Double.parseDouble(this.jtfValor.getText().replaceAll(",", ".")));
@@ -413,6 +418,11 @@ public class ViewPagamentos extends javax.swing.JFrame {
         String movimentacao = "Pagamento";
         double valor = (Double) jTablePagamentos.getValueAt(linhaExcluir, 4);
         try {
+            if (this.jtfEmpresa.getText().trim().equals("")) {
+                JOptionPane.showMessageDialog(
+                        this, "Insira um nome no campo empresa.", "ERRO", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
             //pega os valores dos campos da interface e coloca dentro de cada atributo do objeto
             modelPagamentos.setPagEmpresa(this.jtfEmpresa.getText());
             modelPagamentos.setPagMetodo(this.jcbMetodo.getSelectedItem().toString());
