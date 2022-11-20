@@ -243,7 +243,6 @@ public class ViewCaixa extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 520, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(55, 55, 55)
                                 .addComponent(jbRelatorio)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -321,7 +320,7 @@ public class ViewCaixa extends javax.swing.JFrame {
     private void jbRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbRelatorioActionPerformed
         ControllerRelatorio controllerRelatorio = new ControllerRelatorio();
         
-        controllerRelatorio.gerarPDF();
+//        controllerRelatorio.gerarPDF();
     }//GEN-LAST:event_jbRelatorioActionPerformed
 
     /**
