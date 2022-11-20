@@ -321,7 +321,7 @@ public class ViewCaixa extends javax.swing.JFrame {
     private void jbRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbRelatorioActionPerformed
         ControllerRelatorio controllerRelatorio = new ControllerRelatorio();
         
-        controllerRelatorio.gerarRelatorio();
+        controllerRelatorio.gerarPDF();
     }//GEN-LAST:event_jbRelatorioActionPerformed
 
     /**

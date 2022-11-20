@@ -17,19 +17,10 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Usuario/Desktop/Backup%20Valdineis%20Moreira/Usuario/Documents/NetBeansProjects/SistemaVendas/src/view/ViewPagamentos.java</file>
-            <file>file:/C:/Users/Usuario/Desktop/Backup%20Valdineis%20Moreira/Usuario/Documents/NetBeansProjects/SistemaVendas/src/view/ViewVenda.java</file>
-            <file>file:/C:/Users/Usuario/Desktop/Backup%20Valdineis%20Moreira/Usuario/Documents/NetBeansProjects/SistemaVendas/src/controller/ControllerCaixa.java</file>
-            <file>file:/C:/Users/Usuario/Desktop/Backup%20Valdineis%20Moreira/Usuario/Documents/NetBeansProjects/SistemaVendas/src/controller/ControllerRecebimentos.java</file>
-            <file>file:/C:/Users/Usuario/Desktop/Backup%20Valdineis%20Moreira/Usuario/Documents/NetBeansProjects/SistemaVendas/src/view/ViewUsuario.java</file>
-            <file>file:/C:/Users/Usuario/Desktop/Backup%20Valdineis%20Moreira/Usuario/Documents/NetBeansProjects/SistemaVendas/src/view/ViewCliente.java</file>
-            <file>file:/C:/Users/Usuario/Desktop/Backup%20Valdineis%20Moreira/Usuario/Documents/NetBeansProjects/SistemaVendas/src/view/ViewLogin.java</file>
-            <file>file:/C:/Users/Usuario/Desktop/Backup%20Valdineis%20Moreira/Usuario/Documents/NetBeansProjects/SistemaVendas/src/view/ViewPrincipal.java</file>
-            <file>file:/C:/Users/Usuario/Desktop/Backup%20Valdineis%20Moreira/Usuario/Documents/NetBeansProjects/SistemaVendas/src/view/ViewRecuperarSenha.java</file>
+            <file>file:/C:/Users/Usuario/Desktop/Backup%20Valdineis%20Moreira/Usuario/Documents/NetBeansProjects/SistemaVendas/src/controller/ControllerRelatorio.java</file>
             <file>file:/C:/Users/Usuario/Desktop/Backup%20Valdineis%20Moreira/Usuario/Documents/NetBeansProjects/SistemaVendas/src/view/ViewCaixa.java</file>
             <file>file:/C:/Users/Usuario/Desktop/Backup%20Valdineis%20Moreira/Usuario/Documents/NetBeansProjects/SistemaVendas/src/view/ViewProduto.java</file>
-            <file>file:/C:/Users/Usuario/Desktop/Backup%20Valdineis%20Moreira/Usuario/Documents/NetBeansProjects/SistemaVendas/src/DAO/DaoCaixa.java</file>
-            <file>file:/C:/Users/Usuario/Desktop/Backup%20Valdineis%20Moreira/Usuario/Documents/NetBeansProjects/SistemaVendas/src/view/ViewRecebimentos.java</file>
+            <file>file:/C:/Users/Usuario/Desktop/Backup%20Valdineis%20Moreira/Usuario/Documents/NetBeansProjects/SistemaVendas/src/controller/ControllerVendas.java</file>
         </group>
     </open-files>
 </project-private>
