@@ -21,9 +21,11 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import model.ModelProdutos;
+import util.BLDatas;
 
 /**
  *
@@ -32,6 +34,8 @@ import model.ModelProdutos;
 public class ControllerRelatorio {
 
     ControllerProdutos controllerProdutos = new ControllerProdutos();
+    BLDatas bLDatas = new BLDatas();
+    Date dataAtual = null;
 
     public void gerarRelatorio() {
         Document documento = new Document();
@@ -83,10 +87,15 @@ public class ControllerRelatorio {
         ArrayList<ModelProdutos> listaProdutos = controllerProdutos.retornarListaProdutoController();
 
         try {
-            PdfWriter.getInstance(doc, new FileOutputStream("C:\\Users\\Usuario\\Desktop\\Backup Valdineis Moreira\\Usuario\\Downloads\\relatorio-produto.pdf"));
+            dataAtual = bLDatas.converterDataParaDateUS(new java.util.Date(System.currentTimeMillis()));
+            PdfWriter.getInstance(doc, new FileOutputStream("C:\\Users\\Usuario\\Desktop\\Backup Valdineis Moreira\\Usuario\\Downloads\\relatorio-produto-" + dataAtual + ".pdf"));
             doc.open();
 
-            Paragraph paragrafo = new Paragraph("Relatório PDF - Produtos");
+            Paragraph paragrafo = new Paragraph(String.valueOf(dataAtual));
+            paragrafo.setAlignment(1);
+            doc.add(paragrafo);
+            
+            paragrafo = new Paragraph("Relatório PDF - Produtos");
             paragrafo.setAlignment(1);
             doc.add(paragrafo);
             paragrafo = new Paragraph("   ");
