@@ -5,6 +5,7 @@
 package view;
 
 import controller.ControllerCaixa;
+import controller.ControllerRelatorio;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 import model.ModelCaixa;
@@ -59,6 +60,7 @@ public class ViewCaixa extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jtfValorLiquido = new javax.swing.JTextField();
+        jbRelatorio = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Caixa");
@@ -220,6 +222,13 @@ public class ViewCaixa extends javax.swing.JFrame {
         jtfValorLiquido.setBackground(new java.awt.Color(255, 102, 102));
         jtfValorLiquido.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
 
+        jbRelatorio.setText("Gerar relatorio");
+        jbRelatorio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbRelatorioActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -233,9 +242,13 @@ public class ViewCaixa extends javax.swing.JFrame {
                         .addGap(22, 22, 22)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 520, Short.MAX_VALUE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel4)
-                                .addComponent(jtfValorLiquido, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(55, 55, 55)
+                                .addComponent(jbRelatorio)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jtfValorLiquido, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(29, Short.MAX_VALUE))
         );
@@ -249,9 +262,12 @@ public class ViewCaixa extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jtfValorLiquido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jtfValorLiquido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jbRelatorio))
                 .addGap(26, 26, 26))
         );
 
@@ -301,6 +317,12 @@ public class ViewCaixa extends javax.swing.JFrame {
     private void jtfDataKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfDataKeyPressed
         this.carregarFluxoCaixa();
     }//GEN-LAST:event_jtfDataKeyPressed
+
+    private void jbRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbRelatorioActionPerformed
+        ControllerRelatorio controllerRelatorio = new ControllerRelatorio();
+        
+        controllerRelatorio.gerarRelatorio();
+    }//GEN-LAST:event_jbRelatorioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -407,6 +429,7 @@ public class ViewCaixa extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jbLimparData;
     private javax.swing.JButton jbLimparDataFinal;
+    private javax.swing.JButton jbRelatorio;
     private javax.swing.JComboBox<String> jcbMovimetacao;
     private javax.swing.JTable jtCaixa;
     private javax.swing.JFormattedTextField jtfData;
