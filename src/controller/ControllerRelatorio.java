@@ -28,7 +28,9 @@ import java.util.Date;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import model.ModelClientes;
+import model.ModelPagamentos;
 import model.ModelProdutos;
+import model.ModelRecebimentos;
 import util.BLDatas;
 
 /**
@@ -37,6 +39,7 @@ import util.BLDatas;
  */
 public class ControllerRelatorio {
 
+    ControllerRecebimentos controllerRecebimentos = new ControllerRecebimentos();
     ControllerPagamentos controllerPagamentos = new ControllerPagamentos();
     ControllerClientes controllerClientes = new ControllerClientes();
     ControllerProdutos controllerProdutos = new ControllerProdutos();
@@ -211,45 +214,110 @@ public class ControllerRelatorio {
         controllerPagamentos = new ControllerPagamentos();
         Document doc = new Document();
 
-        ArrayList<ModelProdutos> listaProdutos = controllerProdutos.retornarListaProdutoController();
+        ArrayList<ModelPagamentos> listaPagamentos = controllerPagamentos.retornarListaPagamentoController();
 
         try {
             dataAtual = bLDatas.converterDataParaDateUS(new java.util.Date(System.currentTimeMillis()));
-            PdfWriter.getInstance(doc, new FileOutputStream("C:\\Users\\Usuario\\Desktop\\Backup Valdineis Moreira\\Usuario\\Downloads\\relatorio-produto-" + dataAtual + ".pdf"));
+            PdfWriter.getInstance(doc, new FileOutputStream("C:\\Users\\Usuario\\Desktop\\Backup Valdineis Moreira\\Usuario\\Downloads\\relatorio-pagamento-" + dataAtual + ".pdf"));
             doc.open();
 
             Paragraph paragrafo = new Paragraph(String.valueOf(dataAtual));
             paragrafo.setAlignment(1);
             doc.add(paragrafo);
 
-            paragrafo = new Paragraph("Relatório PDF - Produtos");
+            paragrafo = new Paragraph("Relatório PDF - Pagamentos");
             paragrafo.setAlignment(1);
             doc.add(paragrafo);
             paragrafo = new Paragraph("   ");
             doc.add(paragrafo);
 
-            PdfPTable table = new PdfPTable(4);
+            PdfPTable table = new PdfPTable(5);
 
             PdfPCell cel1 = new PdfPCell(new Paragraph("Id"));
-            PdfPCell cel2 = new PdfPCell(new Paragraph("Produto"));
-            PdfPCell cel3 = new PdfPCell(new Paragraph("Quantidade"));
-            PdfPCell cel4 = new PdfPCell(new Paragraph("Valor"));
+            PdfPCell cel2 = new PdfPCell(new Paragraph("Data"));
+            PdfPCell cel3 = new PdfPCell(new Paragraph("Empresa"));
+            PdfPCell cel4 = new PdfPCell(new Paragraph("Método"));
+            PdfPCell cel5 = new PdfPCell(new Paragraph("Valor"));
 
             table.addCell(cel1).setBackgroundColor(BaseColor.LIGHT_GRAY);;
             table.addCell(cel2).setBackgroundColor(BaseColor.LIGHT_GRAY);;
             table.addCell(cel3).setBackgroundColor(BaseColor.LIGHT_GRAY);;
             table.addCell(cel4).setBackgroundColor(BaseColor.LIGHT_GRAY);;
+            table.addCell(cel5).setBackgroundColor(BaseColor.LIGHT_GRAY);;
 
-            for (ModelProdutos produto : listaProdutos) {
-                cel1 = new PdfPCell(new Paragraph(String.valueOf(produto.getIdProduto())));
-                cel2 = new PdfPCell(new Paragraph(produto.getProNome()));
-                cel3 = new PdfPCell(new Paragraph(String.valueOf(produto.getProEstoque())));
-                cel4 = new PdfPCell(new Paragraph(String.valueOf(produto.getProValor())));
+            for (ModelPagamentos pagamentos : listaPagamentos) {
+                cel1 = new PdfPCell(new Paragraph(String.valueOf(pagamentos.getPagId())));
+                cel2 = new PdfPCell(new Paragraph(String.valueOf(pagamentos.getPagData())));
+                cel3 = new PdfPCell(new Paragraph(String.valueOf(pagamentos.getPagEmpresa())));
+                cel4 = new PdfPCell(new Paragraph(String.valueOf(pagamentos.getPagMetodo())));
+                cel5 = new PdfPCell(new Paragraph(String.valueOf(pagamentos.getPagValor())));
 
                 table.addCell(cel1);
                 table.addCell(cel2);
                 table.addCell(cel3);
                 table.addCell(cel4);
+                table.addCell(cel5);
+            }
+
+            doc.add(table);
+            doc.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void gerarPdfRecebimento() {
+        controllerRecebimentos = new ControllerRecebimentos();
+        Document doc = new Document();
+
+        ArrayList<ModelRecebimentos> listaRecebimentos = controllerRecebimentos.retornarListaRecebimentosController();
+
+        try {
+            dataAtual = bLDatas.converterDataParaDateUS(new java.util.Date(System.currentTimeMillis()));
+            PdfWriter.getInstance(doc, new FileOutputStream("C:\\Users\\Usuario\\Desktop\\Backup Valdineis Moreira\\Usuario\\Downloads\\relatorio-recebimento-" + dataAtual + ".pdf"));
+            doc.open();
+
+            Paragraph paragrafo = new Paragraph(String.valueOf(dataAtual));
+            paragrafo.setAlignment(1);
+            doc.add(paragrafo);
+
+            paragrafo = new Paragraph("Relatório PDF - Recebimentos");
+            paragrafo.setAlignment(1);
+            doc.add(paragrafo);
+            paragrafo = new Paragraph("   ");
+            doc.add(paragrafo);
+
+            PdfPTable table = new PdfPTable(6);
+
+            PdfPCell cel1 = new PdfPCell(new Paragraph("Id"));
+            PdfPCell cel2 = new PdfPCell(new Paragraph("Código da Venda"));
+            PdfPCell cel3 = new PdfPCell(new Paragraph("Cliente"));
+            PdfPCell cel4 = new PdfPCell(new Paragraph("Data"));
+            PdfPCell cel5 = new PdfPCell(new Paragraph("Método"));
+            PdfPCell cel6 = new PdfPCell(new Paragraph("Valor"));
+
+            table.addCell(cel1).setBackgroundColor(BaseColor.LIGHT_GRAY);;
+            table.addCell(cel2).setBackgroundColor(BaseColor.LIGHT_GRAY);;
+            table.addCell(cel3).setBackgroundColor(BaseColor.LIGHT_GRAY);;
+            table.addCell(cel4).setBackgroundColor(BaseColor.LIGHT_GRAY);;
+            table.addCell(cel5).setBackgroundColor(BaseColor.LIGHT_GRAY);;
+            table.addCell(cel6).setBackgroundColor(BaseColor.LIGHT_GRAY);;
+
+            for (ModelRecebimentos recebimentos : listaRecebimentos) {
+                cel1 = new PdfPCell(new Paragraph(String.valueOf(recebimentos.getRecId())));
+                cel2 = new PdfPCell(new Paragraph(String.valueOf(recebimentos.getRecVenda())));
+                cel3 = new PdfPCell(new Paragraph(String.valueOf(controllerClientes.retornarClienteController(recebimentos.getRecCliente()).getCliNome())));
+                cel4 = new PdfPCell(new Paragraph(String.valueOf(recebimentos.getRecData())));
+                cel5 = new PdfPCell(new Paragraph(String.valueOf(recebimentos.getRecMetodo())));
+                cel6 = new PdfPCell(new Paragraph(String.valueOf(recebimentos.getRecValor())));
+
+                table.addCell(cel1);
+                table.addCell(cel2);
+                table.addCell(cel3);
+                table.addCell(cel4);
+                table.addCell(cel5);
+                table.addCell(cel6);
             }
 
             doc.add(table);

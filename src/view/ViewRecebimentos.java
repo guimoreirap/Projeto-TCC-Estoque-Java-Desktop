@@ -7,6 +7,7 @@ package view;
 import controller.ControllerCaixa;
 import controller.ControllerClientes;
 import controller.ControllerRecebimentos;
+import controller.ControllerRelatorio;
 import controller.ControllerVendas;
 import controller.ControllerVendasCliente;
 import java.util.ArrayList;
@@ -121,6 +122,7 @@ public class ViewRecebimentos extends javax.swing.JFrame {
         jbVoltar2 = new javax.swing.JButton();
         jbExcluir = new javax.swing.JButton();
         jbAlterar = new javax.swing.JButton();
+        jbGerarRelatorio = new javax.swing.JButton();
 
         jMenu1.setText("jMenu1");
 
@@ -489,6 +491,13 @@ public class ViewRecebimentos extends javax.swing.JFrame {
             }
         });
 
+        jbGerarRelatorio.setText("Gerar relatório");
+        jbGerarRelatorio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbGerarRelatorioActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -498,13 +507,14 @@ public class ViewRecebimentos extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 618, Short.MAX_VALUE)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jbVoltar2)
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(jbExcluir)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jbAlterar)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(jbVoltar2)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(jbGerarRelatorio)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jbExcluir)
+                        .addGap(18, 18, 18)
+                        .addComponent(jbAlterar)))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -517,7 +527,8 @@ public class ViewRecebimentos extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbExcluir)
-                    .addComponent(jbAlterar))
+                    .addComponent(jbAlterar)
+                    .addComponent(jbGerarRelatorio))
                 .addGap(22, 22, 22))
         );
 
@@ -716,6 +727,11 @@ public class ViewRecebimentos extends javax.swing.JFrame {
             this.carregarRecebimentos();
         }
     }//GEN-LAST:event_jbExcluirActionPerformed
+
+    private void jbGerarRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGerarRelatorioActionPerformed
+       ControllerRelatorio controllerRelatorio = new ControllerRelatorio();
+       controllerRelatorio.gerarPdfRecebimento();
+    }//GEN-LAST:event_jbGerarRelatorioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1006,6 +1022,7 @@ public class ViewRecebimentos extends javax.swing.JFrame {
     private javax.swing.JButton jbCompletarValorRestante;
     private javax.swing.JButton jbEfetuarRecebimento;
     private javax.swing.JButton jbExcluir;
+    private javax.swing.JButton jbGerarRelatorio;
     private javax.swing.JButton jbRealizarRecebimento;
     private javax.swing.JButton jbVoltar1;
     private javax.swing.JButton jbVoltar2;
