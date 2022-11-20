@@ -31,6 +31,7 @@ import model.ModelClientes;
 import model.ModelPagamentos;
 import model.ModelProdutos;
 import model.ModelRecebimentos;
+import model.ModelVendas;
 import util.BLDatas;
 
 /**
@@ -39,6 +40,7 @@ import util.BLDatas;
  */
 public class ControllerRelatorio {
 
+    ControllerVendas controllerVendas = new ControllerVendas();
     ControllerRecebimentos controllerRecebimentos = new ControllerRecebimentos();
     ControllerPagamentos controllerPagamentos = new ControllerPagamentos();
     ControllerClientes controllerClientes = new ControllerClientes();
@@ -117,10 +119,10 @@ public class ControllerRelatorio {
             PdfPCell cel3 = new PdfPCell(new Paragraph("Quantidade"));
             PdfPCell cel4 = new PdfPCell(new Paragraph("Valor"));
 
-            table.addCell(cel1).setBackgroundColor(BaseColor.LIGHT_GRAY);;
-            table.addCell(cel2).setBackgroundColor(BaseColor.LIGHT_GRAY);;
-            table.addCell(cel3).setBackgroundColor(BaseColor.LIGHT_GRAY);;
-            table.addCell(cel4).setBackgroundColor(BaseColor.LIGHT_GRAY);;
+            table.addCell(cel1).setBackgroundColor(BaseColor.LIGHT_GRAY);
+            table.addCell(cel2).setBackgroundColor(BaseColor.LIGHT_GRAY);
+            table.addCell(cel3).setBackgroundColor(BaseColor.LIGHT_GRAY);
+            table.addCell(cel4).setBackgroundColor(BaseColor.LIGHT_GRAY);
 
             for (ModelProdutos produto : listaProdutos) {
                 cel1 = new PdfPCell(new Paragraph(String.valueOf(produto.getIdProduto())));
@@ -152,7 +154,7 @@ public class ControllerRelatorio {
             dataAtual = bLDatas.converterDataParaDateUS(new java.util.Date(System.currentTimeMillis()));
             PdfWriter.getInstance(doc, new FileOutputStream("C:\\Users\\Usuario\\Desktop\\Backup Valdineis Moreira\\Usuario\\Downloads\\relatorio-cliente-" + dataAtual + ".pdf"));
             doc.open();
-            
+
             Paragraph paragrafo = new Paragraph(String.valueOf(dataAtual));
             paragrafo.setAlignment(1);
             doc.add(paragrafo);
@@ -209,7 +211,7 @@ public class ControllerRelatorio {
             e.printStackTrace();
         }
     }
-    
+
     public void gerarPdfPagamento() {
         controllerPagamentos = new ControllerPagamentos();
         Document doc = new Document();
@@ -239,11 +241,11 @@ public class ControllerRelatorio {
             PdfPCell cel4 = new PdfPCell(new Paragraph("Método"));
             PdfPCell cel5 = new PdfPCell(new Paragraph("Valor"));
 
-            table.addCell(cel1).setBackgroundColor(BaseColor.LIGHT_GRAY);;
-            table.addCell(cel2).setBackgroundColor(BaseColor.LIGHT_GRAY);;
-            table.addCell(cel3).setBackgroundColor(BaseColor.LIGHT_GRAY);;
-            table.addCell(cel4).setBackgroundColor(BaseColor.LIGHT_GRAY);;
-            table.addCell(cel5).setBackgroundColor(BaseColor.LIGHT_GRAY);;
+            table.addCell(cel1).setBackgroundColor(BaseColor.LIGHT_GRAY);
+            table.addCell(cel2).setBackgroundColor(BaseColor.LIGHT_GRAY);
+            table.addCell(cel3).setBackgroundColor(BaseColor.LIGHT_GRAY);
+            table.addCell(cel4).setBackgroundColor(BaseColor.LIGHT_GRAY);
+            table.addCell(cel5).setBackgroundColor(BaseColor.LIGHT_GRAY);
 
             for (ModelPagamentos pagamentos : listaPagamentos) {
                 cel1 = new PdfPCell(new Paragraph(String.valueOf(pagamentos.getPagId())));
@@ -266,7 +268,7 @@ public class ControllerRelatorio {
             e.printStackTrace();
         }
     }
-    
+
     public void gerarPdfRecebimento() {
         controllerRecebimentos = new ControllerRecebimentos();
         Document doc = new Document();
@@ -297,12 +299,12 @@ public class ControllerRelatorio {
             PdfPCell cel5 = new PdfPCell(new Paragraph("Método"));
             PdfPCell cel6 = new PdfPCell(new Paragraph("Valor"));
 
-            table.addCell(cel1).setBackgroundColor(BaseColor.LIGHT_GRAY);;
-            table.addCell(cel2).setBackgroundColor(BaseColor.LIGHT_GRAY);;
-            table.addCell(cel3).setBackgroundColor(BaseColor.LIGHT_GRAY);;
-            table.addCell(cel4).setBackgroundColor(BaseColor.LIGHT_GRAY);;
-            table.addCell(cel5).setBackgroundColor(BaseColor.LIGHT_GRAY);;
-            table.addCell(cel6).setBackgroundColor(BaseColor.LIGHT_GRAY);;
+            table.addCell(cel1).setBackgroundColor(BaseColor.LIGHT_GRAY);
+            table.addCell(cel2).setBackgroundColor(BaseColor.LIGHT_GRAY);
+            table.addCell(cel3).setBackgroundColor(BaseColor.LIGHT_GRAY);
+            table.addCell(cel4).setBackgroundColor(BaseColor.LIGHT_GRAY);
+            table.addCell(cel5).setBackgroundColor(BaseColor.LIGHT_GRAY);
+            table.addCell(cel6).setBackgroundColor(BaseColor.LIGHT_GRAY);
 
             for (ModelRecebimentos recebimentos : listaRecebimentos) {
                 cel1 = new PdfPCell(new Paragraph(String.valueOf(recebimentos.getRecId())));
@@ -318,6 +320,71 @@ public class ControllerRelatorio {
                 table.addCell(cel4);
                 table.addCell(cel5);
                 table.addCell(cel6);
+            }
+
+            doc.add(table);
+            doc.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void gerarPdfVendas() {
+        controllerVendas = new ControllerVendas();
+        Document doc = new Document();
+
+        ArrayList<ModelVendas> listaVendas = controllerVendas.retornarListaVendaRelatorioController();
+
+        try {
+            dataAtual = bLDatas.converterDataParaDateUS(new java.util.Date(System.currentTimeMillis()));
+            PdfWriter.getInstance(doc, new FileOutputStream("C:\\Users\\Usuario\\Desktop\\Backup Valdineis Moreira\\Usuario\\Downloads\\relatorio-venda-" + dataAtual + ".pdf"));
+            doc.open();
+
+            Paragraph paragrafo = new Paragraph(String.valueOf(dataAtual));
+            paragrafo.setAlignment(1);
+            doc.add(paragrafo);
+
+            paragrafo = new Paragraph("Relatório PDF - Vendas");
+            paragrafo.setAlignment(1);
+            doc.add(paragrafo);
+            paragrafo = new Paragraph("   ");
+            doc.add(paragrafo);
+
+            PdfPTable table = new PdfPTable(7);
+
+            PdfPCell cel1 = new PdfPCell(new Paragraph("Código da Venda"));
+            PdfPCell cel2 = new PdfPCell(new Paragraph("Cliente"));
+            PdfPCell cel3 = new PdfPCell(new Paragraph("Data"));
+            PdfPCell cel4 = new PdfPCell(new Paragraph("Valor bruto"));
+            PdfPCell cel5 = new PdfPCell(new Paragraph("Valor líquido"));
+            PdfPCell cel6 = new PdfPCell(new Paragraph("Desconto"));
+            PdfPCell cel7 = new PdfPCell(new Paragraph("Valor recebido"));
+
+            table.addCell(cel1).setBackgroundColor(BaseColor.LIGHT_GRAY);
+            table.addCell(cel2).setBackgroundColor(BaseColor.LIGHT_GRAY);
+            table.addCell(cel3).setBackgroundColor(BaseColor.LIGHT_GRAY);
+            table.addCell(cel4).setBackgroundColor(BaseColor.LIGHT_GRAY);
+            table.addCell(cel5).setBackgroundColor(BaseColor.LIGHT_GRAY);
+            table.addCell(cel6).setBackgroundColor(BaseColor.LIGHT_GRAY);
+            table.addCell(cel7).setBackgroundColor(BaseColor.LIGHT_GRAY);
+
+            for (ModelVendas vendas : listaVendas) {
+                cel1 = new PdfPCell(new Paragraph(String.valueOf(vendas.getVenId())));
+                cel2 = new PdfPCell(new Paragraph(String.valueOf(controllerClientes.retornarClienteController(vendas.getCliente()).getCliNome())));
+                cel3 = new PdfPCell(new Paragraph(String.valueOf(vendas.getVenDataVenda())));
+                cel4 = new PdfPCell(new Paragraph(String.valueOf(vendas.getVenValorBruto())));
+                cel5 = new PdfPCell(new Paragraph(String.valueOf(vendas.getVenValorLiquido())));
+                cel6 = new PdfPCell(new Paragraph(String.valueOf(vendas.getVenValorDesconto())));
+                cel7 = new PdfPCell(new Paragraph(String.valueOf(vendas.getVenValorRecebido())));
+
+                table.addCell(cel1);
+                table.addCell(cel2);
+                table.addCell(cel3);
+                table.addCell(cel4);
+                table.addCell(cel5);
+                table.addCell(cel6);
+                table.addCell(cel7);
             }
 
             doc.add(table);

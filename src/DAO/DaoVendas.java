@@ -140,6 +140,38 @@ public class DaoVendas extends ConexaoMySql {
 
         return listaModelVendas;
     }
+    
+    public ArrayList<ModelVendas> retornarListaVendasRelatorioDAO() {
+        ArrayList<ModelVendas> listaModelVendas = new ArrayList<>();
+        ModelVendas modelVendas = new ModelVendas();
+        try {
+            this.conectar();
+            this.executarSQL("SELECT "
+                    + "pk_id_venda, "
+                    + "fk_cliente,"
+                    + "ven_data_venda,"
+                    + "ven_valor_liquido, "
+                    + "ven_valor_bruto, "
+                    + "ven_desconto "
+                    + "FROM tbl_vendas;");
+            while (this.getResultSet().next()) {
+                modelVendas.setVenId(this.getResultSet().getInt(1));
+                modelVendas.setCliente(this.getResultSet().getInt(2));
+                modelVendas.setVenDataVenda(this.getResultSet().getDate(3));
+                modelVendas.setVenValorLiquido(this.getResultSet().getDouble(4));
+                modelVendas.setVenValorBruto(this.getResultSet().getDouble(5));
+                modelVendas.setVenValorDesconto(this.getResultSet().getDouble(6));
+                listaModelVendas.add(modelVendas);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            this.fecharConexao();
+        }
+
+        return listaModelVendas;
+    }
 
     public boolean efetuarRecebimentoDAO(ModelVendas pModelVendas) {
         try {

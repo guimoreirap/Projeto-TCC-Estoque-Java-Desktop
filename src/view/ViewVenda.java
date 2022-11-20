@@ -9,6 +9,7 @@ import controller.ControllerClientes;
 import controller.ControllerProdutos;
 import controller.ControllerProdutosVendasProdutos;
 import controller.ControllerRecebimentos;
+import controller.ControllerRelatorio;
 import controller.ControllerVendas;
 import controller.ControllerVendasCliente;
 import controller.ControllerVendasProdutos;
@@ -138,6 +139,7 @@ public class ViewVenda extends javax.swing.JFrame {
         jbExcluir = new javax.swing.JButton();
         jbAlterar = new javax.swing.JButton();
         jbVoltar2 = new javax.swing.JButton();
+        jbGerarRelatorio = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Vendas");
@@ -523,6 +525,13 @@ public class ViewVenda extends javax.swing.JFrame {
             }
         });
 
+        jbGerarRelatorio.setText("Gerar relatório");
+        jbGerarRelatorio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbGerarRelatorioActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -531,10 +540,6 @@ public class ViewVenda extends javax.swing.JFrame {
                 .addGap(24, 24, 24)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jbVoltar2)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jbExcluir)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jbAlterar))
                     .addComponent(jLabel9)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jtfPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -543,7 +548,14 @@ public class ViewVenda extends javax.swing.JFrame {
                 .addContainerGap(250, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(jbGerarRelatorio)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jbExcluir)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jbAlterar)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -562,7 +574,8 @@ public class ViewVenda extends javax.swing.JFrame {
                 .addGap(40, 40, 40)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbExcluir)
-                    .addComponent(jbAlterar))
+                    .addComponent(jbAlterar)
+                    .addComponent(jbGerarRelatorio))
                 .addContainerGap())
         );
 
@@ -876,6 +889,11 @@ public class ViewVenda extends javax.swing.JFrame {
         this.jtfCodigoCliente.setText("1");
         this.jtfCodigoCliente.requestFocus();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jbGerarRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGerarRelatorioActionPerformed
+        ControllerRelatorio controllerRelatorio = new ControllerRelatorio();
+        controllerRelatorio.gerarPdfVendas();
+    }//GEN-LAST:event_jbGerarRelatorioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1223,6 +1241,7 @@ public class ViewVenda extends javax.swing.JFrame {
     private javax.swing.JButton jbAtualizarClientes;
     private javax.swing.JButton jbCancelar;
     private javax.swing.JButton jbExcluir;
+    private javax.swing.JButton jbGerarRelatorio;
     private javax.swing.JButton jbPesquisar;
     private javax.swing.JButton jbRemoverProduto;
     private javax.swing.JButton jbSalvar;

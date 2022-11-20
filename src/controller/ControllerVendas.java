@@ -49,4 +49,8 @@ public class ControllerVendas {
     public boolean alterarValorRecebimentoEmVendaDAO(double valorRecebido, int idVenda) {
         return this.daoVendas.alterarValorRecebimentoEmVendaDAO(valorRecebido, idVenda);
     }
+    
+    public ArrayList<ModelVendas> retornarListaVendaRelatorioController() {
+        return this.daoVendas.retornarListaVendasRelatorioDAO();
+    }
 }
