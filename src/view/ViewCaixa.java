@@ -319,8 +319,16 @@ public class ViewCaixa extends javax.swing.JFrame {
 
     private void jbRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbRelatorioActionPerformed
         ControllerRelatorio controllerRelatorio = new ControllerRelatorio();
+        String movimentacao = "Geral";
         
-//        controllerRelatorio.gerarPDF();
+        if(jcbMovimetacao.getSelectedItem().equals("Recebimento")){
+            movimentacao = "Recebimento";
+        } else if(jcbMovimetacao.getSelectedItem().equals("Pagamento")){
+            movimentacao = "Pagamento";
+        } else {
+            movimentacao = "Geral";
+        }
+        controllerRelatorio.gerarPdfCaixa(movimentacao, this.jtfData.getText(), this.jtfDataFinal.getText());
     }//GEN-LAST:event_jbRelatorioActionPerformed
 
     /**

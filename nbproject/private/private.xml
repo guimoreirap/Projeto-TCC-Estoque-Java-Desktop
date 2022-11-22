@@ -5,12 +5,12 @@
             <url>src/view/ViewVenda.java</url>
             <bookmark id="1">
                 <name/>
-                <line>593</line>
+                <line>594</line>
                 <key/>
             </bookmark>
             <bookmark id="2">
                 <name/>
-                <line>593</line>
+                <line>594</line>
                 <key/>
             </bookmark>
         </file>
@@ -19,7 +19,9 @@
         <group>
             <file>file:/C:/Users/Usuario/Desktop/Backup%20Valdineis%20Moreira/Usuario/Documents/NetBeansProjects/SistemaVendas/src/controller/ControllerRelatorio.java</file>
             <file>file:/C:/Users/Usuario/Desktop/Backup%20Valdineis%20Moreira/Usuario/Documents/NetBeansProjects/SistemaVendas/src/view/ViewCaixa.java</file>
-            <file>file:/C:/Users/Usuario/Desktop/Backup%20Valdineis%20Moreira/Usuario/Documents/NetBeansProjects/SistemaVendas/src/view/ViewProduto.java</file>
+            <file>file:/C:/Users/Usuario/Desktop/Backup%20Valdineis%20Moreira/Usuario/Documents/NetBeansProjects/SistemaVendas/src/view/ViewVenda.java</file>
+            <file>file:/C:/Users/Usuario/Desktop/Backup%20Valdineis%20Moreira/Usuario/Documents/NetBeansProjects/SistemaVendas/src/DAO/DaoVendas.java</file>
+            <file>file:/C:/Users/Usuario/Desktop/Backup%20Valdineis%20Moreira/Usuario/Documents/NetBeansProjects/SistemaVendas/src/view/ViewRecebimentos.java</file>
             <file>file:/C:/Users/Usuario/Desktop/Backup%20Valdineis%20Moreira/Usuario/Documents/NetBeansProjects/SistemaVendas/src/controller/ControllerVendas.java</file>
         </group>
     </open-files>

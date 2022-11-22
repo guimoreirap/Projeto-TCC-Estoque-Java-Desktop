@@ -27,11 +27,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import model.ModelCaixa;
 import model.ModelClientes;
 import model.ModelPagamentos;
 import model.ModelProdutos;
 import model.ModelRecebimentos;
 import model.ModelVendas;
+import model.ModelVendasCliente;
 import util.BLDatas;
 
 /**
@@ -45,6 +47,10 @@ public class ControllerRelatorio {
     ControllerPagamentos controllerPagamentos = new ControllerPagamentos();
     ControllerClientes controllerClientes = new ControllerClientes();
     ControllerProdutos controllerProdutos = new ControllerProdutos();
+    ControllerVendasCliente controllerVendasCliente = new ControllerVendasCliente();
+    ControllerCaixa controllerCaixa = new ControllerCaixa();
+    ArrayList<ModelCaixa> listaModelCaixa = new ArrayList<>();
+
     BLDatas bLDatas = new BLDatas();
     Date dataAtual = null;
 
@@ -128,7 +134,7 @@ public class ControllerRelatorio {
                 cel1 = new PdfPCell(new Paragraph(String.valueOf(produto.getIdProduto())));
                 cel2 = new PdfPCell(new Paragraph(produto.getProNome()));
                 cel3 = new PdfPCell(new Paragraph(String.valueOf(produto.getProEstoque())));
-                cel4 = new PdfPCell(new Paragraph(String.valueOf(produto.getProValor())));
+                cel4 = new PdfPCell(new Paragraph(String.valueOf(formatarValor(produto.getProValor()))));
 
                 table.addCell(cel1);
                 table.addCell(cel2);
@@ -252,7 +258,7 @@ public class ControllerRelatorio {
                 cel2 = new PdfPCell(new Paragraph(String.valueOf(pagamentos.getPagData())));
                 cel3 = new PdfPCell(new Paragraph(String.valueOf(pagamentos.getPagEmpresa())));
                 cel4 = new PdfPCell(new Paragraph(String.valueOf(pagamentos.getPagMetodo())));
-                cel5 = new PdfPCell(new Paragraph(String.valueOf(pagamentos.getPagValor())));
+                cel5 = new PdfPCell(new Paragraph(String.valueOf(formatarValor(pagamentos.getPagValor()))));
 
                 table.addCell(cel1);
                 table.addCell(cel2);
@@ -312,7 +318,7 @@ public class ControllerRelatorio {
                 cel3 = new PdfPCell(new Paragraph(String.valueOf(controllerClientes.retornarClienteController(recebimentos.getRecCliente()).getCliNome())));
                 cel4 = new PdfPCell(new Paragraph(String.valueOf(recebimentos.getRecData())));
                 cel5 = new PdfPCell(new Paragraph(String.valueOf(recebimentos.getRecMetodo())));
-                cel6 = new PdfPCell(new Paragraph(String.valueOf(recebimentos.getRecValor())));
+                cel6 = new PdfPCell(new Paragraph(String.valueOf(formatarValor(recebimentos.getRecValor()))));
 
                 table.addCell(cel1);
                 table.addCell(cel2);
@@ -334,7 +340,7 @@ public class ControllerRelatorio {
         controllerVendas = new ControllerVendas();
         Document doc = new Document();
 
-        ArrayList<ModelVendas> listaVendas = controllerVendas.retornarListaVendaRelatorioController();
+        ArrayList<ModelVendasCliente> listaVendas = controllerVendasCliente.getListaVendasClienteController();
 
         try {
             dataAtual = bLDatas.converterDataParaDateUS(new java.util.Date(System.currentTimeMillis()));
@@ -369,14 +375,14 @@ public class ControllerRelatorio {
             table.addCell(cel6).setBackgroundColor(BaseColor.LIGHT_GRAY);
             table.addCell(cel7).setBackgroundColor(BaseColor.LIGHT_GRAY);
 
-            for (ModelVendas vendas : listaVendas) {
-                cel1 = new PdfPCell(new Paragraph(String.valueOf(vendas.getVenId())));
-                cel2 = new PdfPCell(new Paragraph(String.valueOf(controllerClientes.retornarClienteController(vendas.getCliente()).getCliNome())));
-                cel3 = new PdfPCell(new Paragraph(String.valueOf(vendas.getVenDataVenda())));
-                cel4 = new PdfPCell(new Paragraph(String.valueOf(vendas.getVenValorBruto())));
-                cel5 = new PdfPCell(new Paragraph(String.valueOf(vendas.getVenValorLiquido())));
-                cel6 = new PdfPCell(new Paragraph(String.valueOf(vendas.getVenValorDesconto())));
-                cel7 = new PdfPCell(new Paragraph(String.valueOf(vendas.getVenValorRecebido())));
+            for (ModelVendasCliente vendas : listaVendas) {
+                cel1 = new PdfPCell(new Paragraph(String.valueOf(vendas.getModelVendas().getVenId())));
+                cel2 = new PdfPCell(new Paragraph(String.valueOf(controllerClientes.retornarClienteController(vendas.getModelVendas().getCliente()).getCliNome())));
+                cel3 = new PdfPCell(new Paragraph(String.valueOf(vendas.getModelVendas().getVenDataVenda())));
+                cel4 = new PdfPCell(new Paragraph(String.valueOf(formatarValor(vendas.getModelVendas().getVenValorBruto()))));
+                cel5 = new PdfPCell(new Paragraph(String.valueOf(formatarValor(vendas.getModelVendas().getVenValorLiquido()))));
+                cel6 = new PdfPCell(new Paragraph(String.valueOf(formatarValor(vendas.getModelVendas().getVenValorDesconto()))));
+                cel7 = new PdfPCell(new Paragraph(String.valueOf(formatarValor(vendas.getModelVendas().getVenValorRecebido()))));
 
                 table.addCell(cel1);
                 table.addCell(cel2);
@@ -395,4 +401,106 @@ public class ControllerRelatorio {
         }
     }
 
+    public void gerarPdfCaixa(String movimentacao, String dataInicial, String dataFinal) {
+        Document doc = new Document();
+        String formatacaoData = "    -  -  ";
+        double valorTotal = 0;
+
+        ArrayList<ModelCaixa> listaCaixa = this.carregarFluxoCaixa(movimentacao, dataInicial, dataFinal);
+        try {
+
+            dataAtual = bLDatas.converterDataParaDateUS(new java.util.Date(System.currentTimeMillis()));
+
+            if (!dataInicial.equals(formatacaoData) && !dataFinal.equals(formatacaoData)) {
+                PdfWriter.getInstance(doc, new FileOutputStream("C:\\Users\\Usuario\\Desktop\\Backup Valdineis Moreira\\Usuario\\Downloads\\" + dataInicial + "-até-" + dataFinal + "-relatorio-caixa-" + movimentacao + "-" + dataAtual + ".pdf"));
+            } else {
+                PdfWriter.getInstance(doc, new FileOutputStream("C:\\Users\\Usuario\\Desktop\\Backup Valdineis Moreira\\Usuario\\Downloads\\relatorio-caixa-" + movimentacao + "-" + dataAtual + ".pdf"));
+            }
+            doc.open();
+
+            Paragraph paragrafo = new Paragraph(String.valueOf(dataAtual));
+            paragrafo.setAlignment(1);
+            doc.add(paragrafo);
+
+            paragrafo = new Paragraph("Relatório PDF - Caixa");
+            paragrafo.setAlignment(1);
+            doc.add(paragrafo);
+
+            paragrafo = new Paragraph("De " + dataInicial + " até " + dataFinal);
+            paragrafo.setAlignment(1);
+            doc.add(paragrafo);
+
+            paragrafo = new Paragraph(movimentacao);
+            paragrafo.setAlignment(1);
+            doc.add(paragrafo);
+
+            paragrafo = new Paragraph("   ");
+            doc.add(paragrafo);
+
+            PdfPTable table = new PdfPTable(4);
+
+            PdfPCell cel1 = new PdfPCell(new Paragraph("Data"));
+            PdfPCell cel2 = new PdfPCell(new Paragraph("Movimentação"));
+            PdfPCell cel3 = new PdfPCell(new Paragraph("Ator"));
+            PdfPCell cel4 = new PdfPCell(new Paragraph("Valor"));
+
+            table.addCell(cel1).setBackgroundColor(BaseColor.LIGHT_GRAY);
+            table.addCell(cel2).setBackgroundColor(BaseColor.LIGHT_GRAY);
+            table.addCell(cel3).setBackgroundColor(BaseColor.LIGHT_GRAY);
+            table.addCell(cel4).setBackgroundColor(BaseColor.LIGHT_GRAY);
+
+            for (ModelCaixa caixa : listaCaixa) {
+                cel1 = new PdfPCell(new Paragraph(String.valueOf(caixa.getCaixaData())));
+                cel2 = new PdfPCell(new Paragraph(String.valueOf(caixa.getCaixaMovimentacao())));
+                cel3 = new PdfPCell(new Paragraph(String.valueOf(caixa.getCaixaAtor())));
+                cel4 = new PdfPCell(new Paragraph(String.valueOf(formatarValor(caixa.getCaixaValor()))));
+
+                table.addCell(cel1);
+                table.addCell(cel2);
+                table.addCell(cel3);
+                table.addCell(cel4);
+
+                if (caixa.getCaixaMovimentacao().equals("Recebimento")) {
+                    valorTotal += caixa.getCaixaValor();
+                } else if (caixa.getCaixaMovimentacao().equals("Pagamento")) {
+                    valorTotal -= caixa.getCaixaValor();
+                }
+            }
+
+            doc.add(table);
+
+            paragrafo = new Paragraph("Valor total: " + formatarValor(valorTotal));
+            paragrafo.setAlignment(1);
+            doc.add(paragrafo);
+
+            doc.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private ArrayList<ModelCaixa> carregarFluxoCaixa(String movimentacao, String dataInicial, String dataFinal) {
+        String formatacaoData = "    -  -  ";
+
+        if (!dataInicial.equals(formatacaoData) && movimentacao.equals("Geral") && dataFinal.equals(formatacaoData)) {
+            listaModelCaixa = controllerCaixa.retornarListaCaixaDataController(dataInicial);
+        } else if (dataInicial.equals(formatacaoData) && !movimentacao.equals("Geral") && dataFinal.equals(formatacaoData)) {
+            listaModelCaixa = controllerCaixa.retornarListaCaixaMovimentacaoController(movimentacao);
+        } else if (!dataInicial.equals(formatacaoData) && !movimentacao.equals("Geral") && dataFinal.equals(formatacaoData)) {
+            listaModelCaixa = controllerCaixa.retornarListaCaixaController(movimentacao, dataInicial);
+        } else if (!dataInicial.equals(formatacaoData) && !dataFinal.equals(formatacaoData) && movimentacao.equals("Geral")) {
+            listaModelCaixa = controllerCaixa.retornarListaCaixaDataController(dataInicial, dataFinal);
+        } else if (!dataInicial.equals(formatacaoData) && !dataFinal.equals(formatacaoData) && !movimentacao.equals("Geral")) {
+            listaModelCaixa = controllerCaixa.retornarListaCaixaDataController(dataInicial, dataFinal, movimentacao);
+        } else {
+            listaModelCaixa = controllerCaixa.retornarListaCaixaController();
+        }
+
+        return listaModelCaixa;
+    }
+
+    private String formatarValor(Double valor) {
+        return String.format("%.2f", valor).replaceAll(",", ".");
+    }
 }
