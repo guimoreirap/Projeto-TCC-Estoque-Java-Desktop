@@ -23,6 +23,10 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JTable;
@@ -53,6 +57,9 @@ public class ControllerRelatorio {
 
     BLDatas bLDatas = new BLDatas();
     Date dataAtual = null;
+    LocalDateTime currentTime = LocalDateTime.now();
+    DateTimeFormatter formatterHora = DateTimeFormatter.ofPattern("HH.mm.ss");
+    String horaFormatada = formatterHora.format(currentTime);
 
     public void gerarRelatorio() {
         Document documento = new Document();
@@ -105,7 +112,7 @@ public class ControllerRelatorio {
 
         try {
             dataAtual = bLDatas.converterDataParaDateUS(new java.util.Date(System.currentTimeMillis()));
-            PdfWriter.getInstance(doc, new FileOutputStream("C:\\Users\\Usuario\\Desktop\\Backup Valdineis Moreira\\Usuario\\Downloads\\relatorio-produto-" + dataAtual + ".pdf"));
+            PdfWriter.getInstance(doc, new FileOutputStream("C:\\Users\\Usuario\\Desktop\\Backup Valdineis Moreira\\Usuario\\Downloads\\relatorio-produto-" + dataAtual + "-" + horaFormatada + ".pdf"));
             doc.open();
 
             Paragraph paragrafo = new Paragraph(String.valueOf(dataAtual));
@@ -158,7 +165,7 @@ public class ControllerRelatorio {
 
         try {
             dataAtual = bLDatas.converterDataParaDateUS(new java.util.Date(System.currentTimeMillis()));
-            PdfWriter.getInstance(doc, new FileOutputStream("C:\\Users\\Usuario\\Desktop\\Backup Valdineis Moreira\\Usuario\\Downloads\\relatorio-cliente-" + dataAtual + ".pdf"));
+            PdfWriter.getInstance(doc, new FileOutputStream("C:\\Users\\Usuario\\Desktop\\Backup Valdineis Moreira\\Usuario\\Downloads\\relatorio-cliente-" + dataAtual + "-" + horaFormatada + ".pdf"));
             doc.open();
 
             Paragraph paragrafo = new Paragraph(String.valueOf(dataAtual));
@@ -226,7 +233,7 @@ public class ControllerRelatorio {
 
         try {
             dataAtual = bLDatas.converterDataParaDateUS(new java.util.Date(System.currentTimeMillis()));
-            PdfWriter.getInstance(doc, new FileOutputStream("C:\\Users\\Usuario\\Desktop\\Backup Valdineis Moreira\\Usuario\\Downloads\\relatorio-pagamento-" + dataAtual + ".pdf"));
+            PdfWriter.getInstance(doc, new FileOutputStream("C:\\Users\\Usuario\\Desktop\\Backup Valdineis Moreira\\Usuario\\Downloads\\relatorio-pagamento-" + dataAtual + "-" + horaFormatada + ".pdf"));
             doc.open();
 
             Paragraph paragrafo = new Paragraph(String.valueOf(dataAtual));
@@ -283,7 +290,7 @@ public class ControllerRelatorio {
 
         try {
             dataAtual = bLDatas.converterDataParaDateUS(new java.util.Date(System.currentTimeMillis()));
-            PdfWriter.getInstance(doc, new FileOutputStream("C:\\Users\\Usuario\\Desktop\\Backup Valdineis Moreira\\Usuario\\Downloads\\relatorio-recebimento-" + dataAtual + ".pdf"));
+            PdfWriter.getInstance(doc, new FileOutputStream("C:\\Users\\Usuario\\Desktop\\Backup Valdineis Moreira\\Usuario\\Downloads\\relatorio-recebimento-" + dataAtual + "-" + horaFormatada + ".pdf"));
             doc.open();
 
             Paragraph paragrafo = new Paragraph(String.valueOf(dataAtual));
@@ -344,7 +351,7 @@ public class ControllerRelatorio {
 
         try {
             dataAtual = bLDatas.converterDataParaDateUS(new java.util.Date(System.currentTimeMillis()));
-            PdfWriter.getInstance(doc, new FileOutputStream("C:\\Users\\Usuario\\Desktop\\Backup Valdineis Moreira\\Usuario\\Downloads\\relatorio-venda-" + dataAtual + ".pdf"));
+            PdfWriter.getInstance(doc, new FileOutputStream("C:\\Users\\Usuario\\Desktop\\Backup Valdineis Moreira\\Usuario\\Downloads\\relatorio-venda-" + dataAtual + "-" + horaFormatada + ".pdf"));
             doc.open();
 
             Paragraph paragrafo = new Paragraph(String.valueOf(dataAtual));
@@ -407,15 +414,17 @@ public class ControllerRelatorio {
         double valorTotal = 0;
 
         ArrayList<ModelCaixa> listaCaixa = this.carregarFluxoCaixa(movimentacao, dataInicial, dataFinal);
+
         try {
 
             dataAtual = bLDatas.converterDataParaDateUS(new java.util.Date(System.currentTimeMillis()));
 
             if (!dataInicial.equals(formatacaoData) && !dataFinal.equals(formatacaoData)) {
-                PdfWriter.getInstance(doc, new FileOutputStream("C:\\Users\\Usuario\\Desktop\\Backup Valdineis Moreira\\Usuario\\Downloads\\" + dataInicial + "-até-" + dataFinal + "-relatorio-caixa-" + movimentacao + "-" + dataAtual + ".pdf"));
+                PdfWriter.getInstance(doc, new FileOutputStream("C:\\Users\\Usuario\\Desktop\\Backup Valdineis Moreira\\Usuario\\Downloads\\" + dataInicial + "-até-" + dataFinal + "-relatorio-caixa-" + movimentacao + "-" + dataAtual + "-" + horaFormatada + "" + ".pdf"));
             } else {
-                PdfWriter.getInstance(doc, new FileOutputStream("C:\\Users\\Usuario\\Desktop\\Backup Valdineis Moreira\\Usuario\\Downloads\\relatorio-caixa-" + movimentacao + "-" + dataAtual + ".pdf"));
+                PdfWriter.getInstance(doc, new FileOutputStream("C:\\Users\\Usuario\\Desktop\\Backup Valdineis Moreira\\Usuario\\Downloads\\relatorio-caixa-" + movimentacao + "-" + dataAtual + "-" + horaFormatada + ".pdf"));
             }
+
             doc.open();
 
             Paragraph paragrafo = new Paragraph(String.valueOf(dataAtual));
