@@ -11,6 +11,7 @@ public class ModelContasPagar {
     private String cpEmpresa;
     private Date cpPrazoPagamento;
     private Date cpDataEmissaoNota;
+    private double cpValor;
 
     public ModelContasPagar() {
     }
@@ -47,5 +48,11 @@ public class ModelContasPagar {
         this.cpDataEmissaoNota = cpDataEmissaoNota;
     }
     
+    public double getCpValor(){
+        return cpValor;
+    }
     
+    public void setCpValor(double valor){
+        this.cpValor = valor;
+    }
 }
