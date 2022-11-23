@@ -28,11 +28,13 @@ public class ViewContasPagar extends javax.swing.JFrame {
 
     public ViewContasPagar() {
         initComponents();
+        this.carregarContasPagar();
     }
 
     public ViewContasPagar(int valorPermissao) {
         initComponents();
         this.valorPermissao = valorPermissao;
+        this.carregarContasPagar();
     }
 
     /**
@@ -208,6 +210,7 @@ public class ViewContasPagar extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jtfPrazoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfPrazoKeyReleased
@@ -324,11 +327,15 @@ public class ViewContasPagar extends javax.swing.JFrame {
                 //passa o que cada coluna da linha apresentará em ordem
                 listaModelContasPagar.get(i).getIdContasPagar(),
                 listaModelContasPagar.get(i).getCpEmpresa(),
-                listaModelContasPagar.get(i).getCpValor(),
+                formatarValor(listaModelContasPagar.get(i).getCpValor()),
                 listaModelContasPagar.get(i).getCpDataEmissaoNota(),
                 listaModelContasPagar.get(i).getCpPrazoPagamento()
             });
         }
+    }
+    
+    private String formatarValor(Double valor) {
+        return String.format("%.2f", valor).replaceAll(",", ".");
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
