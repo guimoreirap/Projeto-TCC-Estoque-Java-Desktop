@@ -6,7 +6,11 @@ package view;
 
 import controller.ControllerContasPagar;
 import java.util.ArrayList;
+import java.util.Date;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import model.ModelContasPagar;
+import util.BLDatas;
 
 /**
  *
@@ -17,14 +21,15 @@ public class ViewContasPagar extends javax.swing.JFrame {
     ControllerContasPagar controllerContasPagar = new ControllerContasPagar();
     ModelContasPagar modelContasPagar = new ModelContasPagar();
     ArrayList<ModelContasPagar> listaModelContasPagar = new ArrayList<>();
-    
+
     public int valorPermissao = -1;
     public String salvarAlterar = "salvar";
-    
+    BLDatas blDatas = new BLDatas();
+
     public ViewContasPagar() {
         initComponents();
     }
-    
+
     public ViewContasPagar(int valorPermissao) {
         initComponents();
         this.valorPermissao = valorPermissao;
@@ -51,10 +56,10 @@ public class ViewContasPagar extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jtfCodigo = new javax.swing.JTextField();
         jtfEmpresa = new javax.swing.JTextField();
-        jtfEmpresa2 = new javax.swing.JTextField();
+        jtfValor = new javax.swing.JTextField();
         jtfPrazo = new javax.swing.JFormattedTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTable = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Contas a pagar");
@@ -108,7 +113,7 @@ public class ViewContasPagar extends javax.swing.JFrame {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -116,7 +121,7 @@ public class ViewContasPagar extends javax.swing.JFrame {
                 "Código", "Empresa", "Valor", "Data emissão", "Data prazo"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jTable);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -145,7 +150,7 @@ public class ViewContasPagar extends javax.swing.JFrame {
                                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jtfCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jtfEmpresa2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jtfValor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addGroup(jPanel1Layout.createSequentialGroup()
                                                 .addComponent(jLabel3)
                                                 .addGap(66, 66, 66))))
@@ -178,7 +183,7 @@ public class ViewContasPagar extends javax.swing.JFrame {
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jtfEmpresa2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtfValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jtfPrazo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -206,11 +211,11 @@ public class ViewContasPagar extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jtfPrazoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfPrazoKeyReleased
-        
+
     }//GEN-LAST:event_jtfPrazoKeyReleased
 
     private void jtfPrazoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfPrazoKeyPressed
-        
+
     }//GEN-LAST:event_jtfPrazoKeyPressed
 
     private void jbVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbVoltarActionPerformed
@@ -223,10 +228,10 @@ public class ViewContasPagar extends javax.swing.JFrame {
     }//GEN-LAST:event_jbAlterarActionPerformed
 
     private void jbSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalvarActionPerformed
-        if(salvarAlterar.equalsIgnoreCase("salvar")){
-            this.salvar();
-        } else if (salvarAlterar.equalsIgnoreCase("alterar")){
-            this.alterar();
+        if (salvarAlterar.equalsIgnoreCase("salvar")) {
+            this.salvarContasPagar();
+        } else if (salvarAlterar.equalsIgnoreCase("alterar")) {
+            this.alterarContasPagar();
         }
     }//GEN-LAST:event_jbSalvarActionPerformed
 
@@ -264,13 +269,66 @@ public class ViewContasPagar extends javax.swing.JFrame {
             }
         });
     }
-    
-    public void salvar(){
-        
+
+    public void salvarContasPagar() {
+        try {
+            //Passando os dados para dentro do modelContasPagar
+            if (this.jtfEmpresa.getText().trim().equals("")) {
+                JOptionPane.showMessageDialog(
+                        this, "Preencha o campo empresa.", "ERRO", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            
+            modelContasPagar.setCpEmpresa(this.jtfEmpresa.getText());
+            modelContasPagar.setCpValor(Double.parseDouble(this.jtfValor.getText()));
+            modelContasPagar.setCpPrazoPagamento(blDatas.converterDataParaDateUS(new java.util.Date(this.jtfPrazo.getText())));
+            modelContasPagar.setCpDataEmissaoNota(blDatas.converterDataParaDateUS(new java.util.Date(
+                    System.currentTimeMillis())));
+
+            //Controller chama um método de DAO para salvar os dados no banco de dados
+            controllerContasPagar.salvarContasPagarController((modelContasPagar));
+            JOptionPane.showMessageDialog(
+                    this, "Registro inserido com sucesso.", "ATENÇÃO", JOptionPane.WARNING_MESSAGE);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(
+                    this, "Ocorreu um erro ao inserir o registro no banco de dados.", "ERRO", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        } finally {
+            this.carregarContasPagar();
+            this.limparTabela();
+        }
+    }
+
+    public void alterarContasPagar() {
+
     }
     
-    public void alterar(){
-        
+    public void limparTabela(){
+        this.jtfCodigo.setText("");
+        this.jtfEmpresa.setText("");
+        this.jtfPrazo.setText("");
+        this.jtfValor.setText("");
+    }
+    
+    public void carregarContasPagar(){
+        listaModelContasPagar = controllerContasPagar.retornarListaContasPagarController(); //atribui os valores retornados a uma lista
+        DefaultTableModel modelo = (DefaultTableModel) jTable.getModel();
+
+        //Cada vez que o metodo é chamado, a tabela é zerada as linhas - evita dados repetidos na tela
+        modelo.setNumRows(0);
+
+        //inserir produtos na tabela
+        int count = listaModelContasPagar.size(); //pega o tamanho da lista pra percorrer todos os dados dela
+        for (int i = 0; i < count; i++) {
+            modelo.addRow(new Object[]{ //adiciona uma linha 
+                //passa o que cada coluna da linha apresentará em ordem
+                listaModelContasPagar.get(i).getIdContasPagar(),
+                listaModelContasPagar.get(i).getCpEmpresa(),
+                listaModelContasPagar.get(i).getCpValor(),
+                listaModelContasPagar.get(i).getCpDataEmissaoNota(),
+                listaModelContasPagar.get(i).getCpPrazoPagamento()
+            });
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -280,7 +338,7 @@ public class ViewContasPagar extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable;
     private javax.swing.JButton jbAlterar;
     private javax.swing.JButton jbCancelar;
     private javax.swing.JButton jbExcluir;
@@ -288,7 +346,7 @@ public class ViewContasPagar extends javax.swing.JFrame {
     private javax.swing.JButton jbVoltar;
     private javax.swing.JTextField jtfCodigo;
     private javax.swing.JTextField jtfEmpresa;
-    private javax.swing.JTextField jtfEmpresa2;
     private javax.swing.JFormattedTextField jtfPrazo;
+    private javax.swing.JTextField jtfValor;
     // End of variables declaration//GEN-END:variables
 }
