@@ -892,16 +892,16 @@ public class ViewRecebimentos extends javax.swing.JFrame {
         try {
             //Passa o ID da Venda e o novo valor de Valor Recebido para o objeto modelVendas
             modelVendas.setVenId(Integer.parseInt(jtfCodigoVenda.getText()));
-            if (Double.parseDouble(jtfValorReceber.getText()) > Double.parseDouble(jtfValorRestante.getText())) {
+            if (Double.parseDouble(jtfValorReceber.getText().replaceAll(",", ".")) > Double.parseDouble(jtfValorRestante.getText().replaceAll(",", "."))) {
                 JOptionPane.showMessageDialog(this, "Valor a receber não pode ser maior que restante.", "ERRO", JOptionPane.ERROR_MESSAGE);
                 return;
-            } else if (Double.parseDouble(jtfValorReceber.getText()) <= 0) {
+            } else if (Double.parseDouble(jtfValorReceber.getText().replaceAll(",", ".")) <= 0) {
                 JOptionPane.showMessageDialog(this, "Valor recebido negativo ou nulo.", "ERRO", JOptionPane.ERROR_MESSAGE);
                 return;
             } else {
                 modelVendas.setVenValorRecebido(
-                        Double.parseDouble(jtfValorPago.getText().replaceAll(",", "."))
-                        + Double.parseDouble(jtfValorReceber.getText().replaceAll(",", ".")));
+                        Double.parseDouble(jtfValorPago.getText().replace(",", "."))
+                        + Double.parseDouble(jtfValorReceber.getText().replace(",", ".")));
             }
             //controllerVenda efetua o update no banco de dados com o novo valor de Valor Recebido
             controllerVenda.efetuarRecebimento(modelVendas);
@@ -912,7 +912,7 @@ public class ViewRecebimentos extends javax.swing.JFrame {
             modelRecebimentos.setRecVenda(Integer.parseInt(jtfCodigoVenda.getText()));
             modelRecebimentos.setRecData(bLDatas.converterDataParaDateUS(new java.util.Date(System.currentTimeMillis())));
             modelRecebimentos.setRecMetodo(jcMetodoPagamento.getSelectedItem().toString());
-            modelRecebimentos.setRecValor(Double.parseDouble(jtfValorReceber.getText().replaceAll(",", ".")));
+            modelRecebimentos.setRecValor(Double.parseDouble(jtfValorReceber.getText().replace(",", ".")));
 
             //Passando os dados para dentro do modelCaixa e salvando o Recebimento
             int codigoRecebimento = controllerRecebimentos.salvarRecebimento(modelRecebimentos);
@@ -946,7 +946,7 @@ public class ViewRecebimentos extends javax.swing.JFrame {
         try {
             //controllerVenda efetua o update no banco de dados com o novo valor de Valor Recebido
             int codigoVenda = Integer.parseInt(jtfCodigoVenda.getText());
-            double valorRecebido = Double.parseDouble(jtfValorPago.getText()) + Double.parseDouble(jtfValorReceber.getText());
+            double valorRecebido = Double.parseDouble(jtfValorPago.getText().replaceAll(",", ".")) + Double.parseDouble(jtfValorReceber.getText().replaceAll(",", "."));
 
             controllerVenda.alterarValorRecebimentoEmVendaDAO(valorRecebido, codigoVenda);
 
