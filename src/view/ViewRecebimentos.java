@@ -946,7 +946,7 @@ public class ViewRecebimentos extends javax.swing.JFrame {
         try {
             //controllerVenda efetua o update no banco de dados com o novo valor de Valor Recebido
             int codigoVenda = Integer.parseInt(jtfCodigoVenda.getText());
-            double valorRecebido = Double.parseDouble(jtfValorPago.getText().replaceAll(",", ".")) + Double.parseDouble(jtfValorReceber.getText().replaceAll(",", "."));
+            double valorRecebido = Double.parseDouble(jtfValorPago.getText().replace(",", ".")) + Double.parseDouble(jtfValorReceber.getText().replace(",", "."));
 
             controllerVenda.alterarValorRecebimentoEmVendaDAO(valorRecebido, codigoVenda);
 
@@ -956,9 +956,9 @@ public class ViewRecebimentos extends javax.swing.JFrame {
             //modelRecebimentos.setRecVenda(Integer.parseInt(jtfCodigoVenda.getText()));
             modelRecebimentos.setRecData(bLDatas.converterDataParaDateUS(new java.util.Date(System.currentTimeMillis())));
             modelRecebimentos.setRecMetodo(jcMetodoPagamento.getSelectedItem().toString());
-            modelRecebimentos.setRecValor(Double.parseDouble(jtfValorReceber.getText()));
+            modelRecebimentos.setRecValor(Double.parseDouble(jtfValorReceber.getText().replace(",", ".")));
 
-            if (modelRecebimentos.getRecValor() > Double.parseDouble(this.jtfValorRestante.getText())) {
+            if (modelRecebimentos.getRecValor() > Double.parseDouble(this.jtfValorRestante.getText().replace(",", "."))) {
                 JOptionPane.showMessageDialog(this, "Valor a receber não pode ser maior que restante.", "ERRO", JOptionPane.ERROR_MESSAGE);
                 return;
             } else if (modelRecebimentos.getRecValor() <= 0) {
@@ -973,7 +973,7 @@ public class ViewRecebimentos extends javax.swing.JFrame {
             modelCaixa.setIdCaixaMovimentacao(codigoRecebimento);
             modelCaixa.setCaixaMovimentacao("Recebimento");
             modelCaixa.setCaixaData(bLDatas.converterDataParaDateUS(new java.util.Date(System.currentTimeMillis())));
-            modelCaixa.setCaixaValor(Double.parseDouble(jtfValorReceber.getText().replaceAll(",", ".")));
+            modelCaixa.setCaixaValor(Double.parseDouble(jtfValorReceber.getText().replace(",", ".")));
             //Aqui o controllerCliente está retornando o cliente do banco de dados e pegando seu nome para atribuir ao ator
             modelCaixa.setCaixaAtor(controllerCliente.retornarClienteController(codigoCliente).getCliNome());
 
