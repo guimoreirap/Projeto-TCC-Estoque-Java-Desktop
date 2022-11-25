@@ -41,6 +41,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
         jMenuMovimentações = new javax.swing.JMenu();
         jmiVendas = new javax.swing.JMenuItem();
         jmiPagamentos = new javax.swing.JMenuItem();
+        jmiPagamentos1 = new javax.swing.JMenuItem();
         jmiRecebimentos = new javax.swing.JMenuItem();
         jmiRecebimentos1 = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
@@ -101,13 +102,21 @@ public class ViewPrincipal extends javax.swing.JFrame {
         });
         jMenuMovimentações.add(jmiVendas);
 
-        jmiPagamentos.setText("Contas a pagar");
+        jmiPagamentos.setText("Pagamentos");
         jmiPagamentos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmiPagamentosActionPerformed(evt);
             }
         });
         jMenuMovimentações.add(jmiPagamentos);
+
+        jmiPagamentos1.setText("Contas a pagar");
+        jmiPagamentos1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiPagamentos1ActionPerformed(evt);
+            }
+        });
+        jMenuMovimentações.add(jmiPagamentos1);
 
         jmiRecebimentos.setText("Contas a receber");
         jmiRecebimentos.addActionListener(new java.awt.event.ActionListener() {
@@ -201,6 +210,11 @@ public class ViewPrincipal extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_jMenuSairActionPerformed
 
+    private void jmiPagamentos1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiPagamentos1ActionPerformed
+        new ViewContasPagar(this.valorPermissao).setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jmiPagamentos1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -246,6 +260,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuSair;
     private javax.swing.JMenuItem jmiCliente;
     private javax.swing.JMenuItem jmiPagamentos;
+    private javax.swing.JMenuItem jmiPagamentos1;
     private javax.swing.JMenuItem jmiProduto;
     private javax.swing.JMenuItem jmiRecebimentos;
     private javax.swing.JMenuItem jmiRecebimentos1;

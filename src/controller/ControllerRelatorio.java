@@ -33,6 +33,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import model.ModelCaixa;
 import model.ModelClientes;
+import model.ModelContasPagar;
 import model.ModelPagamentos;
 import model.ModelProdutos;
 import model.ModelRecebimentos;
@@ -53,6 +54,7 @@ public class ControllerRelatorio {
     ControllerProdutos controllerProdutos = new ControllerProdutos();
     ControllerVendasCliente controllerVendasCliente = new ControllerVendasCliente();
     ControllerCaixa controllerCaixa = new ControllerCaixa();
+    ControllerContasPagar controllerContasPagar = new ControllerContasPagar();
     ArrayList<ModelCaixa> listaModelCaixa = new ArrayList<>();
 
     BLDatas bLDatas = new BLDatas();
@@ -511,5 +513,65 @@ public class ControllerRelatorio {
 
     private String formatarValor(Double valor) {
         return String.format("%.2f", valor).replaceAll(",", ".");
+    }
+    
+    public void gerarPdfContasPagar() {
+        controllerContasPagar = new ControllerContasPagar();
+        Document doc = new Document();
+
+        ArrayList<ModelContasPagar> listaContasPagar = controllerContasPagar.retornarListaContasPagarController();
+
+        try {
+            dataAtual = bLDatas.converterDataParaDateUS(new java.util.Date(System.currentTimeMillis()));
+            PdfWriter.getInstance(doc, new FileOutputStream("C:\\Users\\Usuario\\Desktop\\Backup Valdineis Moreira\\Usuario\\Downloads\\relatorio-contas-pagar-" + dataAtual + "-" + horaFormatada + ".pdf"));
+            doc.open();
+
+            Paragraph paragrafo = new Paragraph(String.valueOf(dataAtual));
+            paragrafo.setAlignment(1);
+            doc.add(paragrafo);
+
+            paragrafo = new Paragraph("Relatório PDF - Contas a pagar");
+            paragrafo.setAlignment(1);
+            doc.add(paragrafo);
+            paragrafo = new Paragraph("   ");
+            doc.add(paragrafo);
+
+            PdfPTable table = new PdfPTable(5);
+
+            PdfPCell cel1 = new PdfPCell(new Paragraph("Código"));
+            PdfPCell cel2 = new PdfPCell(new Paragraph("Empresa"));
+            PdfPCell cel3 = new PdfPCell(new Paragraph("Data de emissão da nota"));
+            PdfPCell cel4 = new PdfPCell(new Paragraph("Valor"));
+            PdfPCell cel5 = new PdfPCell(new Paragraph("Data prazo de pagamento"));
+
+
+            table.addCell(cel1).setBackgroundColor(BaseColor.LIGHT_GRAY);
+            table.addCell(cel2).setBackgroundColor(BaseColor.LIGHT_GRAY);
+            table.addCell(cel3).setBackgroundColor(BaseColor.LIGHT_GRAY);
+            table.addCell(cel4).setBackgroundColor(BaseColor.LIGHT_GRAY);
+            table.addCell(cel5).setBackgroundColor(BaseColor.LIGHT_GRAY);
+
+
+            for (ModelContasPagar contasPagar : listaContasPagar) {
+                cel1 = new PdfPCell(new Paragraph(String.valueOf(contasPagar.getIdContasPagar())));
+                cel2 = new PdfPCell(new Paragraph(String.valueOf(contasPagar.getCpEmpresa())));
+                cel3 = new PdfPCell(new Paragraph(String.valueOf(contasPagar.getCpDataEmissaoNota())));
+                cel4 = new PdfPCell(new Paragraph(String.valueOf(formatarValor(contasPagar.getCpValor()))));
+                cel5 = new PdfPCell(new Paragraph(String.valueOf(contasPagar.getCpPrazoPagamento())));
+
+                table.addCell(cel1);
+                table.addCell(cel2);
+                table.addCell(cel3);
+                table.addCell(cel4);
+                table.addCell(cel5);
+
+            }
+
+            doc.add(table);
+            doc.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

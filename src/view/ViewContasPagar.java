@@ -5,6 +5,9 @@
 package view;
 
 import controller.ControllerContasPagar;
+import controller.ControllerRelatorio;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JOptionPane;
@@ -47,11 +50,7 @@ public class ViewContasPagar extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jbExcluir = new javax.swing.JButton();
-        jbCancelar = new javax.swing.JButton();
-        jbSalvar = new javax.swing.JButton();
         jbVoltar = new javax.swing.JButton();
-        jbAlterar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -62,32 +61,19 @@ public class ViewContasPagar extends javax.swing.JFrame {
         jtfPrazo = new javax.swing.JFormattedTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
+        jbSalvar = new javax.swing.JButton();
+        jbAlterar = new javax.swing.JButton();
+        jbExcluir = new javax.swing.JButton();
+        jbCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Contas a pagar");
-
-        jbExcluir.setText("Excluir");
-
-        jbCancelar.setText("Cancelar");
-
-        jbSalvar.setText("Salvar");
-        jbSalvar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbSalvarActionPerformed(evt);
-            }
-        });
 
         jbVoltar.setText("Voltar");
         jbVoltar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbVoltarActionPerformed(evt);
-            }
-        });
-
-        jbAlterar.setText("Alterar");
-        jbAlterar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbAlterarActionPerformed(evt);
             }
         });
 
@@ -125,6 +111,13 @@ public class ViewContasPagar extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTable);
 
+        jButton1.setText("Gerar relatório");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -132,39 +125,31 @@ public class ViewContasPagar extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addContainerGap(20, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jbCancelar)
-                                .addGap(18, 18, 18)
-                                .addComponent(jbExcluir)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jbAlterar)
-                                .addGap(18, 18, 18)
-                                .addComponent(jbSalvar))
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jLabel1)
-                                    .addGap(90, 90, 90)
-                                    .addComponent(jLabel2))
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(90, 90, 90)
+                                .addComponent(jLabel2))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jtfCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jtfCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jtfValor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addComponent(jLabel3)
-                                                .addGap(66, 66, 66))))
-                                    .addGap(24, 24, 24)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel4)
-                                        .addComponent(jtfPrazo, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jtfEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                        .addComponent(jtfValor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                            .addComponent(jLabel3)
+                                            .addGap(66, 66, 66))))
+                                .addGap(24, 24, 24)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jtfPrazo, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jtfEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jButton1)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jbVoltar)))
-                .addGap(0, 18, Short.MAX_VALUE))
+                .addGap(0, 21, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -189,24 +174,66 @@ public class ViewContasPagar extends javax.swing.JFrame {
                     .addComponent(jtfPrazo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jbAlterar)
-                    .addComponent(jbSalvar)
-                    .addComponent(jbExcluir)
-                    .addComponent(jbCancelar))
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addContainerGap())
         );
+
+        jbSalvar.setText("Salvar");
+        jbSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbSalvarActionPerformed(evt);
+            }
+        });
+
+        jbAlterar.setText("Alterar");
+        jbAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbAlterarActionPerformed(evt);
+            }
+        });
+
+        jbExcluir.setText("Excluir");
+        jbExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbExcluirActionPerformed(evt);
+            }
+        });
+
+        jbCancelar.setText("Cancelar");
+        jbCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbCancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jbCancelar)
+                .addGap(18, 18, 18)
+                .addComponent(jbExcluir)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jbAlterar)
+                .addGap(18, 18, 18)
+                .addComponent(jbSalvar)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jbAlterar)
+                    .addComponent(jbSalvar)
+                    .addComponent(jbExcluir)
+                    .addComponent(jbCancelar))
+                .addContainerGap())
         );
 
         pack();
@@ -227,7 +254,30 @@ public class ViewContasPagar extends javax.swing.JFrame {
     }//GEN-LAST:event_jbVoltarActionPerformed
 
     private void jbAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAlterarActionPerformed
-        // TODO add your handling code here:
+        this.salvarAlterar = "alterar";
+
+        int linha = this.jTable.getSelectedRow();
+        try {
+            int codigoPagamento = (int) this.jTable.getValueAt(linha, 0);
+            this.jtfEmpresa.requestFocus();
+
+            //recupera os dados do banco
+            modelContasPagar = controllerContasPagar.retornarContasPagarController(codigoPagamento);
+
+            /*
+            *   seta nos campos na interface
+             */
+            this.jtfCodigo.setText(String.valueOf(modelContasPagar.getIdContasPagar()));
+            this.jtfEmpresa.setText(modelContasPagar.getCpEmpresa());
+            double valor = (double) modelContasPagar.getCpValor();
+            this.jtfValor.setText(String.valueOf(valor).replace(".", ","));
+            this.jtfPrazo.setText(modelContasPagar.getCpPrazoPagamento());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(
+                    this, "Código inválido ou nenhum registro selecionado.", "ERRO", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jbAlterarActionPerformed
 
     private void jbSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalvarActionPerformed
@@ -237,6 +287,40 @@ public class ViewContasPagar extends javax.swing.JFrame {
             this.alterarContasPagar();
         }
     }//GEN-LAST:event_jbSalvarActionPerformed
+
+    private void jbExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbExcluirActionPerformed
+        //Exclui um produto no banco
+        int linha = jTable.getSelectedRow();
+        int codigoProduto = (int) jTable.getValueAt(linha, 0);
+
+        try {
+            controllerContasPagar.excluirContasPagarController(codigoProduto);
+            JOptionPane.showMessageDialog(
+                    this, "Registro excluído com sucesso.", "ATENÇÃO", JOptionPane.WARNING_MESSAGE);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(
+                    this, "Ocorreu um erro ao excluir o registro no banco de dados.", "ERRO", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        } finally {
+            this.carregarContasPagar();
+            this.limparTabela();
+        }
+    }//GEN-LAST:event_jbExcluirActionPerformed
+
+    private void jbCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCancelarActionPerformed
+        if (JOptionPane.showConfirmDialog(rootPane, "Tem certeza que deseja limpar os campos?") == 0) {
+            this.limparTabela();
+            this.carregarContasPagar();
+            this.salvarAlterar = "salvar";
+        } else {
+            return;
+        }
+    }//GEN-LAST:event_jbCancelarActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+       ControllerRelatorio controllerRelatorio = new ControllerRelatorio();
+       controllerRelatorio.gerarPdfContasPagar();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -274,6 +358,7 @@ public class ViewContasPagar extends javax.swing.JFrame {
     }
 
     public void salvarContasPagar() {
+        String formatacao = "    -  -  ";
         try {
             //Passando os dados para dentro do modelContasPagar
             if (this.jtfEmpresa.getText().trim().equals("")) {
@@ -281,10 +366,12 @@ public class ViewContasPagar extends javax.swing.JFrame {
                         this, "Preencha o campo empresa.", "ERRO", JOptionPane.ERROR_MESSAGE);
                 return;
             }
+
+            Date prazoPagamento;
             
             modelContasPagar.setCpEmpresa(this.jtfEmpresa.getText());
-            modelContasPagar.setCpValor(Double.parseDouble(this.jtfValor.getText()));
-            modelContasPagar.setCpPrazoPagamento(blDatas.converterDataParaDateUS(new java.util.Date(this.jtfPrazo.getText())));
+            modelContasPagar.setCpValor(Double.parseDouble(this.jtfValor.getText().replaceAll(",", ".")));
+            modelContasPagar.setCpPrazoPagamento(jtfPrazo.getText());
             modelContasPagar.setCpDataEmissaoNota(blDatas.converterDataParaDateUS(new java.util.Date(
                     System.currentTimeMillis())));
 
@@ -303,17 +390,44 @@ public class ViewContasPagar extends javax.swing.JFrame {
     }
 
     public void alterarContasPagar() {
+        try {
+            if (this.jtfEmpresa.getText().trim().equals("")) {
+                JOptionPane.showMessageDialog(
+                        this, "Insira um nome no campo empresa.", "ERRO", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            //pega os valores dos campos da interface e coloca dentro de cada atributo do objeto
+            modelContasPagar.setIdContasPagar(Integer.parseInt(this.jtfCodigo.getText()));
+            modelContasPagar.setCpEmpresa(this.jtfEmpresa.getText());
+            modelContasPagar.setCpValor(Double.parseDouble(this.jtfValor.getText().replaceAll(",", ".")));
+            modelContasPagar.setCpPrazoPagamento((this.jtfPrazo.getText()));
+            modelContasPagar.setCpDataEmissaoNota(blDatas.converterDataParaDateUS(new java.util.Date(
+                    System.currentTimeMillis())));
 
+            controllerContasPagar.alterarContasPagarController(modelContasPagar);
+            JOptionPane.showMessageDialog(
+                    this, "Registro alterado com sucesso.", "ATENÇÃO", JOptionPane.WARNING_MESSAGE);
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(
+                    this, "Ocorreu um erro ao realizar alteração.", "ERRO", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        } finally {
+            this.carregarContasPagar();
+            this.limparTabela();
+        }
     }
-    
-    public void limparTabela(){
+
+    public void limparTabela() {
         this.jtfCodigo.setText("");
         this.jtfEmpresa.setText("");
+        this.jtfEmpresa.requestFocus();
         this.jtfPrazo.setText("");
         this.jtfValor.setText("");
+        this.salvarAlterar = "salvar";
     }
-    
-    public void carregarContasPagar(){
+
+    public void carregarContasPagar() {
         listaModelContasPagar = controllerContasPagar.retornarListaContasPagarController(); //atribui os valores retornados a uma lista
         DefaultTableModel modelo = (DefaultTableModel) jTable.getModel();
 
@@ -333,12 +447,13 @@ public class ViewContasPagar extends javax.swing.JFrame {
             });
         }
     }
-    
+
     private String formatarValor(Double valor) {
         return String.format("%.2f", valor).replaceAll(",", ".");
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

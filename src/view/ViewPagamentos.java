@@ -75,7 +75,7 @@ public class ViewPagamentos extends javax.swing.JFrame {
         jbGerarRelatorio = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Contas a pagar");
+        setTitle("Pagamentos");
         setResizable(false);
 
         jLabel1.setText("Empresa:");

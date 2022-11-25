@@ -9,7 +9,7 @@ import java.util.Date;
 public class ModelContasPagar {
     private int idContasPagar;
     private String cpEmpresa;
-    private Date cpPrazoPagamento;
+    private String cpPrazoPagamento;
     private Date cpDataEmissaoNota;
     private double cpValor;
 
@@ -32,11 +32,11 @@ public class ModelContasPagar {
         this.cpEmpresa = cpEmpresa;
     }
 
-    public Date getCpPrazoPagamento() {
+    public String getCpPrazoPagamento() {
         return cpPrazoPagamento;
     }
 
-    public void setCpPrazoPagamento(Date cpPrazoPagamento) {
+    public void setCpPrazoPagamento(String cpPrazoPagamento) {
         this.cpPrazoPagamento = cpPrazoPagamento;
     }
 

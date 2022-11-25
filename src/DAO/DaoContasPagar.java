@@ -81,7 +81,7 @@ public class DaoContasPagar extends ConexaoMySql{
                 modelContasPagar.setCpEmpresa(this.getResultSet().getString(2));
                 modelContasPagar.setCpValor(this.getResultSet().getDouble(3));
                 modelContasPagar.setCpDataEmissaoNota(this.getResultSet().getDate(4));
-                modelContasPagar.setCpPrazoPagamento(this.getResultSet().getDate(5));
+                modelContasPagar.setCpPrazoPagamento(this.getResultSet().getString(5));
             }
 
         } catch (Exception e) {
@@ -111,7 +111,7 @@ public class DaoContasPagar extends ConexaoMySql{
                 modelContasPagar.setCpEmpresa(this.getResultSet().getString(2));
                 modelContasPagar.setCpValor(this.getResultSet().getDouble(3));
                 modelContasPagar.setCpDataEmissaoNota(this.getResultSet().getDate(4));
-                modelContasPagar.setCpPrazoPagamento(this.getResultSet().getDate(5));
+                modelContasPagar.setCpPrazoPagamento(this.getResultSet().getString(5));
                 listaModelContasPagar.add(modelContasPagar);
             }
 
