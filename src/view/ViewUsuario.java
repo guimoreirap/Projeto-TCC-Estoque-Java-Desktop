@@ -520,6 +520,11 @@ public class ViewUsuario extends javax.swing.JFrame {
         }
 
         try {
+            if (this.jtfResposta.getText().trim().equals("")) {
+                JOptionPane.showMessageDialog(
+                        this, "Preencha o campo de pergunta corretamente.", "ATENÇÃO", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
             controllerUsuario.salvarUsuarioController(modelUsuarios);
             JOptionPane.showMessageDialog(
                     this, "Usuário salvo com sucesso.", "ATENÇÃO", JOptionPane.WARNING_MESSAGE);
@@ -573,6 +578,11 @@ public class ViewUsuario extends javax.swing.JFrame {
 
             //SE TODAS CONDIÇÕES FOREM VERDADEIRAS ELE ALTERA NO BANCO DE DADOS O USUARIO
             try {
+                if (this.jtfResposta.getText().trim().equals("")) {
+                    JOptionPane.showMessageDialog(
+                            this, "Preencha o campo de pergunta corretamente.", "ATENÇÃO", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
                 controllerUsuario.alterarUsuarioController(modelUsuarios);
                 JOptionPane.showMessageDialog(
                         this, "Usuário alterado com sucesso.", "ATENÇÃO", JOptionPane.WARNING_MESSAGE);
