@@ -759,7 +759,7 @@ public class ViewVenda extends javax.swing.JFrame {
                 modelVendas.setVenValorRecebido(Double.parseDouble(jtfValorPago.getText().replaceAll(",", ".")));
             } else {
                 try {
-                    if (Double.parseDouble(this.jtfValorPago.getText()) > Double.parseDouble(this.jtfValorTotal.getText())) {
+                    if (Double.parseDouble(this.jtfValorPago.getText().replaceAll(",", ".")) > Double.parseDouble(this.jtfValorTotal.getText().replaceAll(",", "."))) {
                         JOptionPane.showMessageDialog(this, "Valor pago maior que valor total da venda.", "ERRO", JOptionPane.ERROR_MESSAGE);
                         return;
                     } else {

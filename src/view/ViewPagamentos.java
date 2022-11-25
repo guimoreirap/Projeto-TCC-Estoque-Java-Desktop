@@ -404,7 +404,7 @@ public class ViewPagamentos extends javax.swing.JFrame {
                 listaModelPagamentos.get(i).getPagEmpresa(),
                 listaModelPagamentos.get(i).getPagData(),
                 listaModelPagamentos.get(i).getPagMetodo(),
-                listaModelPagamentos.get(i).getPagValor()
+                formatarValor(listaModelPagamentos.get(i).getPagValor())
             });
         }
     }
@@ -497,6 +497,10 @@ public class ViewPagamentos extends javax.swing.JFrame {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    
+    private String formatarValor(Double valor) {
+        return String.format("%.2f", valor).replaceAll(",", ".");
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
