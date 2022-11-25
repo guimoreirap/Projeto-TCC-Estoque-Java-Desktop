@@ -294,9 +294,13 @@ public class ViewContasPagar extends javax.swing.JFrame {
         int codigoProduto = (int) jTable.getValueAt(linha, 0);
 
         try {
-            controllerContasPagar.excluirContasPagarController(codigoProduto);
-            JOptionPane.showMessageDialog(
-                    this, "Registro excluído com sucesso.", "ATENÇÃO", JOptionPane.WARNING_MESSAGE);
+            if (JOptionPane.showConfirmDialog(rootPane, "Tem certeza que deseja excluir o registro?") == 0) {
+                controllerContasPagar.excluirContasPagarController(codigoProduto);
+                JOptionPane.showMessageDialog(
+                        this, "Registro excluído com sucesso.", "ATENÇÃO", JOptionPane.WARNING_MESSAGE);
+            } else { 
+                return;
+            }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(
                     this, "Ocorreu um erro ao excluir o registro no banco de dados.", "ERRO", JOptionPane.ERROR_MESSAGE);
@@ -318,8 +322,8 @@ public class ViewContasPagar extends javax.swing.JFrame {
     }//GEN-LAST:event_jbCancelarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       ControllerRelatorio controllerRelatorio = new ControllerRelatorio();
-       controllerRelatorio.gerarPdfContasPagar();
+        ControllerRelatorio controllerRelatorio = new ControllerRelatorio();
+        controllerRelatorio.gerarPdfContasPagar();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -368,7 +372,7 @@ public class ViewContasPagar extends javax.swing.JFrame {
             }
 
             Date prazoPagamento;
-            
+
             modelContasPagar.setCpEmpresa(this.jtfEmpresa.getText());
             modelContasPagar.setCpValor(Double.parseDouble(this.jtfValor.getText().replaceAll(",", ".")));
             modelContasPagar.setCpPrazoPagamento(jtfPrazo.getText());

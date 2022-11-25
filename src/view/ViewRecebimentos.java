@@ -706,19 +706,23 @@ public class ViewRecebimentos extends javax.swing.JFrame {
         double valorRecebidoCampo = (double) jTableHistorico.getValueAt(linha, 5);
 
         try {
-            System.out.println("Codigo de recebimento: " + codigoRecebimento + "\nCodigoCliente: " + codigoCliente);
-            controllerCaixa.excluirCaixaController(codigoRecebimento, codigoCliente);
-            controllerRecebimentos.excluirRecebimentoController2(codigoRecebimento);
+            if (JOptionPane.showConfirmDialog(rootPane, "Tem certeza que deseja excluir o registro?") == 0) {
+                System.out.println("Codigo de recebimento: " + codigoRecebimento + "\nCodigoCliente: " + codigoCliente);
+                controllerCaixa.excluirCaixaController(codigoRecebimento, codigoCliente);
+                controllerRecebimentos.excluirRecebimentoController2(codigoRecebimento);
 
-            double valorRecebidoBanco = controllerVenda.retornarVendaController(codigoVenda).getVenValorRecebido();
-            double valorRecebido = valorRecebidoBanco - valorRecebidoCampo;
-            System.out.println("Valor do banco " + valorRecebidoBanco);
-            System.out.println("Valor do campo " + valorRecebidoCampo);
-            System.out.println("Valor final " + valorRecebido);
+                double valorRecebidoBanco = controllerVenda.retornarVendaController(codigoVenda).getVenValorRecebido();
+                double valorRecebido = valorRecebidoBanco - valorRecebidoCampo;
+                System.out.println("Valor do banco " + valorRecebidoBanco);
+                System.out.println("Valor do campo " + valorRecebidoCampo);
+                System.out.println("Valor final " + valorRecebido);
 
-            controllerVenda.alterarValorRecebimentoEmVendaDAO(valorRecebido, codigoVenda);
-            JOptionPane.showMessageDialog(
-                    this, "Pagamento excluído com sucesso.", "ATENÇÃO", JOptionPane.WARNING_MESSAGE);
+                controllerVenda.alterarValorRecebimentoEmVendaDAO(valorRecebido, codigoVenda);
+                JOptionPane.showMessageDialog(
+                        this, "Pagamento excluído com sucesso.", "ATENÇÃO", JOptionPane.WARNING_MESSAGE);
+            } else {
+                return;
+            }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(
                     this, "Ocorreu um erro ao excluir o pagamento no banco de dados.", "ERRO", JOptionPane.ERROR_MESSAGE);
@@ -729,8 +733,8 @@ public class ViewRecebimentos extends javax.swing.JFrame {
     }//GEN-LAST:event_jbExcluirActionPerformed
 
     private void jbGerarRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGerarRelatorioActionPerformed
-       ControllerRelatorio controllerRelatorio = new ControllerRelatorio();
-       controllerRelatorio.gerarPdfRecebimento();
+        ControllerRelatorio controllerRelatorio = new ControllerRelatorio();
+        controllerRelatorio.gerarPdfRecebimento();
     }//GEN-LAST:event_jbGerarRelatorioActionPerformed
 
     /**
@@ -954,15 +958,14 @@ public class ViewRecebimentos extends javax.swing.JFrame {
             modelRecebimentos.setRecMetodo(jcMetodoPagamento.getSelectedItem().toString());
             modelRecebimentos.setRecValor(Double.parseDouble(jtfValorReceber.getText()));
 
-            if(modelRecebimentos.getRecValor() > Double.parseDouble(this.jtfValorRestante.getText())){
+            if (modelRecebimentos.getRecValor() > Double.parseDouble(this.jtfValorRestante.getText())) {
                 JOptionPane.showMessageDialog(this, "Valor a receber não pode ser maior que restante.", "ERRO", JOptionPane.ERROR_MESSAGE);
                 return;
-            } else if(modelRecebimentos.getRecValor() <= 0){
+            } else if (modelRecebimentos.getRecValor() <= 0) {
                 JOptionPane.showMessageDialog(this, "Valor recebido negativo ou nulo.", "ERRO", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            
-            
+
             //Passando os dados para dentro do modelCaixa
             int codigoRecebimento = (int) jTableHistorico.getValueAt(linhaExcluir, 1);
             int codigoCliente = Integer.parseInt(jtfCodigoCliente.getText());

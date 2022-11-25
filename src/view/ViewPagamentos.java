@@ -306,10 +306,14 @@ public class ViewPagamentos extends javax.swing.JFrame {
         double valor = (double) jTablePagamentos.getValueAt(linha, 4);
 
         try {
-            controllerCaixa.excluirCaixaController(movimentacao, ator, valor);
-            controllerPagamentos.excluirPagamentoController(codigoPagamento);
-            JOptionPane.showMessageDialog(
-                    this, "Pagamento excluído com sucesso.", "ATENÇÃO", JOptionPane.WARNING_MESSAGE);
+            if (JOptionPane.showConfirmDialog(rootPane, "Tem certeza que deseja excluir o registro?") == 0) {
+                controllerCaixa.excluirCaixaController(movimentacao, ator, valor);
+                controllerPagamentos.excluirPagamentoController(codigoPagamento);
+                JOptionPane.showMessageDialog(
+                        this, "Pagamento excluído com sucesso.", "ATENÇÃO", JOptionPane.WARNING_MESSAGE);
+            } else {
+                return;
+            }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(
                     this, "Ocorreu um erro ao excluir o pagamento no banco de dados.", "ERRO", JOptionPane.ERROR_MESSAGE);

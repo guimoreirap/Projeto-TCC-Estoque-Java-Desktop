@@ -334,9 +334,13 @@ public class ViewProduto extends javax.swing.JFrame {
         int codigoProduto = (int) jTableProdutos.getValueAt(linha, 0);
 
         try {
-            controllerProdutos.excluirProdutoController(codigoProduto);
-            JOptionPane.showMessageDialog(
-                    this, "Produto excluído com sucesso.", "ATENÇÃO", JOptionPane.WARNING_MESSAGE);
+            if (JOptionPane.showConfirmDialog(rootPane, "Tem certeza que deseja excluir o registro?") == 0) {
+                controllerProdutos.excluirProdutoController(codigoProduto);
+                JOptionPane.showMessageDialog(
+                        this, "Produto excluído com sucesso.", "ATENÇÃO", JOptionPane.WARNING_MESSAGE);
+            } else {
+                return;
+            }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(
                     this, "Ocorreu um erro ao excluir o produto no banco de dados.", "ERRO", JOptionPane.ERROR_MESSAGE);
@@ -348,7 +352,7 @@ public class ViewProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonExcluirActionPerformed
 
     private void jButtonNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNovoActionPerformed
-        if (JOptionPane.showConfirmDialog(rootPane, "Tem certeza que deseja limpar os campos?") == 0) {
+        if (JOptionPane.showConfirmDialog(rootPane, "Tem certeza que deseja excluir o registro?") == 0) {
             this.limparTabela();
             this.salvarAlterar = "salvar";
             this.desabilitarGerenciarProduto();

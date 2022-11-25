@@ -361,9 +361,13 @@ public class ViewUsuario extends javax.swing.JFrame {
         int codigoUsuario = (int) jTableUsuario.getValueAt(linha, 0);
 
         try {
-            controllerUsuario.excluirUsuarioController(codigoUsuario);
-            JOptionPane.showMessageDialog(
-                    this, "Usuário excluído com sucesso.", "ATENÇÃO", JOptionPane.WARNING_MESSAGE);
+            if (JOptionPane.showConfirmDialog(rootPane, "Tem certeza que deseja excluir o registro?") == 0) {
+                controllerUsuario.excluirUsuarioController(codigoUsuario);
+                JOptionPane.showMessageDialog(
+                        this, "Usuário excluído com sucesso.", "ATENÇÃO", JOptionPane.WARNING_MESSAGE);
+            } else {
+                return;
+            }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(
                     this, "Ocorreu um erro ao excluir o usuário no banco de dados.", "ERRO", JOptionPane.ERROR_MESSAGE);

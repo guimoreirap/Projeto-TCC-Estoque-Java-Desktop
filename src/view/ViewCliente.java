@@ -368,13 +368,17 @@ public class ViewCliente extends javax.swing.JFrame {
         int codigoProduto = (int) jTableCliente.getValueAt(linha, 0);
 
         try {
-            if (controllerClientes.excluirClienteController(codigoProduto)) {
-                JOptionPane.showMessageDialog(
-                        this, "Cliente excluído com sucesso.", "ATENÇÃO", JOptionPane.WARNING_MESSAGE);
+            if (JOptionPane.showConfirmDialog(rootPane, "Tem certeza que deseja excluir o registro?") == 0) {
+                if (controllerClientes.excluirClienteController(codigoProduto)) {
+                    JOptionPane.showMessageDialog(
+                            this, "Cliente excluído com sucesso.", "ATENÇÃO", JOptionPane.WARNING_MESSAGE);
 
-            } else {
-                JOptionPane.showMessageDialog(
-                        this, "Impossível excluir cliente, relacionado em vendas.", "ATENÇÃO", JOptionPane.WARNING_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(
+                            this, "Impossível excluir cliente, relacionado em vendas.", "ATENÇÃO", JOptionPane.WARNING_MESSAGE);
+                }
+            } else{
+                return;
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(

@@ -87,6 +87,7 @@ public class ViewVenda extends javax.swing.JFrame {
         this.carregarComboBoxProdutos();
         this.jtfCodigoCliente.setText("1");
         this.jtfCodigoCliente.requestFocus();
+        this.jtfValorPago.setText("0");
         this.valorPermissao = valorPermissao;
     }
 
@@ -637,8 +638,12 @@ public class ViewVenda extends javax.swing.JFrame {
             controllerCaixa.excluirCaixaController(codigoRecebimento, codigoCliente);
 
             try {
-                controllerVendas.excluirVendaController(codigoVenda);
-                JOptionPane.showMessageDialog(this, "Venda excluída com sucesso", "ATENÇÃO", JOptionPane.WARNING_MESSAGE);
+                if (JOptionPane.showConfirmDialog(rootPane, "Tem certeza que deseja excluir o registro?") == 0) {
+                    controllerVendas.excluirVendaController(codigoVenda);
+                    JOptionPane.showMessageDialog(this, "Venda excluída com sucesso", "ATENÇÃO", JOptionPane.WARNING_MESSAGE);
+                } else {
+                    return;
+                }
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(this, "Erro ao excluir a venda", "ERRO", JOptionPane.ERROR_MESSAGE);
                 e.printStackTrace();
