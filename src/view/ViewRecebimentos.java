@@ -904,7 +904,7 @@ public class ViewRecebimentos extends javax.swing.JFrame {
                 listaModelRecebimentos.get(i).getRecVenda(),
                 cliente,
                 listaModelRecebimentos.get(i).getRecMetodo(),
-                formatarValor(listaModelRecebimentos.get(i).getRecValor())
+                listaModelRecebimentos.get(i).getRecValor()
             });
         }
 

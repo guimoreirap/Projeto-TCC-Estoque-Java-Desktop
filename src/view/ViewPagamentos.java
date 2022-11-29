@@ -404,7 +404,7 @@ public class ViewPagamentos extends javax.swing.JFrame {
                 listaModelPagamentos.get(i).getPagEmpresa(),
                 listaModelPagamentos.get(i).getPagData(),
                 listaModelPagamentos.get(i).getPagMetodo(),
-                formatarValor(listaModelPagamentos.get(i).getPagValor())
+                listaModelPagamentos.get(i).getPagValor()
             });
         }
     }
