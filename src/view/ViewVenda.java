@@ -792,6 +792,7 @@ public class ViewVenda extends javax.swing.JFrame {
             alterarSalvar = "alterar";
 
             int linha = jtVendas.getSelectedRow();
+            System.out.println(linha);
             //Pega os valores nas colunas de venda e atribui às variaveis
             int codigoVenda = (int) jtVendas.getValueAt(linha, 0);
             int codigoCliente = (int) jtVendas.getValueAt(linha, 1);

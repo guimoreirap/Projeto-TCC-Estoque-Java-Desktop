@@ -572,11 +572,9 @@ public class ViewProduto extends javax.swing.JFrame {
         this.jrbRemoverEstoque.setEnabled(true);
         this.jtfNovoEstoque.setEnabled(true);
     }
-
-    private void alternarSelecaoRadioButton() {
-//        if(this.jrbAdicionarEstoque.isSelected()){
-//            this.jrbRemoverEstoque.();
-//        }
+    
+    private String formatarValor(Double valor) {
+        return String.format("%.2f", valor).replaceAll(",", ".");
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroupEstoque;

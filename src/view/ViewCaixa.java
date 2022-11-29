@@ -401,7 +401,7 @@ public class ViewCaixa extends javax.swing.JFrame {
                 listaModelCaixa.get(i).getCaixaData(),
                 listaModelCaixa.get(i).getCaixaMovimentacao(),
                 listaModelCaixa.get(i).getCaixaAtor(),
-                listaModelCaixa.get(i).getCaixaValor()
+                formatarValor(listaModelCaixa.get(i).getCaixaValor())
             });
             if (listaModelCaixa.get(i).getCaixaMovimentacao().equalsIgnoreCase("Pagamento")) {
                 valorLiquidoCaixa -= listaModelCaixa.get(i).getCaixaValor();

@@ -92,6 +92,7 @@ public class ViewRecebimentos extends javax.swing.JFrame {
         jtfCodigo = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jbVoltarDividas = new javax.swing.JButton();
+        jbChecarVenda = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jbVoltar1 = new javax.swing.JButton();
@@ -181,6 +182,13 @@ public class ViewRecebimentos extends javax.swing.JFrame {
             }
         });
 
+        jbChecarVenda.setText("Checar venda");
+        jbChecarVenda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbChecarVendaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -188,28 +196,29 @@ public class ViewRecebimentos extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(28, 28, 28)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jtfCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(30, 30, 30)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jcbCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(27, 27, 27)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 576, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addGap(28, 28, 28)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel1)
+                                .addComponent(jtfCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(30, 30, 30)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel2)
+                                .addComponent(jcbCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGroup(jPanel2Layout.createSequentialGroup()
                             .addGap(427, 427, 427)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jbRealizarRecebimento)
+                            .addComponent(jLabel3)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jtfValorTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addGap(27, 27, 27)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addGroup(jPanel2Layout.createSequentialGroup()
-                                    .addComponent(jLabel3)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(jtfValorTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addComponent(jbChecarVenda)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jbRealizarRecebimento))
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 576, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addComponent(jbVoltarDividas))
                 .addContainerGap(25, Short.MAX_VALUE))
         );
@@ -233,7 +242,9 @@ public class ViewRecebimentos extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(jtfValorTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jbRealizarRecebimento)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jbRealizarRecebimento)
+                    .addComponent(jbChecarVenda))
                 .addContainerGap(30, Short.MAX_VALUE))
         );
 
@@ -737,6 +748,21 @@ public class ViewRecebimentos extends javax.swing.JFrame {
         controllerRelatorio.gerarPdfRecebimento();
     }//GEN-LAST:event_jbGerarRelatorioActionPerformed
 
+    private void jbChecarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbChecarVendaActionPerformed
+        try {
+            int codigoCliente = Integer.parseInt(jtfCodigo.getText());
+            int linha = jtDividas.getSelectedRow();
+            int codigoVenda = (int) this.jtDividas.getValueAt(linha, 0);
+
+            new ViewRecebimentosProdutosDividas(codigoCliente, codigoVenda).setVisible(true);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(
+                    this, "Selecione uma linha da tabela.", "ERRO", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jbChecarVendaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -823,8 +849,8 @@ public class ViewRecebimentos extends javax.swing.JFrame {
                 modelo.addRow(new Object[]{
                     listaModelVendasCliente.get(i).getModelVendas().getVenId(),
                     listaModelVendasCliente.get(i).getModelVendas().getVenDataVenda(),
-                    listaModelVendasCliente.get(i).getModelVendas().getVenValorLiquido(),
-                    listaModelVendasCliente.get(i).getModelVendas().getVenValorRecebido(),
+                    formatarValor(listaModelVendasCliente.get(i).getModelVendas().getVenValorLiquido()),
+                    formatarValor(listaModelVendasCliente.get(i).getModelVendas().getVenValorRecebido()),
                     //Utiliza um método para formatar o valor e não quebrar em muitos numeros após a virgula, apenas 2 numeros
                     Double.parseDouble(this.formatarValor(
                     listaModelVendasCliente.get(i).getModelVendas().getVenValorLiquido()
@@ -878,7 +904,7 @@ public class ViewRecebimentos extends javax.swing.JFrame {
                 listaModelRecebimentos.get(i).getRecVenda(),
                 cliente,
                 listaModelRecebimentos.get(i).getRecMetodo(),
-                listaModelRecebimentos.get(i).getRecValor()
+                formatarValor(listaModelRecebimentos.get(i).getRecValor())
             });
         }
 
@@ -1022,6 +1048,7 @@ public class ViewRecebimentos extends javax.swing.JFrame {
     private javax.swing.JTable jTableHistorico;
     private javax.swing.JButton jbAlterar;
     private javax.swing.JButton jbCancelar;
+    private javax.swing.JButton jbChecarVenda;
     private javax.swing.JButton jbCompletarValorRestante;
     private javax.swing.JButton jbEfetuarRecebimento;
     private javax.swing.JButton jbExcluir;
